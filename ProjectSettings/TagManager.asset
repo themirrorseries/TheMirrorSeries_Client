@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Glasses
+  - GlassesPlayer
+  - Glass
   layers:
   - Default
   - TransparentFX

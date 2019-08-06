@@ -7,10 +7,8 @@ public class LightManager : MonoBehaviour
 {
     public float speedLeft = 3f;
     public float speedRight = 5f;
-    public float speedAddLeft = 0.1f;
-    public float speedAddRight = 0.3f;
-    private float speedAdd;
     private float speed;
+    private float startSpeed;
     private int count;
     public float time;
     public int countLeft = 10;
@@ -28,13 +26,21 @@ public class LightManager : MonoBehaviour
     [SerializeField]
     private ParticleSystem[] particleSystems;
     private ParticleSystem ps;
+    [SerializeField]
+    private GameObject[] glasses;
+    private int startCount;
     // Start is called before the first frame update
     void Start()
     {
         speed = Random.Range(speedLeft, speedRight);
+        startSpeed = speed;
         rb = GetComponent<Rigidbody>();
         direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         time = Random.Range(timeLeft, timeRight);
+        for (int i = 0; i < glasses.Length; ++i)
+        {
+            glasses[i].SetActive(true);
+        }
     }
 
     public void Restart()
@@ -47,8 +53,13 @@ public class LightManager : MonoBehaviour
         }
         countText.gameObject.SetActive(false);
         speed = Random.Range(speedLeft, speedRight);
+        startSpeed = speed;
         time = Random.Range(timeLeft, timeRight);
         direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        for (int i = 0; i < glasses.Length; ++i)
+        {
+            glasses[i].SetActive(true);
+        }
         isStart = false;
     }
 
@@ -69,26 +80,17 @@ public class LightManager : MonoBehaviour
             if (time <= 0)
             {
                 isStart = true;
-                speedAdd = Random.Range(speedAddLeft, speedAddRight);
                 count = Random.Range(countLeft, countRight);
+                startCount = count;
                 countText.gameObject.SetActive(true);
                 countText.text = count.ToString();
-                StartCoroutine("Move");
             }
         }
 
     }
-    IEnumerator Move()
-    {
-        while (count > 0)
-        {
-            speed += speedAdd;
-            yield return null;
-        }
-    }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Glasses")
+        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "GlassesPlayer")
         {
             // 获取接触点
             ContactPoint contactPoint = other.contacts[0];
@@ -98,15 +100,19 @@ public class LightManager : MonoBehaviour
             {
                 count--;
                 countText.text = count.ToString();
+                speed = startSpeed + Mathf.Log(startCount - count, 2) + 1;
                 if (count <= 0)
                 {
-                    StopCoroutine("Move");
                     direction = Vector3.zero;
                     ps = (ParticleSystem)GameObject.Instantiate(particleSystems[Random.Range(0, particleSystems.Length)], transform.position, Quaternion.identity);
                     ps.Play();
                     reStartBtn.gameObject.SetActive(true);
                 }
             }
+        }
+        else if (other.gameObject.tag == "Glasses")
+        {
+            other.gameObject.SetActive(false);
         }
     }
 }
