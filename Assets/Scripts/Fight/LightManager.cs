@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class LightManager : MonoBehaviour
 {
-    public float startSpeed = 5f;
+    // 初始速度
+    public float v0 = 5f;
+    // 速度公式常数
+    public float m = 1, n = 1, b = 2, c = 1, j = 1;
+    // 碰撞次数
+    private int t1 = 0;
+    // 时间
+    public float t2;
     private float speed;
     private Vector3 direction;
     [SerializeField]
@@ -17,15 +24,15 @@ public class LightManager : MonoBehaviour
     [SerializeField]
     private ParticleSystem[] particleSystems;
     private ParticleSystem ps;
-    private int count = 0;
     private bool isEnd = false;
     // Start is called before the first frame update
     void Start()
     {
         FightScene.instance.Init();
-        speed = startSpeed;
+        speed = v0;
         rb = GetComponent<Rigidbody>();
         direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        t2 = Time.time;
         isEnd = false;
     }
 
@@ -37,8 +44,9 @@ public class LightManager : MonoBehaviour
         {
             ps.Stop();
         }
-        speed = startSpeed;
-        count = 0;
+        speed = v0;
+        t1 = 0;
+        t2 = Time.time;
         direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
     }
 
@@ -46,6 +54,7 @@ public class LightManager : MonoBehaviour
     {
         if (!isEnd)
         {
+            speed = v0 + Mathf.Log((m * t1 + n * (Time.time - t2) + c), b) + j * FightScene.instance.deathCount;
             rb.MovePosition(transform.position + direction * Time.deltaTime * speed);
             countText.text = speed.ToString();
         }
@@ -61,8 +70,8 @@ public class LightManager : MonoBehaviour
         ContactPoint contactPoint = other.contacts[0];
         // 计算反射角
         direction = Vector3.Reflect(direction, contactPoint.normal);
-        count++;
-        speed = Mathf.Log(count, 2) + startSpeed;
+        // 碰撞次数++
+        t1++;
     }
     private void OnCollisionEnter(Collision other)
     {

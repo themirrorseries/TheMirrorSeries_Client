@@ -42,6 +42,7 @@ public class HPManager : MonoBehaviour
             hpCur = 0;
             countText.gameObject.SetActive(false);
             player.SetActive(false);
+            FightScene.instance.AddDeathCount();
         }
     }
     public bool isDead()

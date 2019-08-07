@@ -9,6 +9,8 @@ public class FightScene : MonoBehaviour
     private GameObject[] glasses;
     [SerializeField]
     private GameObject[] players;
+    // 当前死亡人数
+    public int deathCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,23 +22,23 @@ public class FightScene : MonoBehaviour
         {
             players[i].SetActive(true);
         }
+        deathCount = 0;
     }
     // Update is called once per frame
     void Update()
     {
 
     }
+    public void AddDeathCount()
+    {
+        if ((deathCount + 1) <= glasses.Length)
+        {
+            ++deathCount;
+        }
+    }
+    // 游戏是否结束
     public bool isEnd()
     {
-        int count = glasses.Length;
-        for (int i = 0; i < glasses.Length; ++i)
-        {
-            HPManager hP = glasses[i].GetComponent<HPManager>();
-            if (hP.isDead())
-            {
-                count--;
-            }
-        }
-        return count == 1;
+        return deathCount == glasses.Length;
     }
 }
