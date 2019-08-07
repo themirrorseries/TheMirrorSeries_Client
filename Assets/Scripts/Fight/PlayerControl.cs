@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public float rotateSpeed = 1f;
     [SerializeField]
     private GameObject glasses;
+    [SerializeField]
+    private GameObject glasses_2;
     private float startRotate;
     public int maxRotate = 135;
 
@@ -41,6 +43,23 @@ public class PlayerControl : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         //         }
         //     }
         // }
+        if (Input.GetKey(KeyCode.A))
+        {
+            glasses.transform.Rotate(Vector3.down, rotateSpeed, Space.World);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            glasses.transform.Rotate(Vector3.down, -rotateSpeed, Space.World);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            glasses_2.transform.Rotate(Vector3.down, rotateSpeed, Space.World);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            glasses_2.transform.Rotate(Vector3.down, -rotateSpeed, Space.World);
+        }
+        return;
         if (isDown)
         {
             glasses.transform.Rotate(Vector3.down, rotateSpeed, Space.World);
