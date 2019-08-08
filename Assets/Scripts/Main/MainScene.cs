@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Google.Protobuf;
 
 public class MainScene : MonoBehaviour
 {
@@ -18,20 +19,18 @@ public class MainScene : MonoBehaviour
         {
             // 生成UUID,发送给服务端,服务端返回UUID以及ID,然后记录下来
             string uuid = System.Guid.NewGuid().ToString();
-            // this.SendMessage();
-            // 暂时处理,先直接存储UUID
             LocalStorage.SetString("UUID", uuid);
             UserDTO user = new UserDTO();
-            user.Id = 1;
+            user.Id = -1;
             user.Uuid = uuid;
-            GameData.user = user;
+            this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
         }
         else
         {
             UserDTO user = new UserDTO();
-            user.Id = 1;
+            user.Id = -1;
             user.Uuid = LocalStorage.GetString("UUID");
-            GameData.user = user;
+            this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
         }
         if (LocalStorage.GetString("name") == string.Empty)
         {
@@ -58,18 +57,27 @@ public class MainScene : MonoBehaviour
 
     public void Match()
     {
+        // 防止未登陆的情况
+        if (GameData.user == null) return;
         Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
         if (isMatch)
         {
             isMatch = !isMatch;
             text.text = "开始游戏";
-            // 给服务端发送消息
+            CancelMatchDTO cancel = new CancelMatchDTO();
+            cancel.Id = GameData.user.Id;
+            cancel.RoomID = GameData.room.Roomid;
+            this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.LeaveCreq, cancel.ToByteArray());
         }
         else
         {
             isMatch = !isMatch;
             text.text = "取消匹配";
-            // 给服务端发送消息
+            MatchDTO match = new MatchDTO();
+            match.Name = nameInput.text;
+            // 选择角色id,暂无
+            match.RoleID = -1;
+            this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.EnterCreq, match.ToByteArray());
         }
     }
 }

@@ -163,8 +163,7 @@ public class NetIO
         arr.Write(ba.GetBuffer());
         try
         {
-            Debug.Log("我要发送一条消息");
-            Debug.Log(socket.Send(arr.GetBuffer()));
+            socket.Send(arr.GetBuffer());
         }
         catch (Exception e)
         {
