@@ -20,11 +20,9 @@ public class PlayerBase : MonoBehaviour
     public void Run()
     {
         animator.SetInteger(AnimaState.state, AnimaState.RUN);
-        Debug.Log("Run");
     }
     public void Idle()
     {
         animator.SetInteger(AnimaState.state, AnimaState.IDLE);
-        Debug.Log("Idle");
     }
 }
