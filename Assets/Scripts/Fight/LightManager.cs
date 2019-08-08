@@ -18,7 +18,7 @@ public class LightManager : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
     [SerializeField]
-    private TextMesh countText;
+    private TextMesh speedText;
     [SerializeField]
     private Button reStartBtn;
     [SerializeField]
@@ -56,7 +56,7 @@ public class LightManager : MonoBehaviour
         {
             speed = v0 + Mathf.Log((m * t1 + n * (Time.time - t2) + c), b) + j * FightScene.instance.deathCount;
             rb.MovePosition(transform.position + direction * Time.deltaTime * speed);
-            countText.text = speed.ToString();
+            speedText.text = speed.ToString();
         }
     }
 
