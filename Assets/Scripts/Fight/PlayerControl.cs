@@ -6,7 +6,7 @@ using Google.Protobuf;
 public class PlayerControl : MonoBehaviour
 {
     ETCJoystick joystick;
-    private float speed = 0.1f;
+    public float speed = 15f;
     private Animator animator;
     private int state = AnimaState.IDLE;
     public int seat;
@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void onMoveMsgHandler(float x, float y)
     {
-        if (x != 0 && y != 0)
+        if (x != 0 || y != 0)
         {
             if (state != AnimaState.RUN)
             {
