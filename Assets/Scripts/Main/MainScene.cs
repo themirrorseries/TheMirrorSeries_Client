@@ -32,6 +32,7 @@ public class MainScene : MonoBehaviour
             user.Uuid = LocalStorage.GetString("UUID");
             this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
         }
+        nameInput.onEndEdit.AddListener(EditEndHandler);
         if (LocalStorage.GetString("name") == string.Empty)
         {
             string name = MakeName();
@@ -42,6 +43,10 @@ public class MainScene : MonoBehaviour
         {
             nameInput.text = LocalStorage.GetString("name");
         }
+    }
+    private void EditEndHandler(string str)
+    {
+        LocalStorage.SetString("name", str);
     }
     public void ReName()
     {

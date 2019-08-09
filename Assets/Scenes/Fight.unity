@@ -326,7 +326,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 630301653}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &358690540
+--- !u!114 &358690541
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 358690537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae0e3117238fb8d47a495fab46884228, type: 3}
+  m_Script: {fileID: 11500000, guid: 7109dfbf5e6055d409d057a9315d3b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &407984650
@@ -1452,34 +1452,12 @@ MonoBehaviour:
   showCameraInspector: 1
   onMoveStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 358690540}
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: ETCJoystick+OnMoveStartHandler, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onMove:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 358690540}
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: ETCJoystick+OnMoveHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onMoveSpeed:
@@ -1489,18 +1467,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onMoveEnd:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 358690540}
-        m_MethodName: Idle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: ETCJoystick+OnMoveEndHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onTouchStart:
@@ -1690,7 +1657,7 @@ MonoBehaviour:
   thumb: {fileID: 755503849}
   joystickArea: 1
   userArea: {fileID: 0}
-  isTurnAndMove: 1
+  isTurnAndMove: 0
   tmSpeed: 10
   tmAdditionnalRotation: 0
   tmMoveCurve:
