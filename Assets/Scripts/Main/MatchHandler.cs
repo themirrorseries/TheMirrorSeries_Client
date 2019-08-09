@@ -11,7 +11,7 @@ public class MatchHandler : MonoBehaviour, IHandler
     {
         switch (model.command)
         {
-            case (int)MatchTypes.EnterSres:
+            case (int)MatchTypes.EnterSelectBro:
                 Match(model.message);
                 break;
         }

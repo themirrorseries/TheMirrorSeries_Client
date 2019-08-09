@@ -74,6 +74,7 @@ public class MainScene : MonoBehaviour
             isMatch = !isMatch;
             text.text = "取消匹配";
             MatchDTO match = new MatchDTO();
+            match.Id = GameData.user.Id;
             match.Name = nameInput.text;
             // 选择角色id,暂无
             match.RoleID = -1;
