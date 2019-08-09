@@ -133,6 +133,10 @@ GameObject:
   - component: {fileID: 26934480}
   - component: {fileID: 26934479}
   - component: {fileID: 26934483}
+  - component: {fileID: 26934487}
+  - component: {fileID: 26934486}
+  - component: {fileID: 26934485}
+  - component: {fileID: 26934484}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -235,7 +239,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glasses: []
   players: []
+  playerPrefab: {fileID: 358690537}
   deathCount: 0
+--- !u!114 &26934484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26934478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f065edab0c5454c9fab18b8f3aad66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26934485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26934478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9fbafe50078b33408b8d7da8db552eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26934486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26934478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294ca8e69404b284a82a385a815f407b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &26934487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26934478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedeaecdfaa59834ca49b4b0c4fca2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &185700875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,6 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7109dfbf5e6055d409d057a9315d3b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seat: 0
 --- !u!1 &407984650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7109dfbf5e6055d409d057a9315d3b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seat: 0
 --- !u!1001 &1136824527
 PrefabInstance:
   m_ObjectHideFlags: 0

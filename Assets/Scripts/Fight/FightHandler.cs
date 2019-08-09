@@ -9,7 +9,14 @@ public class FightHandler : MonoBehaviour, IHandler
     {
         switch (model.command)
         {
-
+            case (int)FightTypes.InformSres:
+                MoveHandler(model.message);
+                break;
         }
+    }
+    private void MoveHandler(byte[] message)
+    {
+        MoveDTO move = MoveDTO.Parser.ParseFrom(message);
+        FightScene.instance.Refresh(move);
     }
 }

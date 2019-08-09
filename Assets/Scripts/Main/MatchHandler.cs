@@ -18,7 +18,14 @@ public class MatchHandler : MonoBehaviour, IHandler
     {
         MatchSuccessDTO match = MatchSuccessDTO.Parser.ParseFrom(message);
         GameData.room = match;
-        Debug.Log("匹配成功");
+        for (int i = 0; i < match.Players.Count; ++i)
+        {
+            if (match.Players[i].Playerid == GameData.user.Id)
+            {
+                GameData.seat = match.Players[i].Seat;
+                break;
+            }
+        }
         // 加载匹配场景,加载完成后进入战斗场景
         SceneManager.LoadScene(SceneTypes.FIGHT);
     }
