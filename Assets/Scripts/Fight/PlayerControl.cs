@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+        animator.SetInteger(AnimaState.state, state);
     }
     public void Init(int seatId)
     {
@@ -28,29 +28,43 @@ public class PlayerControl : MonoBehaviour
     }
     void onMoveHandler(Vector2 position)
     {
-        MoveDTO move = new MoveDTO();
-        move.Roomid = GameData.room.Roomid;
-        move.Seat = GameData.seat;
-        move.X = position.x;
-        move.Y = position.y;
-        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, move.ToByteArray());
-        return;
-        float angle = Mathf.Atan2(position.x, position.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-        transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
-        if (state != AnimaState.RUN)
-        {
-            state = AnimaState.RUN;
-            animator.SetInteger(AnimaState.state, AnimaState.RUN);
-        }
+        SendMoveMsg(position.x, position.y);
     }
     void onMoveEndHandler()
     {
-        if (state != AnimaState.IDLE)
+        SendMoveMsg(0, 0);
+    }
+    void SendMoveMsg(float x, float y)
+    {
+        MoveDTO move = new MoveDTO();
+        move.Roomid = GameData.room.Roomid;
+        move.Seat = GameData.seat;
+        move.X = x;
+        move.Y = y;
+        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, move.ToByteArray());
+    }
+    public void onMoveMsgHandler(float x, float y)
+    {
+        if (x != 0 && y != 0)
         {
-            state = AnimaState.IDLE;
-            animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+            if (state != AnimaState.RUN)
+            {
+                state = AnimaState.RUN;
+                animator.SetInteger(AnimaState.state, AnimaState.RUN);
+            }
+            float angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+            transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
         }
+        else
+        {
+            if (state != AnimaState.IDLE)
+            {
+                state = AnimaState.IDLE;
+                animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+            }
+        }
+
     }
     // Update is called once per frame
     void Update()
