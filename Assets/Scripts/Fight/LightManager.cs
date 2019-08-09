@@ -8,7 +8,7 @@ public class LightManager : MonoBehaviour
     // 速度
     private float speed = 5f;
     // 碰撞次数
-    private int count = 20;
+    private int count = 0;
     private int index = 0;
     private Vector3 direction;
     [SerializeField]
@@ -22,7 +22,14 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        count = 0;
+    }
+
+    public void Init(float _speed, int _count, float _x, float _z)
+    {
+        speed = _speed;
+        count = _count;
+        direction = new Vector3(_x, 0, _z);
     }
 
     void FixedUpdate()
@@ -50,25 +57,13 @@ public class LightManager : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Collide(other);
-        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "GlassesPlayer")
+        if (other.gameObject.tag == "Wall")
         {
 
         }
-        else if (other.gameObject.tag == "Glasses")
+        else if (other.gameObject.tag == "Wall")
         {
-            HPManager hP = other.gameObject.GetComponent<HPManager>();
-            if (!hP.isDead())
-            {
-                hP.HpChange(1f);
-                if (hP.isDead())
-                {
-                    if (FightScene.instance.isEnd())
-                    {
-                        ps = (ParticleSystem)GameObject.Instantiate(particleSystems[Random.Range(0, particleSystems.Length)], transform.position, Quaternion.identity);
-                        ps.Play();
-                    }
-                }
-            }
+
         }
     }
 }

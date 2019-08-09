@@ -5,8 +5,7 @@ using UnityEngine;
 public class FightScene : MonoBehaviour
 {
     public static FightScene instance;
-    [SerializeField]
-    private List<GameObject> players;
+    private List<GameObject> players = new List<GameObject>();
     [SerializeField]
     private GameObject playerPrefab;
     // 当前死亡人数
