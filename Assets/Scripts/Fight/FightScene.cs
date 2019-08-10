@@ -16,11 +16,14 @@ public class FightScene : MonoBehaviour
     void Start()
     {
         instance = this;
-        lightMgr.Init(10f, 20, -1f, 1f);
-        //InitPlayers();
+        InitPlayers();
+        InitLight();
     }
     public void InitPlayers()
     {
+        Vector3[] location = {
+
+        };
         for (int i = 0; i < GameData.room.Players.Count; ++i)
         {
             GameObject player = GameObject.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
@@ -29,6 +32,10 @@ public class FightScene : MonoBehaviour
             players.Add(player);
         }
     }
+    public void InitLight()
+    {
+        lightMgr.Init(GameData.room.Speed, GameData.room.Count, GameData.room.X, GameData.room.Z);
+    }
     public void Refresh(MoveDTO move)
     {
         for (int i = 0; i < players.Count; ++i)
@@ -36,7 +43,7 @@ public class FightScene : MonoBehaviour
             PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
             if (playerControl.seat == move.Seat)
             {
-                playerControl.onMoveMsgHandler(move.X, move.Y);
+                playerControl.onMoveMsgHandler(move.X, move.Y, move.DeltaTime);
                 break;
             }
         }
