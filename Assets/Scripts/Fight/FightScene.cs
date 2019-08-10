@@ -5,6 +5,8 @@ using UnityEngine;
 public class FightScene : MonoBehaviour
 {
     public static FightScene instance;
+    [SerializeField]
+    private LightManager lightMgr;
     private List<GameObject> players = new List<GameObject>();
     [SerializeField]
     private GameObject playerPrefab;
@@ -14,7 +16,8 @@ public class FightScene : MonoBehaviour
     void Start()
     {
         instance = this;
-        InitPlayers();
+        lightMgr.Init(10f, 20, -1f, 1f);
+        //InitPlayers();
     }
     public void InitPlayers()
     {
