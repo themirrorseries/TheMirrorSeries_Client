@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 3828089743751015602}
   - component: {fileID: 3828089743741977426}
   - component: {fileID: 26173824181331243}
+  - component: {fileID: 742557791}
   m_Layer: 0
   m_Name: amumu
   m_TagString: Player
@@ -347,6 +348,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   seat: 0
+--- !u!136 &742557791
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828089743751508114}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.52141553
+  m_Height: 1.4936608
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.52878535, z: -0.02141552}
 --- !u!1 &3828089743751508116
 GameObject:
   m_ObjectHideFlags: 0

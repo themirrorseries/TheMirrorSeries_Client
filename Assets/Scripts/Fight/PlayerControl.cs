@@ -36,10 +36,27 @@ public class PlayerControl : MonoBehaviour
         //SendMoveMsg(position.x, position.y);
         float angle = Mathf.Atan2(position.x, position.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+        // 球形射线检测
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * speed * Time.deltaTime, distance);
+        bool judge = false;
+        for (int i = 0; i < hitColliders.Length; ++i)
+        {
+            if (hitColliders[i].gameObject.tag == "Wall")
+            {
+                judge = true;
+                break;
+            }
+        }
+        if (!judge)
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
+        }
+        /* 
+        // 纵向,横向射线检测
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, distance)
             || Physics.Raycast(transform.position, transform.right, out hit, distance)
-            || Physics.Raycast(transform.position, -transform.right, out hit, distance))
+            || Physics.Raycast(transform.position, -transform.right, out hit, distance)
         {
             if (hit.collider.tag != "Wall")
             {
@@ -50,7 +67,7 @@ public class PlayerControl : MonoBehaviour
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
         }
-
+        */
     }
     void onMoveEndHandler()
     {
