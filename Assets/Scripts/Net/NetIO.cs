@@ -11,7 +11,7 @@ public class NetIO
     public static NetIO instance;
 
     private Socket socket;
-    private string ip = "127.0.0.1";
+    private string ip = "mirror.murmur.top";
     private int port = 9700;
 
     private byte[] readBuff = new byte[1024];

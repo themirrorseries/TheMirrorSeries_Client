@@ -7,6 +7,8 @@ public class FightScene : MonoBehaviour
     public static FightScene instance;
     [SerializeField]
     private LightManager lightMgr;
+    [SerializeField]
+    private GameObject[] seats;
     private List<GameObject> players = new List<GameObject>();
     [SerializeField]
     private GameObject playerPrefab;
@@ -21,12 +23,9 @@ public class FightScene : MonoBehaviour
     }
     public void InitPlayers()
     {
-        Vector3[] location = {
-
-        };
         for (int i = 0; i < GameData.room.Players.Count; ++i)
         {
-            GameObject player = GameObject.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            GameObject player = GameObject.Instantiate(playerPrefab, seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
             playerControl.Init(GameData.room.Players[i].Seat);
             players.Add(player);
