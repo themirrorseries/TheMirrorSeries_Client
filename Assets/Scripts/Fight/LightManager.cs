@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LightManager : MonoBehaviour
 {
@@ -15,9 +14,6 @@ public class LightManager : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private TextMesh speedText;
-    [SerializeField]
-    private ParticleSystem[] particleSystems;
-    private ParticleSystem ps;
     // Start is called before the first frame update
     void Start()
     {
