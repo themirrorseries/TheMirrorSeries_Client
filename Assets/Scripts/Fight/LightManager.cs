@@ -22,6 +22,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Init(10, 99, 1f, 1f);
     }
 
     public void Init(float _speed, int _count, float _x, float _z)
@@ -56,14 +57,15 @@ public class LightManager : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        Collide(other);
-        if (other.gameObject.tag == "Wall")
+        if (other.gameObject.tag == "Player")
         {
-
+            // ps:防止光线先改变方向
+            PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
+            playerControl.LightCollision(direction);
         }
         else if (other.gameObject.tag == "Wall")
         {
-
         }
+        Collide(other);
     }
 }

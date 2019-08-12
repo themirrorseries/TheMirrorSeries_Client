@@ -18,8 +18,8 @@ public class FightScene : MonoBehaviour
     void Start()
     {
         instance = this;
-        InitPlayers();
-        InitLight();
+        //InitPlayers();
+        //InitLight();
     }
     public void InitPlayers()
     {
