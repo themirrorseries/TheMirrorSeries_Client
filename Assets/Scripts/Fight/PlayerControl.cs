@@ -13,6 +13,8 @@ public class PlayerControl : MonoBehaviour
     public int seat;
     private float distance = 2f;
     private float repulseDistance = 10f;
+    private float repulseSpeed = 1;
+    private Coroutine repulseCoroutine;
     private bool canMove = true;
     private float hp = 20;
     private float mp = 0;
@@ -23,7 +25,6 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
         joystick.onMove.AddListener(onMoveHandler);
         joystick.onMoveEnd.AddListener(onMoveEndHandler);
@@ -173,14 +174,29 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+    IEnumerator Repulse(Vector3 direction, float distance)
+    {
+        int index = 0;
+        int time = Mathf.CeilToInt(distance / repulseSpeed);
+        while (index < time - 1)
+        {
+            transform.Translate(direction.normalized * repulseSpeed, Space.World);
+            ++index;
+            yield return null;
+        }
+        transform.Translate(direction.normalized * (distance - index * repulseSpeed), Space.World);
+        canMove = true;
+        StopCoroutine(repulseCoroutine);
 
     }
     public void LightCollision(Vector3 direction)
     {
-        float val = Vector3.Dot(transform.forward, direction);
-        // 点积结果为正=>正面
-        if (val > 0)
+        float val = Vector3.Dot(transform.forward, direction.normalized);
+        // 点积结果为负=>正面
+        if (val < 0)
         {
+            float moveDistance = repulseDistance;
             ChangeHp(2);
             ChangeMp(1);
             // 更改人物状态为击退(一个不可移动的状态)
@@ -193,19 +209,10 @@ public class PlayerControl : MonoBehaviour
                 if (hit.collider.tag == "Wall")
                 {
                     // ps:乘以1.5,否则会卡在无法移动的区域里面
-                    float dir = Vector3.Distance(transform.position, hit.point) - distance * (float)1.5;
-                    transform.Translate(direction.normalized * dir, Space.World);
-                }
-                else
-                {
-                    transform.Translate(direction.normalized * repulseDistance, Space.World);
+                    moveDistance = Vector3.Distance(transform.position, hit.point) - distance * (float)1.5; ;
                 }
             }
-            else
-            {
-                transform.Translate(direction.normalized * repulseDistance, Space.World);
-            }
-            canMove = true;
+            repulseCoroutine = StartCoroutine(Repulse(direction, moveDistance));
         }
         else
         {

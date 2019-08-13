@@ -18,7 +18,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Init(10, 99, 1f, 1f);
+        Init(10, 99, 0.99f, 0.99f);
     }
 
     public void Init(float _speed, int _count, float _x, float _z)
@@ -33,7 +33,7 @@ public class LightManager : MonoBehaviour
     {
         if (index < count)
         {
-            rb.MovePosition(transform.position + direction * Time.deltaTime * speed);
+            transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
     }
 
@@ -46,7 +46,7 @@ public class LightManager : MonoBehaviour
         // 获取接触点
         ContactPoint contactPoint = other.contacts[0];
         // 计算反射角
-        direction = Vector3.Reflect(direction, contactPoint.normal);
+        direction = Vector3.Reflect(direction.normalized, contactPoint.normal);
         // 碰撞次数++
         index++;
         speedText.text = (count - index).ToString();
