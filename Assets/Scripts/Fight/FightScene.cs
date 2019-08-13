@@ -49,15 +49,6 @@ public class FightScene : MonoBehaviour
                 playerControl.onMoveMsgHandler(move.ClientInfo[i].Msg);
             }
         }
-        // for (int i = 0; i < players.Count; ++i)
-        // {
-        //     PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
-        //     if (playerControl.seat == move.Seat)
-        //     {
-        //         playerControl.onMoveMsgHandler(move, move.Y, move.DeltaTime);
-        //         break;
-        //     }
-        // }
     }
     // Update is called once per frame
     void Update()

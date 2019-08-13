@@ -125,7 +125,7 @@ public class PlayerControl : MonoBehaviour
 
 
     }
-    private void Move(Direction direction)
+    private void Move(DeltaDirection direction)
     {
         if (direction.X != 0 || direction.Y != 0)
         {
@@ -137,7 +137,7 @@ public class PlayerControl : MonoBehaviour
             float angle = Mathf.Atan2(direction.X, direction.Y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * speed, distance);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * direction.DeltaTime * speed, distance);
             bool judge = false;
             for (int i = 0; i < hitColliders.Length; ++i)
             {
@@ -149,7 +149,7 @@ public class PlayerControl : MonoBehaviour
             }
             if (!judge)
             {
-                transform.Translate(Vector3.forward * speed, Space.Self);
+                transform.Translate(Vector3.forward * direction.DeltaTime * speed, Space.Self);
             }
         }
         else
