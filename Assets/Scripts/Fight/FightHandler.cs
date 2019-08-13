@@ -16,7 +16,8 @@ public class FightHandler : MonoBehaviour, IHandler
     }
     private void MoveHandler(byte[] message)
     {
-        MoveDTO move = MoveDTO.Parser.ParseFrom(message);
-        FightScene.instance.Refresh(move);
+        ServerMoveDTO serverMove = ServerMoveDTO.Parser.ParseFrom(message);
+        FightScene.instance.Refresh(serverMove);
+        FrameActions.Instance().Remove();
     }
 }

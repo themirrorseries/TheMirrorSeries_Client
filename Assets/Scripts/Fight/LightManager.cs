@@ -18,7 +18,6 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Init(10, 99, 0.99f, 0.99f);
     }
 
     public void Init(float _speed, int _count, float _x, float _z)

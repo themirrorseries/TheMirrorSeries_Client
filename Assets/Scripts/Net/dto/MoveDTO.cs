@@ -22,24 +22,33 @@ public static partial class MoveDTOReflection {
   static MoveDTOReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "CgtNb3ZlRFRPLnR4dCJQCgdNb3ZlRFRPEg4KBlJvb21pZBgBIAEoBRIMCgRz",
-          "ZWF0GAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAhIRCglkZWx0YVRpbWUY",
-          "BSABKAJiBnByb3RvMw=="));
+          "CgtNb3ZlRFRPLnR4dCIhCglEaXJlY3Rpb24SCQoBeBgBIAEoAhIJCgF5GAIg",
+          "ASgCImMKCUZyYW1lSW5mbxINCgVGcmFtZRgBIAEoBRIYCgRNb3ZlGAIgASgL",
+          "MgouRGlyZWN0aW9uEg8KB1NraWxsaWQYAyABKAUSHAoIU2tpbGxEaXIYBCAB",
+          "KAsyCi5EaXJlY3Rpb24iVQoNQ2xpZW50TW92ZURUTxIOCgZSb29taWQYASAB",
+          "KAUSDAoEU2VhdBgCIAEoBRINCgVCYWdpZBgDIAEoBRIXCgNtc2cYBCADKAsy",
+          "Ci5GcmFtZUluZm8iMgoJQ2xpZW50RFRPEgwKBFNlYXQYASABKAUSFwoDbXNn",
+          "GAIgAygLMgouRnJhbWVJbmZvIj4KDVNlcnZlck1vdmVEVE8SDQoFQmFnaWQY",
+          "ASABKAUSHgoKY2xpZW50SW5mbxgCIAMoCzIKLkNsaWVudERUT2IGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::MoveDTO), global::MoveDTO.Parser, new[]{ "Roomid", "Seat", "X", "Y", "DeltaTime" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::Direction), global::Direction.Parser, new[]{ "X", "Y" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FrameInfo), global::FrameInfo.Parser, new[]{ "Frame", "Move", "Skillid", "SkillDir" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ClientMoveDTO), global::ClientMoveDTO.Parser, new[]{ "Roomid", "Seat", "Bagid", "Msg" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ClientDTO), global::ClientDTO.Parser, new[]{ "Seat", "Msg" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ServerMoveDTO), global::ServerMoveDTO.Parser, new[]{ "Bagid", "ClientInfo" }, null, null, null, null)
         }));
   }
   #endregion
 
 }
 #region Messages
-public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
-  private static readonly pb::MessageParser<MoveDTO> _parser = new pb::MessageParser<MoveDTO>(() => new MoveDTO());
+public sealed partial class Direction : pb::IMessage<Direction> {
+  private static readonly pb::MessageParser<Direction> _parser = new pb::MessageParser<Direction>(() => new Direction());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<MoveDTO> Parser { get { return _parser; } }
+  public static pb::MessageParser<Direction> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -52,25 +61,406 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public MoveDTO() {
+  public Direction() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public MoveDTO(MoveDTO other) : this() {
-    roomid_ = other.roomid_;
-    seat_ = other.seat_;
+  public Direction(Direction other) : this() {
     x_ = other.x_;
     y_ = other.y_;
-    deltaTime_ = other.deltaTime_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public MoveDTO Clone() {
-    return new MoveDTO(this);
+  public Direction Clone() {
+    return new Direction(this);
+  }
+
+  /// <summary>Field number for the "x" field.</summary>
+  public const int XFieldNumber = 1;
+  private float x_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float X {
+    get { return x_; }
+    set {
+      x_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "y" field.</summary>
+  public const int YFieldNumber = 2;
+  private float y_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Y {
+    get { return y_; }
+    set {
+      y_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as Direction);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(Direction other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+    if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (X != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(X);
+    }
+    if (Y != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Y);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (X != 0F) {
+      size += 1 + 4;
+    }
+    if (Y != 0F) {
+      size += 1 + 4;
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(Direction other) {
+    if (other == null) {
+      return;
+    }
+    if (other.X != 0F) {
+      X = other.X;
+    }
+    if (other.Y != 0F) {
+      Y = other.Y;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 13: {
+          X = input.ReadFloat();
+          break;
+        }
+        case 21: {
+          Y = input.ReadFloat();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class FrameInfo : pb::IMessage<FrameInfo> {
+  private static readonly pb::MessageParser<FrameInfo> _parser = new pb::MessageParser<FrameInfo>(() => new FrameInfo());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<FrameInfo> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MoveDTOReflection.Descriptor.MessageTypes[1]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public FrameInfo() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public FrameInfo(FrameInfo other) : this() {
+    frame_ = other.frame_;
+    move_ = other.move_ != null ? other.move_.Clone() : null;
+    skillid_ = other.skillid_;
+    skillDir_ = other.skillDir_ != null ? other.skillDir_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public FrameInfo Clone() {
+    return new FrameInfo(this);
+  }
+
+  /// <summary>Field number for the "Frame" field.</summary>
+  public const int FrameFieldNumber = 1;
+  private int frame_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Frame {
+    get { return frame_; }
+    set {
+      frame_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Move" field.</summary>
+  public const int MoveFieldNumber = 2;
+  private global::Direction move_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::Direction Move {
+    get { return move_; }
+    set {
+      move_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Skillid" field.</summary>
+  public const int SkillidFieldNumber = 3;
+  private int skillid_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Skillid {
+    get { return skillid_; }
+    set {
+      skillid_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "SkillDir" field.</summary>
+  public const int SkillDirFieldNumber = 4;
+  private global::Direction skillDir_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::Direction SkillDir {
+    get { return skillDir_; }
+    set {
+      skillDir_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as FrameInfo);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(FrameInfo other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Frame != other.Frame) return false;
+    if (!object.Equals(Move, other.Move)) return false;
+    if (Skillid != other.Skillid) return false;
+    if (!object.Equals(SkillDir, other.SkillDir)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Frame != 0) hash ^= Frame.GetHashCode();
+    if (move_ != null) hash ^= Move.GetHashCode();
+    if (Skillid != 0) hash ^= Skillid.GetHashCode();
+    if (skillDir_ != null) hash ^= SkillDir.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Frame != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Frame);
+    }
+    if (move_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Move);
+    }
+    if (Skillid != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(Skillid);
+    }
+    if (skillDir_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(SkillDir);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Frame != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Frame);
+    }
+    if (move_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Move);
+    }
+    if (Skillid != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Skillid);
+    }
+    if (skillDir_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(SkillDir);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(FrameInfo other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Frame != 0) {
+      Frame = other.Frame;
+    }
+    if (other.move_ != null) {
+      if (move_ == null) {
+        Move = new global::Direction();
+      }
+      Move.MergeFrom(other.Move);
+    }
+    if (other.Skillid != 0) {
+      Skillid = other.Skillid;
+    }
+    if (other.skillDir_ != null) {
+      if (skillDir_ == null) {
+        SkillDir = new global::Direction();
+      }
+      SkillDir.MergeFrom(other.SkillDir);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Frame = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          if (move_ == null) {
+            Move = new global::Direction();
+          }
+          input.ReadMessage(Move);
+          break;
+        }
+        case 24: {
+          Skillid = input.ReadInt32();
+          break;
+        }
+        case 34: {
+          if (skillDir_ == null) {
+            SkillDir = new global::Direction();
+          }
+          input.ReadMessage(SkillDir);
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class ClientMoveDTO : pb::IMessage<ClientMoveDTO> {
+  private static readonly pb::MessageParser<ClientMoveDTO> _parser = new pb::MessageParser<ClientMoveDTO>(() => new ClientMoveDTO());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ClientMoveDTO> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MoveDTOReflection.Descriptor.MessageTypes[2]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientMoveDTO() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientMoveDTO(ClientMoveDTO other) : this() {
+    roomid_ = other.roomid_;
+    seat_ = other.seat_;
+    bagid_ = other.bagid_;
+    msg_ = other.msg_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientMoveDTO Clone() {
+    return new ClientMoveDTO(this);
   }
 
   /// <summary>Field number for the "Roomid" field.</summary>
@@ -84,7 +474,7 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     }
   }
 
-  /// <summary>Field number for the "seat" field.</summary>
+  /// <summary>Field number for the "Seat" field.</summary>
   public const int SeatFieldNumber = 2;
   private int seat_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -95,46 +485,34 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     }
   }
 
-  /// <summary>Field number for the "x" field.</summary>
-  public const int XFieldNumber = 3;
-  private float x_;
+  /// <summary>Field number for the "Bagid" field.</summary>
+  public const int BagidFieldNumber = 3;
+  private int bagid_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float X {
-    get { return x_; }
+  public int Bagid {
+    get { return bagid_; }
     set {
-      x_ = value;
+      bagid_ = value;
     }
   }
 
-  /// <summary>Field number for the "y" field.</summary>
-  public const int YFieldNumber = 4;
-  private float y_;
+  /// <summary>Field number for the "msg" field.</summary>
+  public const int MsgFieldNumber = 4;
+  private static readonly pb::FieldCodec<global::FrameInfo> _repeated_msg_codec
+      = pb::FieldCodec.ForMessage(34, global::FrameInfo.Parser);
+  private readonly pbc::RepeatedField<global::FrameInfo> msg_ = new pbc::RepeatedField<global::FrameInfo>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float Y {
-    get { return y_; }
-    set {
-      y_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "deltaTime" field.</summary>
-  public const int DeltaTimeFieldNumber = 5;
-  private float deltaTime_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float DeltaTime {
-    get { return deltaTime_; }
-    set {
-      deltaTime_ = value;
-    }
+  public pbc::RepeatedField<global::FrameInfo> Msg {
+    get { return msg_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as MoveDTO);
+    return Equals(other as ClientMoveDTO);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(MoveDTO other) {
+  public bool Equals(ClientMoveDTO other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
@@ -143,9 +521,8 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     }
     if (Roomid != other.Roomid) return false;
     if (Seat != other.Seat) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DeltaTime, other.DeltaTime)) return false;
+    if (Bagid != other.Bagid) return false;
+    if(!msg_.Equals(other.msg_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -154,9 +531,8 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     int hash = 1;
     if (Roomid != 0) hash ^= Roomid.GetHashCode();
     if (Seat != 0) hash ^= Seat.GetHashCode();
-    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-    if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
-    if (DeltaTime != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DeltaTime);
+    if (Bagid != 0) hash ^= Bagid.GetHashCode();
+    hash ^= msg_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -178,18 +554,11 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
       output.WriteRawTag(16);
       output.WriteInt32(Seat);
     }
-    if (X != 0F) {
-      output.WriteRawTag(29);
-      output.WriteFloat(X);
+    if (Bagid != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(Bagid);
     }
-    if (Y != 0F) {
-      output.WriteRawTag(37);
-      output.WriteFloat(Y);
-    }
-    if (DeltaTime != 0F) {
-      output.WriteRawTag(45);
-      output.WriteFloat(DeltaTime);
-    }
+    msg_.WriteTo(output, _repeated_msg_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -204,15 +573,10 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     if (Seat != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
     }
-    if (X != 0F) {
-      size += 1 + 4;
+    if (Bagid != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Bagid);
     }
-    if (Y != 0F) {
-      size += 1 + 4;
-    }
-    if (DeltaTime != 0F) {
-      size += 1 + 4;
-    }
+    size += msg_.CalculateSize(_repeated_msg_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -220,7 +584,7 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(MoveDTO other) {
+  public void MergeFrom(ClientMoveDTO other) {
     if (other == null) {
       return;
     }
@@ -230,15 +594,10 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
     if (other.Seat != 0) {
       Seat = other.Seat;
     }
-    if (other.X != 0F) {
-      X = other.X;
+    if (other.Bagid != 0) {
+      Bagid = other.Bagid;
     }
-    if (other.Y != 0F) {
-      Y = other.Y;
-    }
-    if (other.DeltaTime != 0F) {
-      DeltaTime = other.DeltaTime;
-    }
+    msg_.Add(other.msg_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -258,16 +617,310 @@ public sealed partial class MoveDTO : pb::IMessage<MoveDTO> {
           Seat = input.ReadInt32();
           break;
         }
-        case 29: {
-          X = input.ReadFloat();
+        case 24: {
+          Bagid = input.ReadInt32();
           break;
         }
-        case 37: {
-          Y = input.ReadFloat();
+        case 34: {
+          msg_.AddEntriesFrom(input, _repeated_msg_codec);
           break;
         }
-        case 45: {
-          DeltaTime = input.ReadFloat();
+      }
+    }
+  }
+
+}
+
+public sealed partial class ClientDTO : pb::IMessage<ClientDTO> {
+  private static readonly pb::MessageParser<ClientDTO> _parser = new pb::MessageParser<ClientDTO>(() => new ClientDTO());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ClientDTO> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MoveDTOReflection.Descriptor.MessageTypes[3]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientDTO() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientDTO(ClientDTO other) : this() {
+    seat_ = other.seat_;
+    msg_ = other.msg_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ClientDTO Clone() {
+    return new ClientDTO(this);
+  }
+
+  /// <summary>Field number for the "Seat" field.</summary>
+  public const int SeatFieldNumber = 1;
+  private int seat_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Seat {
+    get { return seat_; }
+    set {
+      seat_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "msg" field.</summary>
+  public const int MsgFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::FrameInfo> _repeated_msg_codec
+      = pb::FieldCodec.ForMessage(18, global::FrameInfo.Parser);
+  private readonly pbc::RepeatedField<global::FrameInfo> msg_ = new pbc::RepeatedField<global::FrameInfo>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::FrameInfo> Msg {
+    get { return msg_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as ClientDTO);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(ClientDTO other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Seat != other.Seat) return false;
+    if(!msg_.Equals(other.msg_)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Seat != 0) hash ^= Seat.GetHashCode();
+    hash ^= msg_.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Seat != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Seat);
+    }
+    msg_.WriteTo(output, _repeated_msg_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Seat != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seat);
+    }
+    size += msg_.CalculateSize(_repeated_msg_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(ClientDTO other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Seat != 0) {
+      Seat = other.Seat;
+    }
+    msg_.Add(other.msg_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Seat = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          msg_.AddEntriesFrom(input, _repeated_msg_codec);
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class ServerMoveDTO : pb::IMessage<ServerMoveDTO> {
+  private static readonly pb::MessageParser<ServerMoveDTO> _parser = new pb::MessageParser<ServerMoveDTO>(() => new ServerMoveDTO());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ServerMoveDTO> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MoveDTOReflection.Descriptor.MessageTypes[4]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ServerMoveDTO() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ServerMoveDTO(ServerMoveDTO other) : this() {
+    bagid_ = other.bagid_;
+    clientInfo_ = other.clientInfo_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ServerMoveDTO Clone() {
+    return new ServerMoveDTO(this);
+  }
+
+  /// <summary>Field number for the "Bagid" field.</summary>
+  public const int BagidFieldNumber = 1;
+  private int bagid_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Bagid {
+    get { return bagid_; }
+    set {
+      bagid_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "clientInfo" field.</summary>
+  public const int ClientInfoFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::ClientDTO> _repeated_clientInfo_codec
+      = pb::FieldCodec.ForMessage(18, global::ClientDTO.Parser);
+  private readonly pbc::RepeatedField<global::ClientDTO> clientInfo_ = new pbc::RepeatedField<global::ClientDTO>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::ClientDTO> ClientInfo {
+    get { return clientInfo_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as ServerMoveDTO);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(ServerMoveDTO other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Bagid != other.Bagid) return false;
+    if(!clientInfo_.Equals(other.clientInfo_)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Bagid != 0) hash ^= Bagid.GetHashCode();
+    hash ^= clientInfo_.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Bagid != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(Bagid);
+    }
+    clientInfo_.WriteTo(output, _repeated_clientInfo_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Bagid != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Bagid);
+    }
+    size += clientInfo_.CalculateSize(_repeated_clientInfo_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(ServerMoveDTO other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Bagid != 0) {
+      Bagid = other.Bagid;
+    }
+    clientInfo_.Add(other.clientInfo_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Bagid = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          clientInfo_.AddEntriesFrom(input, _repeated_clientInfo_codec);
           break;
         }
       }

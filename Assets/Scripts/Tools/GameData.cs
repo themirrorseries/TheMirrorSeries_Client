@@ -7,4 +7,5 @@ public class GameData
     public static UserDTO user = null;
     public static MatchSuccessDTO room = null;
     public static int seat = -1;
+    public static int bagid = 1;
 }

@@ -69,10 +69,10 @@ public class MainScene : MonoBehaviour
         {
             isMatch = !isMatch;
             text.text = "开始游戏";
-            CancelMatchDTO cancel = new CancelMatchDTO();
-            cancel.Id = GameData.user.Id;
-            cancel.RoomID = GameData.room.Roomid;
-            this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.LeaveCreq, cancel.ToByteArray());
+            // CancelMatchDTO cancel = new CancelMatchDTO();
+            // cancel.Id = GameData.user.Id;
+            // cancel.RoomID = GameData.room.Roomid;
+            // this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.LeaveCreq, cancel.ToByteArray());
         }
         else
         {

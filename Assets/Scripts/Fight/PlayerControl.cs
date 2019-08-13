@@ -25,10 +25,6 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
-        joystick.onMove.AddListener(onMoveHandler);
-        joystick.onMoveEnd.AddListener(onMoveEndHandler);
-
         hpText.text = "hp:" + hp.ToString();
         mpText.text = "mp:" + mp.ToString();
         // animator = GetComponent<Animator>();
@@ -48,7 +44,6 @@ public class PlayerControl : MonoBehaviour
     }
     public void ChangeMp(float value)
     {
-        // 暂时写这里
         if (mp + value <= 5)
         {
             mp += value;
@@ -67,39 +62,11 @@ public class PlayerControl : MonoBehaviour
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
+            FrameActions.Instance().Init(seat);
         }
     }
     void onMoveHandler(Vector2 position)
     {
-        if (canMove)
-        {
-            if (position.x != 0 || position.y != 0)
-            {
-                if (state != AnimaState.RUN)
-                {
-                    state = AnimaState.RUN;
-                    // animator.SetInteger(AnimaState.state, AnimaState.RUN);
-                }
-                float angle = Mathf.Atan2(position.x, position.y) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-                // 球形射线检测
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * speed * Time.deltaTime, distance);
-                bool judge = false;
-                for (int i = 0; i < hitColliders.Length; ++i)
-                {
-                    if (hitColliders[i].gameObject.tag == "Wall")
-                    {
-                        judge = true;
-                        break;
-                    }
-                }
-                if (!judge)
-                {
-                    transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
-                }
-            }
-        }
-        return;
         SendMoveMsg(position.x, position.y, Time.deltaTime);
         /* 
         // 纵向,横向射线检测
@@ -121,32 +88,56 @@ public class PlayerControl : MonoBehaviour
     }
     void onMoveEndHandler()
     {
-        return;
         SendMoveMsg(0, 0, 0);
     }
     void SendMoveMsg(float x, float y, float deltaTime)
     {
-        MoveDTO move = new MoveDTO();
-        move.Roomid = GameData.room.Roomid;
-        move.Seat = GameData.seat;
-        move.X = x;
-        move.Y = y;
-        move.DeltaTime = deltaTime;
-        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, move.ToByteArray());
+        if (!FrameActions.Instance().isLock)
+        {
+            FrameInfo move = new FrameInfo();
+            FrameActions.Instance().Add(move);
+        }
     }
-    public void onMoveMsgHandler(float x, float y, float deltaTime)
+    public void onMoveMsgHandler(Google.Protobuf.Collections.RepeatedField<FrameInfo> frameInfo)
     {
-        if (x != 0 || y != 0)
+        List<FrameInfo> frames = new List<FrameInfo>();
+        for (int i = 0; i < frameInfo.Count; ++i)
+        {
+            frames.Add(frameInfo[i]);
+        }
+        // 顺序重排
+        frames.Sort((a, b) => a.Frame.CompareTo(b.Frame));
+        for (int i = 0; i < frames.Count; ++i)
+        {
+            // 判断是技能还是移动
+            if (true)
+            {
+                Move(frames[i].Move);
+            }
+            else
+            {
+
+            }
+        }
+
+
+
+
+
+    }
+    private void Move(Direction direction)
+    {
+        if (direction.X != 0 || direction.Y != 0)
         {
             if (state != AnimaState.RUN)
             {
                 state = AnimaState.RUN;
                 // animator.SetInteger(AnimaState.state, AnimaState.RUN);
             }
-            float angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.X, direction.Y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * speed * deltaTime, distance);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * speed, distance);
             bool judge = false;
             for (int i = 0; i < hitColliders.Length; ++i)
             {
@@ -158,7 +149,7 @@ public class PlayerControl : MonoBehaviour
             }
             if (!judge)
             {
-                transform.Translate(Vector3.forward * speed * deltaTime, Space.Self);
+                transform.Translate(Vector3.forward * speed, Space.Self);
             }
         }
         else
@@ -169,7 +160,6 @@ public class PlayerControl : MonoBehaviour
                 // animator.SetInteger(AnimaState.state, AnimaState.IDLE);
             }
         }
-
     }
     // Update is called once per frame
     void Update()
@@ -188,7 +178,6 @@ public class PlayerControl : MonoBehaviour
         transform.Translate(direction.normalized * (distance - index * repulseSpeed), Space.World);
         canMove = true;
         StopCoroutine(repulseCoroutine);
-
     }
     public void LightCollision(Vector3 direction)
     {
