@@ -5,13 +5,14 @@ using Google.Protobuf;
 
 public class FrameActions : MonoBehaviour
 {
-    private static FrameActions instance = null;
+    public static FrameActions instance = null;
     private ClientMoveDTO clientMove;
     private int bagid = 1;
     private int frameCount = 5;
     public bool isLock = false;
-    private FrameActions()
+    void Awake()
     {
+        instance = this;
     }
 
     public void Init(int seat)
@@ -20,9 +21,8 @@ public class FrameActions : MonoBehaviour
         clientMove = new ClientMoveDTO();
         clientMove.Roomid = GameData.room.Roomid;
         clientMove.Seat = seat;
-        clientMove.Bagid = GameData.bagid;
+        clientMove.Bagid = bagid;
         clientMove.Msg.Clear();
-        bagid = 1;
         isLock = false;
     }
 
@@ -38,6 +38,7 @@ public class FrameActions : MonoBehaviour
         if (clientMove.Msg.Count < frameCount)
         {
             frame.Frame = clientMove.Msg.Count;
+            clientMove.Msg.Add(frame);
             if (IsFull())
             {
                 Send();
@@ -54,14 +55,5 @@ public class FrameActions : MonoBehaviour
     {
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
-    }
-
-    public static FrameActions Instance()
-    {
-        if (instance == null)
-        {
-            instance = new FrameActions();
-        }
-        return instance;
     }
 }

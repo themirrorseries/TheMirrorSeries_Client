@@ -62,7 +62,7 @@ public class PlayerControl : MonoBehaviour
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
-            FrameActions.Instance().Init(seat);
+            FrameActions.instance.Init(seat);
         }
     }
     void onMoveHandler(Vector2 position)
@@ -92,10 +92,17 @@ public class PlayerControl : MonoBehaviour
     }
     void SendMoveMsg(float x, float y, float deltaTime)
     {
-        if (!FrameActions.Instance().isLock)
+        if (!FrameActions.instance.isLock)
         {
+
+            DeltaDirection direction = new DeltaDirection();
+            direction.X = x;
+            direction.Y = y;
+            direction.DeltaTime = deltaTime;
             FrameInfo move = new FrameInfo();
-            FrameActions.Instance().Add(move);
+            move.Move = direction;
+            move.Move.DeltaTime = deltaTime;
+            FrameActions.instance.Add(move);
         }
     }
     public void onMoveMsgHandler(Google.Protobuf.Collections.RepeatedField<FrameInfo> frameInfo)

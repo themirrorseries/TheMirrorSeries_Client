@@ -12,7 +12,7 @@ public class NetIO
 
     private Socket socket;
     // private string ip = "mirror.murmur.top";
-    private string ip = "192.168.124.171";
+    private string ip = "192.168.124.206";
     private int port = 9700;
 
     private byte[] readBuff = new byte[1024];
