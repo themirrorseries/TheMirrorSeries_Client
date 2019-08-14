@@ -8,7 +8,7 @@ public class FrameActions : MonoBehaviour
     public static FrameActions instance = null;
     private ClientMoveDTO clientMove;
     private int bagid = 1;
-    private int frameCount = 5;
+    private int frameCount = 3;
     public bool isLock = false;
     void Awake()
     {
@@ -55,5 +55,6 @@ public class FrameActions : MonoBehaviour
     {
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
+        Remove();
     }
 }

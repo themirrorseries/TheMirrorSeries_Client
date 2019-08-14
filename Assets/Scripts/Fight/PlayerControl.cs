@@ -27,8 +27,8 @@ public class PlayerControl : MonoBehaviour
     {
         hpText.text = "hp:" + hp.ToString();
         mpText.text = "mp:" + mp.ToString();
-        // animator = GetComponent<Animator>();
-        // animator.SetInteger(AnimaState.state, state);
+        animator = GetComponent<Animator>();
+        animator.SetInteger(AnimaState.state, state);
     }
     public void ChangeHp(float value)
     {
@@ -139,7 +139,7 @@ public class PlayerControl : MonoBehaviour
             if (state != AnimaState.RUN)
             {
                 state = AnimaState.RUN;
-                // animator.SetInteger(AnimaState.state, AnimaState.RUN);
+                animator.SetInteger(AnimaState.state, AnimaState.RUN);
             }
             float angle = Mathf.Atan2(direction.X, direction.Y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
@@ -164,7 +164,7 @@ public class PlayerControl : MonoBehaviour
             if (state != AnimaState.IDLE)
             {
                 state = AnimaState.IDLE;
-                // animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+                animator.SetInteger(AnimaState.state, AnimaState.IDLE);
             }
         }
     }
