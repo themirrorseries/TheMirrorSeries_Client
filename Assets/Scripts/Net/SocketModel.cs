@@ -25,9 +25,4 @@ public class SocketModel
         this.command = c;
         this.message = o;
     }
-    public T GetMessage<T>()
-    {
-        // IMessage<T> t = new IMessage<T>();
-        return (T)(object)message;
-    }
 }

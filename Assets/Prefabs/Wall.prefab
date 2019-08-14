@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8702858723165249571}
   - component: {fileID: 5108763701583187256}
   - component: {fileID: 2469255014762301843}
-  m_Layer: 0
-  m_Name: Right
+  m_Layer: 8
+  m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,12 +53,12 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 28d5ec28e3ff30e47aef587c0fedb9a2, type: 2}
+  - {fileID: 2100000, guid: 77aed84c9e05ff54c84b49d0d48b130e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
