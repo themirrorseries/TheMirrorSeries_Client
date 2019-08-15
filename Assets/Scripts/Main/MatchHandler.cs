@@ -27,7 +27,7 @@ public class MatchHandler : MonoBehaviour, IHandler
             }
         }
         // 加载匹配场景,加载完成后进入战斗场景
-        SceneManager.LoadScene(SceneTypes.FIGHT);
+        SceneManager.LoadScene(SceneEunm.FIGHT);
     }
     public void CancelMatch(byte[] message)
     {

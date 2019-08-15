@@ -7,15 +7,13 @@ public class FightScene : MonoBehaviour
 {
     public static FightScene instance;
     [SerializeField]
-    private LightManager lightMgr;
-    [SerializeField]
     private GameObject[] seats;
-    [SerializeField]
-    private GameObject playerPrefab;
     // 当前死亡人数
     public int deathCount;
     private Dictionary<int, int> seat2Player = new Dictionary<int, int>();
     private List<GameObject> players = new List<GameObject>();
+    private GameObject myself;
+    private PlayerControl myselfControl;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +25,26 @@ public class FightScene : MonoBehaviour
     {
         for (int i = 0; i < GameData.room.Players.Count; ++i)
         {
-            GameObject player = GameObject.Instantiate(playerPrefab, seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
+            // GameObject player = Instantiate(ResourcesTools.getMirror(GameData.room.Players[i].Roleid),
+            //             seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
+            GameObject player = Instantiate(ResourcesTools.getMirror(1),
+                        seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
+
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
             playerControl.Init(GameData.room.Players[i].Seat);
             players.Add(player);
             seat2Player.Add(GameData.room.Players[i].Seat, i);
+            if (GameData.seat == GameData.room.Players[i].Seat)
+            {
+                myself = player;
+                myselfControl = playerControl;
+            }
         }
     }
     public void InitLight()
     {
+        GameObject light = Instantiate(ResourcesTools.getLight(1));
+        LightManager lightMgr = light.GetComponent<LightManager>();
         lightMgr.Init(GameData.room.Speed, GameData.room.Count, GameData.room.X, GameData.room.Z);
     }
     public void Refresh(ServerMoveDTO move)
@@ -46,8 +55,15 @@ public class FightScene : MonoBehaviour
             if (move.ClientInfo[i].Seat != -1)
             {
                 PlayerControl playerControl = players[seat2Player[move.ClientInfo[i].Seat]].GetComponent<PlayerControl>();
-                playerControl.onMoveMsgHandler(move.ClientInfo[i].Msg);
+                playerControl.onMsgHandler(move.ClientInfo[i].Msg);
             }
+        }
+    }
+    public void NormalAck()
+    {
+        if (myselfControl)
+        {
+            myselfControl.Ack();
         }
     }
     // Update is called once per frame

@@ -7,7 +7,7 @@ public class PlayerAttribute : MonoBehaviour
     public float hp = 20;
     // 血量上限
     public float hpMax = 20;
-    public float mp = 0;
+    public float mp = 5;
     // 蓝量上限
     public float mpMax = 5;
     [SerializeField]

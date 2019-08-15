@@ -1,0 +1,21 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class SkillEunm
+{
+    // 普通攻击按钮
+    public const int ack = 0;
+    // 技能按钮1
+    public const int skill1 = 1;
+    // 技能按钮2
+    public const int skill2 = 2;
+    // 技能按钮3
+    public const int skill3 = 3;
+
+    // 用于标记是否是技能
+    public const int notSkill = -1;
+    // 普通攻击
+    public const int normalAck = 1;
+}

@@ -82,7 +82,7 @@ public class MainScene : MonoBehaviour
             match.Id = GameData.user.Id;
             match.Name = nameInput.text;
             // 选择角色id,暂无
-            match.RoleID = -1;
+            match.RoleID = 1;
             this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.EnterCreq, match.ToByteArray());
         }
     }

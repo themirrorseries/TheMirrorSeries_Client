@@ -52,6 +52,7 @@ public class LightManager : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "Light") return;
         if (other.gameObject.tag == "Player")
         {
             // ps:防止光线先改变方向

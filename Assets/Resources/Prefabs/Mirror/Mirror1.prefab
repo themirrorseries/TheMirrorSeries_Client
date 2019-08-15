@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 49461528}
   - component: {fileID: 49461530}
   - component: {fileID: 49461529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 1813531655}
   - component: {fileID: 1813531657}
   - component: {fileID: 1813531656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,8 +198,9 @@ GameObject:
   - component: {fileID: 72423158}
   - component: {fileID: 72423157}
   - component: {fileID: 1955924540}
-  m_Layer: 0
-  m_Name: Mirror01
+  - component: {fileID: 5272472767669259335}
+  m_Layer: 8
+  m_Name: Mirror1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,3 +344,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 26.729532, y: 29.194672, z: 6.5689096}
   m_Center: {x: 0.001045894, y: 14.733049, z: 0.16416363}
+--- !u!114 &5272472767669259335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176219630490328291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d60384485372340ad2a5d78719f78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skills: []

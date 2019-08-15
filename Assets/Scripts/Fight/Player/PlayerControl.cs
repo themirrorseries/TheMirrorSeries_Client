@@ -9,16 +9,18 @@ public class PlayerControl : MonoBehaviour
     public float speed = 20f;
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
+    private PlayerSkill playerSkill;
     public int seat;
     private float wallDistance = 2f;
     private float repulseDistance = 10f;
-    private float repulseSpeed = 1;
+    private float repulseSpeed = 1f;
     private Coroutine repulseCoroutine;
     // Start is called before the first frame update
     void Start()
     {
         animationControl = GetComponent<AnimationControl>();
         playerAttribute = GetComponent<PlayerAttribute>();
+        playerSkill = GetComponent<PlayerSkill>();
     }
     public void Init(int seatId)
     {
@@ -36,6 +38,42 @@ public class PlayerControl : MonoBehaviour
             playerAttribute = GetComponent<PlayerAttribute>();
         }
         playerAttribute.Init();
+        if (playerSkill == null)
+        {
+            playerSkill = GetComponent<PlayerSkill>();
+        }
+        playerSkill.Init();
+    }
+
+    public void Ack()
+    {
+        SendSkillMsg(SkillEunm.ack, 0, 0);
+    }
+    public void Skill1()
+    {
+        SendSkillMsg(SkillEunm.skill1, 0, 0);
+    }
+
+    public void Skill2()
+    {
+        SendSkillMsg(SkillEunm.skill2, 0, 0);
+    }
+
+    public void Skill3()
+    {
+        SendSkillMsg(SkillEunm.skill3, 0, 0);
+    }
+    void SendSkillMsg(int skillNum, float x, float y)
+    {
+        if (!FrameActions.instance.isLock)
+        {
+            DeltaDirection direction = new DeltaDirection();
+            direction.X = x;
+            direction.Y = y;
+            FrameInfo skill = new FrameInfo();
+            skill.Skillid = skillNum;
+            FrameActions.instance.Add(skill);
+        }
     }
     void onMoveHandler(Vector2 position)
     {
@@ -71,12 +109,13 @@ public class PlayerControl : MonoBehaviour
             direction.Y = y;
             direction.DeltaTime = deltaTime;
             FrameInfo move = new FrameInfo();
+            move.Skillid = SkillEunm.notSkill;
             move.Move = direction;
             move.Move.DeltaTime = deltaTime;
             FrameActions.instance.Add(move);
         }
     }
-    public void onMoveMsgHandler(Google.Protobuf.Collections.RepeatedField<FrameInfo> frameInfo)
+    public void onMsgHandler(Google.Protobuf.Collections.RepeatedField<FrameInfo> frameInfo)
     {
         List<FrameInfo> frames = new List<FrameInfo>();
         for (int i = 0; i < frameInfo.Count; ++i)
@@ -88,13 +127,13 @@ public class PlayerControl : MonoBehaviour
         for (int i = 0; i < frames.Count; ++i)
         {
             // 判断是技能还是移动
-            if (true)
+            if (frames[i].Skillid == SkillEunm.notSkill)
             {
                 Move(frames[i].Move);
             }
             else
             {
-
+                Skill(frames[i].Skillid, frames[i].SkillDir);
             }
         }
     }
@@ -107,7 +146,7 @@ public class PlayerControl : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!playerAttribute.canMove()) return;
             // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * direction.DeltaTime * speed, wallDistance, LayerMask.GetMask("Wall"));
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * direction.DeltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
             if (hitColliders.Length == 0)
             {
                 transform.Translate(Vector3.forward * direction.DeltaTime * speed, Space.Self);
@@ -117,6 +156,10 @@ public class PlayerControl : MonoBehaviour
         {
             animationControl.Idle();
         }
+    }
+    private void Skill(int skillNum, DeltaDirection direction)
+    {
+        playerSkill.Release(skillNum, direction);
     }
     // Update is called once per frame
     void Update()
@@ -149,7 +192,7 @@ public class PlayerControl : MonoBehaviour
             animationControl.Repulse();
             // 射线相交计算
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, direction, out hit, wallDistance + repulseDistance, LayerMask.GetMask("Wall")))
+            if (Physics.Raycast(transform.position, direction, out hit, wallDistance + repulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
             {
                 // ps:乘以2,否则会卡在无法移动的区域里面
                 moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance * (float)2;
