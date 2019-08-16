@@ -21,7 +21,9 @@ public class NormalAttack : SkillBase
     public override void onSkill(DeltaDirection direction)
     {
         GameObject light = Instantiate(ResourcesTools.getLight(1));
-        light.transform.position = transform.position + transform.forward.normalized * 2;
+        // 固定光线初始位置y方向
+        light.transform.position = new Vector3(transform.position.x, light.transform.position.y, transform.position.z)
+                                    + transform.forward.normalized * 2;
         LightManager lightMgr = light.GetComponent<LightManager>();
         lightMgr.Init(GameData.room.Speed, GameData.room.Count, transform.forward.x, transform.forward.z);
     }

@@ -52,15 +52,11 @@ public class LightManager : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Light") return;
         if (other.gameObject.tag == "Player")
         {
             // ps:防止光线先改变方向
             PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
             playerControl.LightCollision(direction);
-        }
-        else if (other.gameObject.tag == "Wall")
-        {
         }
         Collide(other);
     }
