@@ -6,7 +6,7 @@ using Google.Protobuf;
 public class PlayerControl : MonoBehaviour
 {
     ETCJoystick joystick;
-    public float speed = 20f;
+    public float speed = 10f;
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
@@ -67,9 +67,6 @@ public class PlayerControl : MonoBehaviour
     {
         if (!FrameActions.instance.isLock)
         {
-            DeltaDirection direction = new DeltaDirection();
-            direction.X = x;
-            direction.Y = y;
             FrameInfo skill = new FrameInfo();
             skill.Skillid = skillNum;
             FrameActions.instance.Add(skill);
@@ -187,7 +184,7 @@ public class PlayerControl : MonoBehaviour
         {
             float moveDistance = repulseDistance;
             playerAttribute.ChangeHp(-2);
-            playerAttribute.ChangeMp(1);
+            playerAttribute.ChangeMp(5);
             playerAttribute.isRepulse = true;
             animationControl.Repulse();
             // 射线相交计算

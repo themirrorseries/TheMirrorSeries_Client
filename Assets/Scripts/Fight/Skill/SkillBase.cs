@@ -67,7 +67,7 @@ public class SkillBase : MonoBehaviour
         lastSkillTime = TimeStamp.getTimeStamp();
     }
 
-    public virtual void onSkill()
+    public virtual void onSkill(DeltaDirection direction)
     {
 
     }

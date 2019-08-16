@@ -15,14 +15,14 @@ public class NormalAttack : SkillBase
         if (isMpEnough(playerAttribute.mpMax))
         {
             AddMp(-playerAttribute.mp);
-            onSkill();
+            onSkill(direction);
         }
     }
-    public override void onSkill()
+    public override void onSkill(DeltaDirection direction)
     {
         GameObject light = Instantiate(ResourcesTools.getLight(1));
-        light.transform.eulerAngles = transform.eulerAngles;
+        light.transform.position = transform.position + transform.forward.normalized * 2;
         LightManager lightMgr = light.GetComponent<LightManager>();
-        lightMgr.Init(GameData.room.Speed, GameData.room.Count, GameData.room.X, GameData.room.Z);
+        lightMgr.Init(GameData.room.Speed, GameData.room.Count, transform.forward.x, transform.forward.z);
     }
 }
