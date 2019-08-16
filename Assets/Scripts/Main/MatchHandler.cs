@@ -12,6 +12,12 @@ public class MatchHandler : MonoBehaviour, IHandler
             case (int)MatchTypes.EnterSelectBro:
                 Match(model.message);
                 break;
+            case (int)MatchTypes.EnterSres:
+                MatchMsgHandler(model.message);
+                break;
+            case (int)MatchTypes.LeaveSres:
+                CancelMatch(model.message);
+                break;
         }
     }
     public void Match(byte[] message)
@@ -29,8 +35,13 @@ public class MatchHandler : MonoBehaviour, IHandler
         // 加载匹配场景,加载完成后进入战斗场景
         SceneManager.LoadScene(SceneEunm.FIGHT);
     }
+    public void MatchMsgHandler(byte[] message)
+    {
+        MatchRtnDTO matchRtn = new MatchRtnDTO();
+        MainScene.instance.SetRoomID(matchRtn.Cacheroomid);
+    }
     public void CancelMatch(byte[] message)
     {
-
+        MainScene.instance.CancelMatch();
     }
 }

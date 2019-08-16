@@ -6,14 +6,18 @@ using Google.Protobuf;
 
 public class MainScene : MonoBehaviour
 {
+    public static MainScene instance;
     [SerializeField]
     private InputField nameInput;
     [SerializeField]
     private Button matchBtn;
     private bool isMatch = false;
+    // 临时房间id,用于取消匹配用
+    private int roomId = -1;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         // 没有UUID,第一次登陆
         if (LocalStorage.GetString("UUID") == string.Empty)
         {
@@ -60,6 +64,28 @@ public class MainScene : MonoBehaviour
         return "好名都被狗取了" + randomNum.ToString();
     }
 
+    public void SetRoomID(int value)
+    {
+        roomId = value;
+        Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
+        text.text = "取消匹配";
+        if (!isMatch)
+        {
+            isMatch = !isMatch;
+        }
+    }
+
+    public void CancelMatch()
+    {
+        roomId = -1;
+        Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
+        text.text = "开始游戏";
+        if (isMatch)
+        {
+            isMatch = !isMatch;
+        }
+    }
+
     public void Match()
     {
         // 防止未登陆的情况
@@ -69,10 +95,10 @@ public class MainScene : MonoBehaviour
         {
             isMatch = !isMatch;
             text.text = "开始游戏";
-            // CancelMatchDTO cancel = new CancelMatchDTO();
-            // cancel.Id = GameData.user.Id;
-            // cancel.RoomID = GameData.room.Roomid;
-            // this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.LeaveCreq, cancel.ToByteArray());
+            MatchRtnDTO matchRtn = new MatchRtnDTO();
+            matchRtn.Id = GameData.user.Id;
+            matchRtn.Cacheroomid = roomId;
+            this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.LeaveCreq, matchRtn.ToByteArray());
         }
         else
         {
