@@ -15,12 +15,18 @@ public class PlayerControl : MonoBehaviour
     private float repulseDistance = 10f;
     private float repulseSpeed = 1f;
     private Coroutine repulseCoroutine;
+    private bool isself = false;
+    private bool needAdd = true;
+    // 空帧
+    private FrameInfo emptyFrame;
     // Start is called before the first frame update
     void Start()
     {
         animationControl = GetComponent<AnimationControl>();
         playerAttribute = GetComponent<PlayerAttribute>();
         playerSkill = GetComponent<PlayerSkill>();
+        emptyFrame = new FrameInfo();
+        emptyFrame.Skillid = SkillEunm.empty;
     }
     public void Init(int seatId)
     {
@@ -28,9 +34,11 @@ public class PlayerControl : MonoBehaviour
         if (seat == GameData.seat)
         {
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
+            joystick.onMoveStart.AddListener(onMoveStartHandler);
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
             FrameActions.instance.Init(seat);
+            isself = true;
         }
         // 防止未获取到组件
         if (playerAttribute == null)
@@ -72,6 +80,10 @@ public class PlayerControl : MonoBehaviour
             FrameActions.instance.Add(skill);
         }
     }
+    void onMoveStartHandler()
+    {
+        needAdd = false;
+    }
     void onMoveHandler(Vector2 position)
     {
         SendMoveMsg(position.x, position.y, Time.deltaTime);
@@ -96,6 +108,7 @@ public class PlayerControl : MonoBehaviour
     void onMoveEndHandler()
     {
         SendMoveMsg(0, 0, 0);
+        needAdd = true;
     }
     void SendMoveMsg(float x, float y, float deltaTime)
     {
@@ -123,8 +136,13 @@ public class PlayerControl : MonoBehaviour
         frames.Sort((a, b) => a.Frame.CompareTo(b.Frame));
         for (int i = 0; i < frames.Count; ++i)
         {
+            // 空帧
+            if (frames[i].Skillid == SkillEunm.empty)
+            {
+                continue;
+            }
             // 判断是技能还是移动
-            if (frames[i].Skillid == SkillEunm.notSkill)
+            else if (frames[i].Skillid == SkillEunm.notSkill)
             {
                 Move(frames[i].Move);
             }
@@ -161,6 +179,13 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isself)
+        {
+            if (needAdd)
+            {
+                FrameActions.instance.Add(emptyFrame);
+            }
+        }
     }
     IEnumerator Repulse(Vector3 direction, float distance)
     {

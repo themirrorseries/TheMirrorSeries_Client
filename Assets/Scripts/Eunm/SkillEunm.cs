@@ -14,6 +14,8 @@ public class SkillEunm
     // 技能按钮3
     public const int skill3 = 3;
 
+    // 用于标记是否是空帧
+    public const int empty = -2;
     // 用于标记是否是技能
     public const int notSkill = -1;
     // 普通攻击
