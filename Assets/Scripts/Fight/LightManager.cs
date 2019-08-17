@@ -22,17 +22,13 @@ public class LightManager : MonoBehaviour
         direction = new Vector3(_x, 0, _z);
     }
 
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
         if (index < count)
         {
             transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
     private void Collide(Collision other)
     {
