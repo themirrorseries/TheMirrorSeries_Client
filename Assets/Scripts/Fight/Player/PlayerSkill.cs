@@ -19,7 +19,7 @@ public class PlayerSkill : MonoBehaviour
     // 根据使用角色添加技能组件
     public void Init()
     {
-        int[] skillIds = { SkillEunm.normalAck, SkillEunm.protectiveCover };
+        int[] skillIds = { SkillEunm.normalAck, SkillEunm.protectiveCover, SkillEunm.groupChaos };
         for (int i = 0; i < skillIds.Length; ++i)
         {
             skills.Add(addSkill(skillIds[i]));
@@ -59,6 +59,7 @@ public class PlayerSkill : MonoBehaviour
         {
             case SkillEunm.normalAck: return gameObject.AddComponent<NormalAttack>();
             case SkillEunm.protectiveCover: return gameObject.AddComponent<ProtectiveCover>();
+            case SkillEunm.groupChaos: return gameObject.AddComponent<GroupChaos>();
             default:
                 return gameObject.AddComponent<SkillBase>();
         }

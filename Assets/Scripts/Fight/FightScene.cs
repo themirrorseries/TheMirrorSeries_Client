@@ -73,6 +73,13 @@ public class FightScene : MonoBehaviour
             myselfControl.Skill1();
         }
     }
+    public void skill2()
+    {
+        if (myselfControl)
+        {
+            myselfControl.Skill2();
+        }
+    }
     public List<GameObject> Players()
     {
         return players;

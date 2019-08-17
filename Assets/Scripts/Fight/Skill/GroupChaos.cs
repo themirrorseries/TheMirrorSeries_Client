@@ -6,12 +6,14 @@ public class GroupChaos : SkillBase
 {
     private Coroutine chaosCoroutine;
     private Coroutine releaseCoroutine;
+    // 上一次协程是否还在运行(-1=>未初始化,1=>正在运行,0=>停止运行)
+    private int isLastCoroutineRun = -1;
     public GroupChaos()
     {
         skillId = SkillEunm.groupChaos;
         skillName = "群体混乱";
-        cd = 45;
-        durationTime = 5;
+        cd = 5;
+        durationTime = 50;
         delayTime = 3;
     }
     public override void Release(DeltaDirection direction)
@@ -23,6 +25,7 @@ public class GroupChaos : SkillBase
     }
     IEnumerator ReleaseProgress(int delay, int duration)
     {
+        Debug.Log("我开始读条了");
         float totalTime = 0;
         int index = 0;
         // 总进度100,除以释法时间,等到平均每秒需要增长的进度,然后根据Time.deltaTime去累计
@@ -34,8 +37,10 @@ public class GroupChaos : SkillBase
             // 更新进度条
             yield return null;
         }
-        // 先停止上一次的协程
-        StopCoroutine(chaosCoroutine);
+        if (isLastCoroutineRun == 1)
+        {
+            StopCoroutine(chaosCoroutine);
+        }
         chaosCoroutine = StartCoroutine(Chaos(duration));
         StopCoroutine(releaseCoroutine);
     }
@@ -47,6 +52,7 @@ public class GroupChaos : SkillBase
     // 混乱协程()
     IEnumerator Chaos(int duration)
     {
+        isLastCoroutineRun = 1;
         List<GameObject> players = findAllPlayers();
         for (int i = 0; i < players.Count; ++i)
         {
@@ -67,6 +73,7 @@ public class GroupChaos : SkillBase
                 // 取消头顶播放混乱特效
             }
         }
+        isLastCoroutineRun = 0;
         StopCoroutine(chaosCoroutine);
     }
 }
