@@ -10,14 +10,9 @@ public class LightManager : MonoBehaviour
     private int count = 0;
     private int index = 0;
     private Vector3 direction;
-    [SerializeField]
-    private Rigidbody rb;
-    [SerializeField]
-    private TextMesh speedText;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     public void Init(float _speed, int _count, float _x, float _z)
@@ -25,7 +20,6 @@ public class LightManager : MonoBehaviour
         speed = _speed;
         count = _count;
         direction = new Vector3(_x, 0, _z);
-        speedText.text = count.ToString();
     }
 
     void FixedUpdate()
@@ -48,7 +42,6 @@ public class LightManager : MonoBehaviour
         direction = Vector3.Reflect(direction.normalized, contactPoint.normal);
         // 碰撞次数++
         index++;
-        speedText.text = (count - index).ToString();
     }
     private void OnCollisionEnter(Collision other)
     {

@@ -210,7 +210,15 @@ public class PlayerControl : MonoBehaviour
             float moveDistance = repulseDistance;
             playerAttribute.ChangeHp(-2);
             playerAttribute.ChangeMp(5);
-            playerAttribute.isRepulse = true;
+            // 击退期间有新的碰撞,则停止上一次的击退
+            if (playerAttribute.isRepulse)
+            {
+                StopCoroutine(repulseCoroutine);
+            }
+            else
+            {
+                playerAttribute.isRepulse = true;
+            }
             animationControl.Repulse();
             // 射线相交计算
             RaycastHit hit;
