@@ -14,6 +14,8 @@ public class SkillBase : MonoBehaviour
     public int releaseType;
     // 延迟时间
     public float delayTime;
+    // 持续时间
+    public float durationTime;
     // 技能对象(层级名称)
     public string[] skillAims;
     // 技能范围
@@ -23,7 +25,7 @@ public class SkillBase : MonoBehaviour
     public PlayerAttribute playerAttribute;
     void Start()
     {
-        lastSkillTime = TimeStamp.addTimeStamp(cd);
+        lastSkillTime = TimeStamp.addTimeStamp(-cd);
         playerAttribute = GetComponent<PlayerAttribute>();
     }
     public virtual void Release(DeltaDirection direction)

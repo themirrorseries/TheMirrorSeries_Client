@@ -187,6 +187,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+    // 击退协程
     IEnumerator Repulse(Vector3 direction, float distance)
     {
         int index = 0;

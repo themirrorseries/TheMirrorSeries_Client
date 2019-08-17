@@ -66,6 +66,13 @@ public class FightScene : MonoBehaviour
             myselfControl.Ack();
         }
     }
+    public void Skill1()
+    {
+        if (myselfControl)
+        {
+            myselfControl.Skill1();
+        }
+    }
     // Update is called once per frame
     void Update()
     {

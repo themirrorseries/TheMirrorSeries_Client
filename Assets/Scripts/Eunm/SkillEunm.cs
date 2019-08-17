@@ -20,4 +20,6 @@ public class SkillEunm
     public const int notSkill = -1;
     // 普通攻击
     public const int normalAck = 1;
+    // 保护罩
+    public const int protectiveCover = 2;
 }

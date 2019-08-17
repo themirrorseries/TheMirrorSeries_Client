@@ -44,8 +44,13 @@ public class LightManager : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             // ps:防止光线先改变方向
-            PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
-            playerControl.LightCollision(direction);
+            PlayerAttribute playerAttribute = other.gameObject.GetComponent<PlayerAttribute>();
+            // 保护罩期间直接反弹
+            if (!playerAttribute.hasProtection)
+            {
+                PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
+                playerControl.LightCollision(direction);
+            }
         }
         Collide(other);
     }
