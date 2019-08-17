@@ -82,5 +82,11 @@ public class SkillBase : MonoBehaviour
     {
 
     }
+    // 获取座位,用于区分敌我
+    public int seat()
+    {
+        PlayerControl playerControl = GetComponent<PlayerControl>();
+        return playerControl.seat;
+    }
 
 }

@@ -25,7 +25,6 @@ public class GroupChaos : SkillBase
     }
     IEnumerator ReleaseProgress(int delay, int duration)
     {
-        Debug.Log("我开始读条了");
         float totalTime = 0;
         int index = 0;
         // 总进度100,除以释法时间,等到平均每秒需要增长的进度,然后根据Time.deltaTime去累计
@@ -57,7 +56,7 @@ public class GroupChaos : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
-            if (playerControl.seat != GameData.seat)
+            if (playerControl.seat != seat())
             {
                 playerControl.attr().isChaos = true;
                 // 头顶播放混乱特效
@@ -67,7 +66,7 @@ public class GroupChaos : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
-            if (playerControl.seat != GameData.seat)
+            if (playerControl.seat != seat())
             {
                 playerControl.attr().isChaos = false;
                 // 取消头顶播放混乱特效
