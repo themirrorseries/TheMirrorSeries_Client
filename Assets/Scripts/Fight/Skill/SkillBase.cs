@@ -13,9 +13,9 @@ public class SkillBase : MonoBehaviour
     // 释放方式
     public int releaseType;
     // 延迟时间
-    public float delayTime;
+    public int delayTime;
     // 持续时间
-    public float durationTime;
+    public int durationTime;
     // 技能对象(层级名称)
     public string[] skillAims;
     // 技能范围
@@ -63,6 +63,10 @@ public class SkillBase : MonoBehaviour
             objects.Add(hitColliders[i].gameObject);
         }
         return objects;
+    }
+    public List<GameObject> findAllPlayers()
+    {
+        return FightScene.instance.Players();
     }
     public virtual void beforeSkill()
     {

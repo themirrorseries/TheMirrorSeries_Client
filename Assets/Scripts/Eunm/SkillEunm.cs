@@ -22,4 +22,6 @@ public class SkillEunm
     public const int normalAck = 1;
     // 保护罩
     public const int protectiveCover = 2;
+    // 群体混乱
+    public const int groupChaos = 3;
 }

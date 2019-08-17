@@ -15,18 +15,12 @@ public class PlayerControl : MonoBehaviour
     private float repulseDistance = 10f;
     private float repulseSpeed = 1f;
     private Coroutine repulseCoroutine;
-    private bool isself = false;
-    private bool needAdd = true;
-    // 空帧
-    private FrameInfo emptyFrame;
     // Start is called before the first frame update
     void Start()
     {
         animationControl = GetComponent<AnimationControl>();
         playerAttribute = GetComponent<PlayerAttribute>();
         playerSkill = GetComponent<PlayerSkill>();
-        emptyFrame = new FrameInfo();
-        emptyFrame.Skillid = SkillEunm.empty;
     }
     public void Init(int seatId)
     {
@@ -38,19 +32,9 @@ public class PlayerControl : MonoBehaviour
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
             FrameActions.instance.Init(seat);
-            isself = true;
         }
-        // 防止未获取到组件
-        if (playerAttribute == null)
-        {
-            playerAttribute = GetComponent<PlayerAttribute>();
-        }
-        playerAttribute.Init();
-        if (playerSkill == null)
-        {
-            playerSkill = GetComponent<PlayerSkill>();
-        }
-        playerSkill.Init();
+        attr().Init();
+        skill().Init();
     }
 
     public void Ack()
@@ -75,40 +59,23 @@ public class PlayerControl : MonoBehaviour
     {
         if (!FrameActions.instance.isLock)
         {
-            FrameInfo skill = new FrameInfo();
-            skill.Skillid = skillNum;
-            FrameActions.instance.Add(skill);
+            FrameInfo skillInfo = new FrameInfo();
+            skillInfo.Skillid = skillNum;
+            FrameActions.instance.Add(skillInfo);
         }
     }
     void onMoveStartHandler()
     {
-        needAdd = false;
+        FrameActions.instance.needAdd = false;
     }
     void onMoveHandler(Vector2 position)
     {
         SendMoveMsg(position.x, position.y, Time.deltaTime);
-        /* 
-        // 纵向,横向射线检测
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, distance)
-            || Physics.Raycast(transform.position, transform.right, out hit, distance)
-            || Physics.Raycast(transform.position, -transform.right, out hit, distance)
-        {
-            if (hit.collider.tag != "Wall")
-            {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
-            }
-        }
-        else
-        {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
-        }
-        */
     }
     void onMoveEndHandler()
     {
         SendMoveMsg(0, 0, 0);
-        needAdd = true;
+        FrameActions.instance.needAdd = true;
     }
     void SendMoveMsg(float x, float y, float deltaTime)
     {
@@ -158,6 +125,11 @@ public class PlayerControl : MonoBehaviour
         {
             animationControl.Run();
             float angle = Mathf.Atan2(direction.X, direction.Y) * Mathf.Rad2Deg;
+            // 混乱状态下,操作与移动方向相反
+            if (attr().isChaos)
+            {
+                angle = -angle;
+            }
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!playerAttribute.canMove()) return;
             // 球形射线检测
@@ -179,13 +151,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isself)
-        {
-            if (needAdd)
-            {
-                FrameActions.instance.Add(emptyFrame);
-            }
-        }
     }
     // 击退协程
     IEnumerator Repulse(Vector3 direction, float distance)
@@ -234,5 +199,29 @@ public class PlayerControl : MonoBehaviour
         {
             playerAttribute.ChangeHp(-7);
         }
+    }
+    public PlayerAttribute attr()
+    {
+        if (playerAttribute == null)
+        {
+            playerAttribute = GetComponent<PlayerAttribute>();
+        }
+        return playerAttribute;
+    }
+    public AnimationControl animControl()
+    {
+        if (animationControl == null)
+        {
+            animationControl = GetComponent<AnimationControl>();
+        }
+        return animationControl;
+    }
+    public PlayerSkill skill()
+    {
+        if (playerSkill == null)
+        {
+            playerSkill = GetComponent<PlayerSkill>();
+        }
+        return playerSkill;
     }
 }

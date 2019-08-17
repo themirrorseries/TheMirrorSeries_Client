@@ -17,6 +17,7 @@ public class ProtectiveCover : SkillBase
     {
         if (isEndCd())
         {
+            beforeSkill();
             onSkill(direction);
         }
     }
@@ -25,7 +26,7 @@ public class ProtectiveCover : SkillBase
         protectionCoroutine = StartCoroutine(Protection(skillScope, durationTime));
     }
     // 保护罩协程
-    IEnumerator Protection(float range, float time)
+    IEnumerator Protection(float range, int duration)
     {
         BoxCollider boxCollider = GetComponent<BoxCollider>();
         CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
@@ -34,7 +35,7 @@ public class ProtectiveCover : SkillBase
         capsuleCollider.radius += range;
         playerAttribute.hasProtection = true;
         // 保护罩UI开启
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(duration);
         boxCollider.enabled = true;
         capsuleCollider.enabled = false;
         capsuleCollider.radius -= range;

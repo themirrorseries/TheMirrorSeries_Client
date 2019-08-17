@@ -18,6 +18,8 @@ public class PlayerAttribute : MonoBehaviour
     public bool isRepulse = false;
     // 保护罩状态
     public bool hasProtection = false;
+    // 混乱状态
+    public bool isChaos = false;
     // Start is called before the first frame update
     void Start()
     {

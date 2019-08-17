@@ -10,9 +10,25 @@ public class FrameActions : MonoBehaviour
     private int bagid = 1;
     private int frameCount = 3;
     public bool isLock = false;
+    public bool needAdd = false;
+    // 空帧
+    private FrameInfo emptyFrame;
     void Awake()
     {
         instance = this;
+    }
+    void Start()
+    {
+        emptyFrame = new FrameInfo();
+        emptyFrame.Skillid = SkillEunm.empty;
+        needAdd = true;
+    }
+    void Update()
+    {
+        if (needAdd)
+        {
+            Add(emptyFrame);
+        }
     }
 
     public void Init(int seat)

@@ -73,6 +73,10 @@ public class FightScene : MonoBehaviour
             myselfControl.Skill1();
         }
     }
+    public List<GameObject> Players()
+    {
+        return players;
+    }
     // Update is called once per frame
     void Update()
     {
