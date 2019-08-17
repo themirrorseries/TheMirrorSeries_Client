@@ -12,8 +12,8 @@ public class GroupChaos : SkillBase
     {
         skillId = SkillEunm.groupChaos;
         skillName = "群体混乱";
-        cd = 5;
-        durationTime = 50;
+        cd = 45;
+        durationTime = 5;
         delayTime = 3;
     }
     public override void Release(DeltaDirection direction)
@@ -48,7 +48,9 @@ public class GroupChaos : SkillBase
         base.beforeSkill();
         releaseCoroutine = StartCoroutine(ReleaseProgress(delayTime, durationTime));
     }
-    // 混乱协程()
+    // 混乱协程
+    // 这种写法下,时间会叠加
+    // eg:当前混乱时间剩余1.5s,有新的技能释放到玩家身上,会重新计时5s
     IEnumerator Chaos(int duration)
     {
         isLastCoroutineRun = 1;
