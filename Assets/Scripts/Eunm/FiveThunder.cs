@@ -13,6 +13,7 @@ public class FiveThunder : SkillBase
     public override void Release(DeltaDirection direction)
     {
         beforeSkill();
+        onSkill(direction);
     }
     public override void onSkill(DeltaDirection direction)
     {

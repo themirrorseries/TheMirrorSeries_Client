@@ -127,7 +127,7 @@ public class PlayerControl : MonoBehaviour
                 angle = -angle;
             }
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-            if (!playerAttribute.canMove()) return;
+            if (!attr.canMove()) return;
             // 球形射线检测
             Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * direction.DeltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
             if (hitColliders.Length == 0)
@@ -142,7 +142,7 @@ public class PlayerControl : MonoBehaviour
     }
     private void Skill(int skillNum, DeltaDirection direction)
     {
-        playerSkill.Release(skillNum, direction);
+        skill.Release(skillNum, direction);
     }
     // Update is called once per frame
     void Update()
@@ -160,7 +160,7 @@ public class PlayerControl : MonoBehaviour
             yield return null;
         }
         transform.Translate(direction * (distance - index * repulseSpeed), Space.World);
-        playerAttribute.isRepulse = false;
+        attr.isRepulse = false;
         StopCoroutine(repulseCoroutine);
     }
     public void LightCollision(Vector3 direction)
@@ -170,18 +170,18 @@ public class PlayerControl : MonoBehaviour
         if (val < 0)
         {
             float moveDistance = repulseDistance;
-            playerAttribute.ChangeHp(-2);
-            playerAttribute.ChangeMp(5);
+            attr.ChangeHp(-2);
+            attr.ChangeMp(5);
             // 击退期间有新的碰撞,则停止上一次的击退
-            if (playerAttribute.isRepulse)
+            if (attr.isRepulse)
             {
                 StopCoroutine(repulseCoroutine);
             }
             else
             {
-                playerAttribute.isRepulse = true;
+                attr.isRepulse = true;
             }
-            animationControl.Repulse();
+            anim.Repulse();
             // 射线相交计算
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, wallDistance + repulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
@@ -193,7 +193,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            playerAttribute.ChangeHp(-7);
+            attr.ChangeHp(-7);
         }
     }
     public PlayerAttribute attr
