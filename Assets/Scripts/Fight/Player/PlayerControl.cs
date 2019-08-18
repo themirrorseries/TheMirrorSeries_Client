@@ -186,6 +186,8 @@ public class PlayerControl : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, wallDistance + repulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
             {
+                // 如果击退到墙壁,会二段扣血
+                attr.ChangeHp(-2);
                 // ps:乘以2,否则会卡在无法移动的区域里面
                 moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance * (float)2;
             }

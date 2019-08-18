@@ -30,16 +30,14 @@ public class LightManager : MonoBehaviour
             transform.Translate(direction.normalized * Time.deltaTime * speed);
         }
     }
-    private void Collide(Collision other)
+    private void Reflect(Vector3 forward)
     {
-        // 获取接触点
-        ContactPoint contactPoint = other.contacts[0];
-        // 计算反射角
-        direction = Vector3.Reflect(direction.normalized, contactPoint.normal);
+        // 计算反射方向
+        direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
         // 碰撞次数++
         index++;
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -52,6 +50,6 @@ public class LightManager : MonoBehaviour
                 playerControl.LightCollision(direction);
             }
         }
-        Collide(other);
+        Reflect(other.gameObject.transform.forward);
     }
 }
