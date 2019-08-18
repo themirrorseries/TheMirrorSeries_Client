@@ -54,25 +54,19 @@ public class GroupChaos : SkillBase
     IEnumerator Chaos(int duration)
     {
         isLastCoroutineRun = 1;
-        List<GameObject> players = findAllPlayers();
+        List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            if (attr.seat != playerAttribute.seat)
-            {
-                attr.isChaos = true;
-                // 头顶播放混乱特效
-            }
+            attr.isChaos = true;
+            // 头顶播放混乱特效
         }
         yield return new WaitForSeconds(duration);
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            if (attr.seat != playerAttribute.seat)
-            {
-                attr.isChaos = false;
-                // 取消头顶播放混乱特效
-            }
+            attr.isChaos = false;
+            // 取消头顶播放混乱特效
         }
         isLastCoroutineRun = 0;
         StopCoroutine(chaosCoroutine);

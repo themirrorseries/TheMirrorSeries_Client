@@ -64,9 +64,13 @@ public class SkillBase : MonoBehaviour
         }
         return objects;
     }
-    public List<GameObject> findAllPlayers()
+    public List<GameObject> findPlayers()
     {
         return FightScene.instance.Players();
+    }
+    public List<GameObject> findEnemys()
+    {
+        return FightScene.instance.Enemys();
     }
     public virtual void beforeSkill()
     {

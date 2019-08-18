@@ -24,4 +24,6 @@ public class SkillEunm
     public const int protectiveCover = 2;
     // 群体混乱
     public const int groupChaos = 3;
+    // 五雷轰顶
+    public const int fiveThunder = 4;
 }

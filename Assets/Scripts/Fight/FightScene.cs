@@ -12,6 +12,7 @@ public class FightScene : MonoBehaviour
     public int deathCount;
     private Dictionary<int, int> seat2Player = new Dictionary<int, int>();
     private List<GameObject> players = new List<GameObject>();
+    private List<GameObject> enemys = new List<GameObject>();
     private GameObject myself;
     private PlayerControl myselfControl;
     // Start is called before the first frame update
@@ -38,6 +39,10 @@ public class FightScene : MonoBehaviour
             {
                 myself = player;
                 myselfControl = playerControl;
+            }
+            else
+            {
+                enemys.Add(player);
             }
         }
     }
@@ -80,9 +85,20 @@ public class FightScene : MonoBehaviour
             myselfControl.Skill2();
         }
     }
+    public void skill3()
+    {
+        if (myselfControl)
+        {
+            myselfControl.Skill3();
+        }
+    }
     public List<GameObject> Players()
     {
         return players;
+    }
+    public List<GameObject> Enemys()
+    {
+        return enemys;
     }
     // Update is called once per frame
     void Update()
