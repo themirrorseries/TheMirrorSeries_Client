@@ -124,7 +124,7 @@ public class PlayerControl : MonoBehaviour
             // 混乱状态下,操作与移动方向相反
             if (attr.isChaos)
             {
-                angle = -angle;
+                angle += 180;
             }
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!attr.canMove()) return;
