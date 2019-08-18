@@ -31,12 +31,12 @@ public class FrameActions : MonoBehaviour
         }
     }
 
-    public void Init(int seat)
+    public void Init()
     {
         isLock = true;
         clientMove = new ClientMoveDTO();
         clientMove.Roomid = GameData.room.Roomid;
-        clientMove.Seat = seat;
+        clientMove.Seat = GameData.seat;
         clientMove.Bagid = bagid;
         clientMove.Msg.Clear();
         isLock = false;

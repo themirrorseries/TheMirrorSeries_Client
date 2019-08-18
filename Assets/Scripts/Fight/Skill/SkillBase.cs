@@ -80,13 +80,6 @@ public class SkillBase : MonoBehaviour
 
     public virtual void afterSkill()
     {
-
-    }
-    // 获取座位,用于区分敌我
-    public int seat()
-    {
-        PlayerControl playerControl = GetComponent<PlayerControl>();
-        return playerControl.seat;
     }
 
 }

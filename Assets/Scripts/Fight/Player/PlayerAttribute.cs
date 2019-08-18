@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttribute : MonoBehaviour
 {
+    public int seat;
     public float hp = 20;
     // 血量上限
     public float hpMax = 20;

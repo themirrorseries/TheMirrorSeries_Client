@@ -57,20 +57,20 @@ public class GroupChaos : SkillBase
         List<GameObject> players = findAllPlayers();
         for (int i = 0; i < players.Count; ++i)
         {
-            PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
-            if (playerControl.seat != seat())
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (attr.seat != playerAttribute.seat)
             {
-                playerControl.attr().isChaos = true;
+                attr.isChaos = true;
                 // 头顶播放混乱特效
             }
         }
         yield return new WaitForSeconds(duration);
         for (int i = 0; i < players.Count; ++i)
         {
-            PlayerControl playerControl = players[i].GetComponent<PlayerControl>();
-            if (playerControl.seat != seat())
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (attr.seat != playerAttribute.seat)
             {
-                playerControl.attr().isChaos = false;
+                attr.isChaos = false;
                 // 取消头顶播放混乱特效
             }
         }

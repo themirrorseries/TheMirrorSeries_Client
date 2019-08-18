@@ -10,7 +10,6 @@ public class PlayerControl : MonoBehaviour
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
-    public int seat;
     private float wallDistance = 2f;
     private float repulseDistance = 10f;
     private float repulseSpeed = 1f;
@@ -18,23 +17,20 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animationControl = GetComponent<AnimationControl>();
-        playerAttribute = GetComponent<PlayerAttribute>();
-        playerSkill = GetComponent<PlayerSkill>();
     }
     public void Init(int seatId)
     {
-        seat = seatId;
-        if (seat == GameData.seat)
+        attr.seat = seatId;
+        if (seatId == GameData.seat)
         {
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
             joystick.onMoveStart.AddListener(onMoveStartHandler);
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
-            FrameActions.instance.Init(seat);
+            FrameActions.instance.Init();
         }
-        attr().Init();
-        skill().Init();
+        attr.Init();
+        skill.Init();
     }
 
     public void Ack()
@@ -123,10 +119,10 @@ public class PlayerControl : MonoBehaviour
     {
         if (direction.X != 0 || direction.Y != 0)
         {
-            animationControl.Run();
+            anim.Run();
             float angle = Mathf.Atan2(direction.X, direction.Y) * Mathf.Rad2Deg;
             // 混乱状态下,操作与移动方向相反
-            if (attr().isChaos)
+            if (attr.isChaos)
             {
                 angle = -angle;
             }
@@ -141,7 +137,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            animationControl.Idle();
+            anim.Idle();
         }
     }
     private void Skill(int skillNum, DeltaDirection direction)
@@ -200,28 +196,37 @@ public class PlayerControl : MonoBehaviour
             playerAttribute.ChangeHp(-7);
         }
     }
-    public PlayerAttribute attr()
+    public PlayerAttribute attr
     {
-        if (playerAttribute == null)
+        get
         {
-            playerAttribute = GetComponent<PlayerAttribute>();
+            if (playerAttribute == null)
+            {
+                playerAttribute = GetComponent<PlayerAttribute>();
+            }
+            return playerAttribute;
         }
-        return playerAttribute;
     }
-    public AnimationControl animControl()
+    public AnimationControl anim
     {
-        if (animationControl == null)
+        get
         {
-            animationControl = GetComponent<AnimationControl>();
+            if (animationControl == null)
+            {
+                animationControl = GetComponent<AnimationControl>();
+            }
+            return animationControl;
         }
-        return animationControl;
     }
-    public PlayerSkill skill()
+    public PlayerSkill skill
     {
-        if (playerSkill == null)
+        get
         {
-            playerSkill = GetComponent<PlayerSkill>();
+            if (playerSkill == null)
+            {
+                playerSkill = GetComponent<PlayerSkill>();
+            }
+            return playerSkill;
         }
-        return playerSkill;
     }
 }
