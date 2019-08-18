@@ -70,7 +70,17 @@ public class SkillBase : MonoBehaviour
     }
     public List<GameObject> findEnemys()
     {
-        return FightScene.instance.Enemys();
+        List<GameObject> players = FightScene.instance.Players();
+        List<GameObject> enemys = new List<GameObject>();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (attr.seat != playerAttribute.seat)
+            {
+                enemys.Add(players[i]);
+            }
+        }
+        return enemys;
     }
     public virtual void beforeSkill()
     {
