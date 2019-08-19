@@ -6,7 +6,7 @@ public class FiveThunder : SkillBase
 {
     public FiveThunder()
     {
-        skillId = SkillEunm.fiveThunder;
+        skillId = (int)SkillEunm.SkillID.fiveThunder;
         skillName = "五雷轰顶";
         cd = 5;
     }

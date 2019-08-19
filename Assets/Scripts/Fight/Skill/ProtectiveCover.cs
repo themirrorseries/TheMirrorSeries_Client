@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class ProtectiveCover : SkillBase
 {
-    private Coroutine protectionCoroutine;
+    private BoxCollider boxCollider;
+    private CapsuleCollider capsuleCollider;
     public ProtectiveCover()
     {
-        skillId = SkillEunm.protectiveCover;
+        skillId = (int)SkillEunm.SkillID.protectiveCover;
         skillName = "保护罩";
         cd = 45;
         durationTime = 5;
         skillScope = 10;
+    }
+    void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
     public override void Release()
     {
@@ -23,24 +29,35 @@ public class ProtectiveCover : SkillBase
     }
     public override void onSkill()
     {
-        protectionCoroutine = StartCoroutine(Protection(skillScope, durationTime));
-    }
-    // 保护罩协程
-    IEnumerator Protection(float range, int duration)
-    {
-        BoxCollider boxCollider = GetComponent<BoxCollider>();
-        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
         boxCollider.enabled = false;
         capsuleCollider.enabled = true;
-        capsuleCollider.radius += range;
+        capsuleCollider.radius += skillScope;
         playerAttribute.hasProtection = true;
         // 保护罩UI开启
-        yield return new WaitForSeconds(duration);
-        boxCollider.enabled = true;
-        capsuleCollider.enabled = false;
-        capsuleCollider.radius -= range;
-        playerAttribute.hasProtection = false;
-        // 保护罩UI关闭
-        StopCoroutine(protectionCoroutine);
+        passTime = 0;
+        needUpdate = (int)SkillEunm.SkillState.Duration;
+    }
+    public override void UpdateState(float deltaTime)
+    {
+        if (needUpdate == (int)SkillEunm.SkillState.Init)
+        {
+            return;
+        }
+        else if (needUpdate == (int)SkillEunm.SkillState.Duration)
+        {
+            if (passTime + deltaTime < durationTime)
+            {
+                passTime += deltaTime;
+            }
+            else
+            {
+                boxCollider.enabled = true;
+                capsuleCollider.enabled = false;
+                capsuleCollider.radius -= skillScope;
+                playerAttribute.hasProtection = false;
+                // 保护罩UI关闭
+                needUpdate = (int)SkillEunm.SkillState.Init;
+            }
+        }
     }
 }

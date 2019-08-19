@@ -16,6 +16,8 @@ public class SkillBase : MonoBehaviour
     public int delayTime;
     // 持续时间
     public int durationTime;
+    // 流逝时间(更新BUFF)
+    public float passTime;
     // 技能对象(层级名称)
     public string[] skillAims;
     // 技能范围
@@ -23,12 +25,18 @@ public class SkillBase : MonoBehaviour
     private long lastSkillTime;
     // 角色属性
     public PlayerAttribute playerAttribute;
+    public int needUpdate = (int)SkillEunm.SkillState.Init;
     void Start()
     {
         lastSkillTime = TimeStamp.addTimeStamp(-cd);
         playerAttribute = GetComponent<PlayerAttribute>();
     }
     public virtual void Release()
+    {
+
+    }
+    // 更新buff流逝时间
+    public virtual void UpdateState(float deltaTime)
     {
 
     }

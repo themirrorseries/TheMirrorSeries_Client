@@ -7,13 +7,12 @@ public class PlayerControl : MonoBehaviour
 {
     ETCJoystick joystick;
     public float speed = 10f;
+    // 墙壁距离
+    private float wallDistance = 2f;
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
-    private float wallDistance = 2f;
-    private float repulseDistance = 10f;
-    private float repulseSpeed = 1f;
-    private Coroutine repulseCoroutine;
+    private RepulseAction repulseAction;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,21 +34,21 @@ public class PlayerControl : MonoBehaviour
 
     public void Ack()
     {
-        SendSkillMsg(SkillEunm.ack, 0, 0);
+        SendSkillMsg((int)SkillEunm.SkillBtn.ack, 0, 0);
     }
     public void Skill1()
     {
-        SendSkillMsg(SkillEunm.skill1, 0, 0);
+        SendSkillMsg((int)SkillEunm.SkillBtn.skill1, 0, 0);
     }
 
     public void Skill2()
     {
-        SendSkillMsg(SkillEunm.skill2, 0, 0);
+        SendSkillMsg((int)SkillEunm.SkillBtn.skill2, 0, 0);
     }
 
     public void Skill3()
     {
-        SendSkillMsg(SkillEunm.skill3, 0, 0);
+        SendSkillMsg((int)SkillEunm.SkillBtn.skill3, 0, 0);
     }
     void SendSkillMsg(int skillNum, float x, float y)
     {
@@ -57,6 +56,7 @@ public class PlayerControl : MonoBehaviour
         {
             FrameInfo skillInfo = new FrameInfo();
             skillInfo.Skillid = skillNum;
+            skillInfo.DeltaTime = Time.deltaTime;
             FrameActions.instance.Add(skillInfo);
         }
     }
@@ -81,7 +81,7 @@ public class PlayerControl : MonoBehaviour
             direction.X = x;
             direction.Y = y;
             FrameInfo move = new FrameInfo();
-            move.Skillid = SkillEunm.notSkill;
+            move.Skillid = (int)SkillEunm.SkillID.notSkill;
             move.Move = direction;
             move.DeltaTime = Time.deltaTime;
             FrameActions.instance.Add(move);
@@ -90,12 +90,12 @@ public class PlayerControl : MonoBehaviour
     public void onMsgHandler(FrameInfo frameInfo, float deltaTime)
     {
         // 空帧
-        if (frameInfo.Skillid == SkillEunm.empty)
+        if (frameInfo.Skillid == (int)SkillEunm.SkillID.empty)
         {
             return;
         }
         // 判断是技能还是移动
-        else if (frameInfo.Skillid == SkillEunm.notSkill)
+        else if (frameInfo.Skillid == (int)SkillEunm.SkillID.notSkill)
         {
             Move(frameInfo.Move, deltaTime);
         }
@@ -133,24 +133,10 @@ public class PlayerControl : MonoBehaviour
     {
         skill.Release(skillNum);
     }
-    // Update is called once per frame
-    void Update()
+    public void UpdateState(float deltaTime)
     {
-    }
-    // 击退协程
-    IEnumerator Repulse(Vector3 direction, float distance)
-    {
-        int index = 0;
-        int time = Mathf.CeilToInt(distance / repulseSpeed);
-        while (index < time - 1)
-        {
-            transform.Translate(direction * repulseSpeed, Space.World);
-            ++index;
-            yield return null;
-        }
-        transform.Translate(direction * (distance - index * repulseSpeed), Space.World);
-        attr.isRepulse = false;
-        StopCoroutine(repulseCoroutine);
+        repulse.Repulse(deltaTime);
+        skill.UpdateSkills(deltaTime);
     }
     public void LightCollision(Vector3 direction)
     {
@@ -158,29 +144,10 @@ public class PlayerControl : MonoBehaviour
         // 点积结果为负=>正面
         if (val < 0)
         {
-            float moveDistance = repulseDistance;
             attr.ChangeHp(-2);
             attr.ChangeMp(5);
-            // 击退期间有新的碰撞,则停止上一次的击退
-            if (attr.isRepulse)
-            {
-                StopCoroutine(repulseCoroutine);
-            }
-            else
-            {
-                attr.isRepulse = true;
-            }
             anim.Repulse();
-            // 射线相交计算
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, direction, out hit, wallDistance + repulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
-            {
-                // 如果击退到墙壁,会二段扣血
-                attr.ChangeHp(-2);
-                // ps:乘以2,否则会卡在无法移动的区域里面
-                moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance * (float)2;
-            }
-            repulseCoroutine = StartCoroutine(Repulse(direction.normalized, moveDistance));
+            repulse.Check(wallDistance, direction);
         }
         else
         {
@@ -218,6 +185,17 @@ public class PlayerControl : MonoBehaviour
                 playerSkill = GetComponent<PlayerSkill>();
             }
             return playerSkill;
+        }
+    }
+    public RepulseAction repulse
+    {
+        get
+        {
+            if (repulseAction == null)
+            {
+                repulseAction = GetComponent<RepulseAction>();
+            }
+            return repulseAction;
         }
     }
 }

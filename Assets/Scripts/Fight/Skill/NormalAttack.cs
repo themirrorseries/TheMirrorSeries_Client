@@ -6,7 +6,7 @@ public class NormalAttack : SkillBase
 {
     public NormalAttack()
     {
-        skillId = SkillEunm.normalAck;
+        skillId = (int)SkillEunm.SkillID.normalAck;
         skillName = "普通攻击";
         cd = 0;
     }

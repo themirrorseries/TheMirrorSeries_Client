@@ -21,14 +21,10 @@ public class PlayerAttribute : MonoBehaviour
     public bool hasProtection = false;
     // 混乱状态
     public bool isChaos = false;
+    // 混乱计数
+    public int inChaosCount = 0;
     // Start is called before the first frame update
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
 
     }

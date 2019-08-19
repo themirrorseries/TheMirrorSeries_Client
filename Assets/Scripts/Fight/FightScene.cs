@@ -72,14 +72,25 @@ public class FightScene : MonoBehaviour
                 LightManager lightManager = lights[k].GetComponent<LightManager>();
                 lightManager.Move(deltaTime);
             }
-            for (int k = 0; k < move.ClientInfo.Count; ++k)
+
+            for (int p = 0; p < players.Count; ++p)
             {
-                // -1=>丢包
-                if (move.ClientInfo[k].Seat != -1)
+                // 是否丢包
+                int index = -1;
+                PlayerControl playerControl = players[p].GetComponent<PlayerControl>();
+                for (int q = 0; q < move.ClientInfo.Count; ++q)
                 {
-                    PlayerControl playerControl = players[seat2Player[move.ClientInfo[k].Seat]].GetComponent<PlayerControl>();
-                    playerControl.onMsgHandler(move.ClientInfo[k].Msg[i], deltaTime);
+                    if (move.ClientInfo[q].Seat == playerControl.attr.seat)
+                    {
+                        index = q;
+                        break;
+                    }
                 }
+                if (index != -1)
+                {
+                    playerControl.onMsgHandler(move.ClientInfo[index].Msg[i], deltaTime);
+                }
+                playerControl.UpdateState(deltaTime);
             }
         }
     }
@@ -135,11 +146,6 @@ public class FightScene : MonoBehaviour
                 return;
             }
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
     // 游戏是否结束
     public bool isEnd()

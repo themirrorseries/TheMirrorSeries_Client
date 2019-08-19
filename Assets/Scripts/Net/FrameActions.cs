@@ -20,7 +20,7 @@ public class FrameActions : MonoBehaviour
     void Start()
     {
         emptyFrame = new FrameInfo();
-        emptyFrame.Skillid = SkillEunm.empty;
+        emptyFrame.Skillid = (int)SkillEunm.SkillID.empty;
         needAdd = true;
     }
     void Update()

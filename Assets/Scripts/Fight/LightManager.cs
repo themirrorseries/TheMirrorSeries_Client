@@ -10,7 +10,7 @@ public class LightManager : MonoBehaviour
     private int count = 0;
     private int index = 0;
     private Vector3 direction;
-    private float distance = 0.5f;
+    private float distance = 1f;
     // Start is called before the first frame update
     void Start()
     {

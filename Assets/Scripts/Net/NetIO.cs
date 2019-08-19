@@ -9,11 +9,9 @@ public class NetIO
 {
 
     public static NetIO instance;
-
     private Socket socket;
-    private string ip = "mirror.murmur.top";
+    private string ip = "192.168.124.171";
     private int port = 9700;
-
     private byte[] readBuff = new byte[1024];
     List<byte> cache = new List<byte>();
     public List<SocketModel> messagesList = new List<SocketModel>();
