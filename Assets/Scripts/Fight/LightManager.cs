@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class LightManager : MonoBehaviour
 {
-    // 速度
-    private float speed = 5f;
+    // 初始速度
+    private float speed;
+    private float curSpeed;
     // 碰撞次数
-    private int count = 0;
+    private int count;
     private int index = 0;
     private Vector3 direction;
     private float distance = 1f;
@@ -19,6 +20,7 @@ public class LightManager : MonoBehaviour
     public void Init(float _speed, int _count, float _x, float _z)
     {
         speed = _speed;
+        curSpeed = speed;
         count = _count;
         direction = new Vector3(_x, 0, _z);
     }
@@ -46,19 +48,18 @@ public class LightManager : MonoBehaviour
             }
             else
             {
-                transform.Translate(direction.normalized * deltaTime * speed);
+                transform.Translate(direction.normalized * deltaTime * curSpeed);
             }
         }
     }
 
     private void Reflect(Vector3 forward)
     {
-        Debug.Log("第" + (index + 1).ToString() + "次碰撞," + "原来的方向:" + direction + "法线:" + forward);
         // 计算反射方向
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
-        Debug.Log("第" + (index + 1).ToString() + "次反弹方向为:" + direction);
         // 碰撞次数++
         index++;
+        curSpeed = speed + Mathf.Log(index + 1, 1.2f);
         if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);
