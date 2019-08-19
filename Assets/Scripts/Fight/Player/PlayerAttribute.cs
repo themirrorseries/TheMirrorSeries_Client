@@ -19,8 +19,6 @@ public class PlayerAttribute : MonoBehaviour
     public bool isRepulse = false;
     // 保护罩状态
     public bool hasProtection = false;
-    // 混乱状态
-    public bool isChaos = false;
     // 混乱计数
     public int inChaosCount = 0;
     // Start is called before the first frame update
@@ -73,5 +71,13 @@ public class PlayerAttribute : MonoBehaviour
     public bool canMove()
     {
         return (isRepulse == false);
+    }
+    // 是否混乱
+    public bool isChaos
+    {
+        get
+        {
+            return (inChaosCount > 0);
+        }
     }
 }

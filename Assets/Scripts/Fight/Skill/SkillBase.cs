@@ -26,7 +26,7 @@ public class SkillBase : MonoBehaviour
     // 角色属性
     public PlayerAttribute playerAttribute;
     public int needUpdate = (int)SkillEunm.SkillState.Init;
-    void Start()
+    public virtual void Start()
     {
         lastSkillTime = TimeStamp.addTimeStamp(-cd);
         playerAttribute = GetComponent<PlayerAttribute>();

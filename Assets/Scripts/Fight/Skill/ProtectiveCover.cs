@@ -14,8 +14,9 @@ public class ProtectiveCover : SkillBase
         durationTime = 5;
         skillScope = 10;
     }
-    void Start()
+    public override void Start()
     {
+        base.Start();
         boxCollider = GetComponent<BoxCollider>();
         capsuleCollider = GetComponent<CapsuleCollider>();
     }

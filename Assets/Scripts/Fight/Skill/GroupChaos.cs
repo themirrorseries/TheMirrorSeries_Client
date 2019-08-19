@@ -17,11 +17,8 @@ public class GroupChaos : SkillBase
         if (isEndCd())
         {
             beforeSkill();
+            onSkill();
         }
-    }
-    public override void beforeSkill()
-    {
-        base.beforeSkill();
     }
     public override void onSkill()
     {
@@ -47,15 +44,14 @@ public class GroupChaos : SkillBase
                 for (int i = 0; i < players.Count; ++i)
                 {
                     PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-                    if (attr.inChaosCount == 0)
+                    if (!attr.isChaos)
                     {
-                        attr.isChaos = true;
                         // 头顶播放混乱特效
                     }
                     attr.inChaosCount++;
                 }
-                needUpdate = 1;
-                passTime = (int)SkillEunm.SkillState.Duration;
+                needUpdate = (int)SkillEunm.SkillState.Duration;
+                passTime = 0;
             }
         }
         else
@@ -72,13 +68,11 @@ public class GroupChaos : SkillBase
                     PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
                     if (attr.inChaosCount == 1)
                     {
-                        attr.isChaos = false;
                         // 取消头顶播放混乱特效
                     }
                     attr.inChaosCount--;
                 }
                 needUpdate = (int)SkillEunm.SkillState.Init;
-                passTime = 0;
             }
         }
     }
