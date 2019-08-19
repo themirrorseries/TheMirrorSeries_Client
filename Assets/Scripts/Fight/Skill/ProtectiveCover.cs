@@ -13,15 +13,15 @@ public class ProtectiveCover : SkillBase
         durationTime = 5;
         skillScope = 10;
     }
-    public override void Release(DeltaDirection direction)
+    public override void Release()
     {
         if (isEndCd())
         {
             beforeSkill();
-            onSkill(direction);
+            onSkill();
         }
     }
-    public override void onSkill(DeltaDirection direction)
+    public override void onSkill()
     {
         protectionCoroutine = StartCoroutine(Protection(skillScope, durationTime));
     }

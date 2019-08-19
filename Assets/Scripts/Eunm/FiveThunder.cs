@@ -10,12 +10,12 @@ public class FiveThunder : SkillBase
         skillName = "五雷轰顶";
         cd = 5;
     }
-    public override void Release(DeltaDirection direction)
+    public override void Release()
     {
         beforeSkill();
-        onSkill(direction);
+        onSkill();
     }
-    public override void onSkill(DeltaDirection direction)
+    public override void onSkill()
     {
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)

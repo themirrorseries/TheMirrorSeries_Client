@@ -16,7 +16,7 @@ public class GroupChaos : SkillBase
         durationTime = 5;
         delayTime = 3;
     }
-    public override void Release(DeltaDirection direction)
+    public override void Release()
     {
         if (isEndCd())
         {

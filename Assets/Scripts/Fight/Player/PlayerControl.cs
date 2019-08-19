@@ -80,11 +80,10 @@ public class PlayerControl : MonoBehaviour
             DeltaDirection direction = new DeltaDirection();
             direction.X = x;
             direction.Y = y;
-            direction.DeltaTime = deltaTime;
             FrameInfo move = new FrameInfo();
             move.Skillid = SkillEunm.notSkill;
             move.Move = direction;
-            move.Move.DeltaTime = deltaTime;
+            move.DeltaTime = Time.deltaTime;
             FrameActions.instance.Add(move);
         }
     }
@@ -107,15 +106,15 @@ public class PlayerControl : MonoBehaviour
             // 判断是技能还是移动
             else if (frames[i].Skillid == SkillEunm.notSkill)
             {
-                Move(frames[i].Move);
+                Move(frames[i].Move, frames[i].DeltaTime);
             }
             else
             {
-                Skill(frames[i].Skillid, frames[i].SkillDir);
+                Skill(frames[i].Skillid);
             }
         }
     }
-    private void Move(DeltaDirection direction)
+    private void Move(DeltaDirection direction, float deltaTime)
     {
         if (direction.X != 0 || direction.Y != 0)
         {
@@ -129,10 +128,10 @@ public class PlayerControl : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!attr.canMove()) return;
             // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * direction.DeltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * deltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
             if (hitColliders.Length == 0)
             {
-                transform.Translate(Vector3.forward * direction.DeltaTime * speed, Space.Self);
+                transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
             }
         }
         else
@@ -140,9 +139,9 @@ public class PlayerControl : MonoBehaviour
             anim.Idle();
         }
     }
-    private void Skill(int skillNum, DeltaDirection direction)
+    private void Skill(int skillNum)
     {
-        skill.Release(skillNum, direction);
+        skill.Release(skillNum);
     }
     // Update is called once per frame
     void Update()

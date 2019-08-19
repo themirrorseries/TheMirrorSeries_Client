@@ -10,15 +10,15 @@ public class NormalAttack : SkillBase
         skillName = "普通攻击";
         cd = 0;
     }
-    public override void Release(DeltaDirection direction)
+    public override void Release()
     {
         if (isMpEnough(playerAttribute.mpMax))
         {
             AddMp(-playerAttribute.mp);
-            onSkill(direction);
+            onSkill();
         }
     }
-    public override void onSkill(DeltaDirection direction)
+    public override void onSkill()
     {
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         // 固定光线初始位置y方向

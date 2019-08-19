@@ -26,32 +26,32 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-    public void Release(int skillNum, DeltaDirection direction)
+    public void Release(int skillNum)
     {
         // 这里还应该有一个 判断这个技能编号是否大于了技能数组的长度
         switch (skillNum)
         {
-            case SkillEunm.ack: NormalAck(direction); break;
-            case SkillEunm.skill1: Skill1(direction); break;
-            case SkillEunm.skill2: Skill2(direction); break;
-            case SkillEunm.skill3: Skill3(direction); break;
+            case SkillEunm.ack: NormalAck(); break;
+            case SkillEunm.skill1: Skill1(); break;
+            case SkillEunm.skill2: Skill2(); break;
+            case SkillEunm.skill3: Skill3(); break;
         }
     }
-    public void NormalAck(DeltaDirection direction)
+    public void NormalAck()
     {
-        skills[SkillEunm.ack].Release(direction);
+        skills[SkillEunm.ack].Release();
     }
-    public void Skill1(DeltaDirection direction)
+    public void Skill1()
     {
-        skills[SkillEunm.skill1].Release(direction);
+        skills[SkillEunm.skill1].Release();
     }
-    public void Skill2(DeltaDirection direction)
+    public void Skill2()
     {
-        skills[SkillEunm.skill2].Release(direction);
+        skills[SkillEunm.skill2].Release();
     }
-    public void Skill3(DeltaDirection direction)
+    public void Skill3()
     {
-        skills[SkillEunm.skill3].Release(direction);
+        skills[SkillEunm.skill3].Release();
     }
     public SkillBase addSkill(int skillId)
     {

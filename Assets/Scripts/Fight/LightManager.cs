@@ -32,8 +32,10 @@ public class LightManager : MonoBehaviour
     }
     private void Reflect(Vector3 forward)
     {
+        Debug.Log("第" + (index + 1).ToString() + "次碰撞," + "原来的方向:" + direction + "法线:" + forward);
         // 计算反射方向
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
+        Debug.Log("第" + (index + 1).ToString() + "次反弹方向为:" + direction);
         // 碰撞次数++
         index++;
     }
@@ -50,6 +52,6 @@ public class LightManager : MonoBehaviour
                 playerControl.LightCollision(direction);
             }
         }
-        Reflect(other.gameObject.transform.forward);
+        Reflect(other.gameObject.transform.forward.normalized);
     }
 }

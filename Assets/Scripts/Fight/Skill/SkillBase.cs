@@ -28,7 +28,7 @@ public class SkillBase : MonoBehaviour
         lastSkillTime = TimeStamp.addTimeStamp(-cd);
         playerAttribute = GetComponent<PlayerAttribute>();
     }
-    public virtual void Release(DeltaDirection direction)
+    public virtual void Release()
     {
 
     }
@@ -87,7 +87,7 @@ public class SkillBase : MonoBehaviour
         lastSkillTime = TimeStamp.getTimeStamp();
     }
 
-    public virtual void onSkill(DeltaDirection direction)
+    public virtual void onSkill()
     {
 
     }
