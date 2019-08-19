@@ -10,6 +10,7 @@ public class LightManager : MonoBehaviour
     private int count = 0;
     private int index = 0;
     private Vector3 direction;
+    private float distance = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,27 @@ public class LightManager : MonoBehaviour
     {
         if (index < count)
         {
-            transform.Translate(direction.normalized * deltaTime * speed);
+            // 射线相交计算
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, direction, out hit, distance, LayerMask.GetMask(LayerEunm.WALL) | LayerMask.GetMask(LayerEunm.PLAYER)))
+            {
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    // ps:防止光线先改变方向
+                    PlayerAttribute playerAttribute = hit.collider.gameObject.GetComponent<PlayerAttribute>();
+                    // 保护罩期间直接反弹
+                    if (!playerAttribute.hasProtection)
+                    {
+                        PlayerControl playerControl = hit.collider.gameObject.GetComponent<PlayerControl>();
+                        playerControl.LightCollision(direction);
+                    }
+                }
+                Reflect(hit.collider.gameObject.transform.forward.normalized);
+            }
+            else
+            {
+                transform.Translate(direction.normalized * deltaTime * speed);
+            }
         }
     }
 
@@ -38,24 +59,9 @@ public class LightManager : MonoBehaviour
         Debug.Log("第" + (index + 1).ToString() + "次反弹方向为:" + direction);
         // 碰撞次数++
         index++;
-        if (index == 0)
+        if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);
         }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            // ps:防止光线先改变方向
-            PlayerAttribute playerAttribute = other.gameObject.GetComponent<PlayerAttribute>();
-            // 保护罩期间直接反弹
-            if (!playerAttribute.hasProtection)
-            {
-                PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
-                playerControl.LightCollision(direction);
-            }
-        }
-        Reflect(other.gameObject.transform.forward.normalized);
     }
 }

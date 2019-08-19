@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2141339248867602163}
   - component: {fileID: 2141339248867602172}
   - component: {fileID: 2141339248867602173}
-  - component: {fileID: 2141339248867602174}
   m_Layer: 10
   m_Name: Light1
   m_TagString: Light
@@ -201,19 +200,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48079074ff294744c99ab1ed90aff8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &2141339248867602174
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141339248867602175}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 36
-  m_CollisionDetection: 0
