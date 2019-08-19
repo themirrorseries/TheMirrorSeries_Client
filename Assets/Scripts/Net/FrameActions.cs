@@ -27,6 +27,7 @@ public class FrameActions : MonoBehaviour
     {
         if (needAdd)
         {
+            emptyFrame.DeltaTime = Time.deltaTime;
             Add(emptyFrame);
         }
     }
@@ -72,5 +73,13 @@ public class FrameActions : MonoBehaviour
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
         Remove();
+    }
+
+    public int FrameCount
+    {
+        get
+        {
+            return frameCount;
+        }
     }
 }

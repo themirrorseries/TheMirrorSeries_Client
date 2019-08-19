@@ -22,14 +22,14 @@ public class LightManager : MonoBehaviour
         direction = new Vector3(_x, 0, _z);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Move(float deltaTime)
     {
         if (index < count)
         {
-            transform.Translate(direction.normalized * Time.deltaTime * speed);
+            transform.Translate(direction.normalized * deltaTime * speed);
         }
     }
+
     private void Reflect(Vector3 forward)
     {
         Debug.Log("第" + (index + 1).ToString() + "次碰撞," + "原来的方向:" + direction + "法线:" + forward);
@@ -38,6 +38,10 @@ public class LightManager : MonoBehaviour
         Debug.Log("第" + (index + 1).ToString() + "次反弹方向为:" + direction);
         // 碰撞次数++
         index++;
+        if (index == 0)
+        {
+            FightScene.instance.RomoveLight(gameObject);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

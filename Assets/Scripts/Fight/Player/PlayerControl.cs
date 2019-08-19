@@ -87,31 +87,21 @@ public class PlayerControl : MonoBehaviour
             FrameActions.instance.Add(move);
         }
     }
-    public void onMsgHandler(Google.Protobuf.Collections.RepeatedField<FrameInfo> frameInfo)
+    public void onMsgHandler(FrameInfo frameInfo, float deltaTime)
     {
-        List<FrameInfo> frames = new List<FrameInfo>();
-        for (int i = 0; i < frameInfo.Count; ++i)
+        // 空帧
+        if (frameInfo.Skillid == SkillEunm.empty)
         {
-            frames.Add(frameInfo[i]);
+            return;
         }
-        // 顺序重排
-        frames.Sort((a, b) => a.Frame.CompareTo(b.Frame));
-        for (int i = 0; i < frames.Count; ++i)
+        // 判断是技能还是移动
+        else if (frameInfo.Skillid == SkillEunm.notSkill)
         {
-            // 空帧
-            if (frames[i].Skillid == SkillEunm.empty)
-            {
-                continue;
-            }
-            // 判断是技能还是移动
-            else if (frames[i].Skillid == SkillEunm.notSkill)
-            {
-                Move(frames[i].Move, frames[i].DeltaTime);
-            }
-            else
-            {
-                Skill(frames[i].Skillid);
-            }
+            Move(frameInfo.Move, deltaTime);
+        }
+        else
+        {
+            Skill(frameInfo.Skillid);
         }
     }
     private void Move(DeltaDirection direction, float deltaTime)

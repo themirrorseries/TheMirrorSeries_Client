@@ -14,6 +14,7 @@ public class FightScene : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     private GameObject myself;
     private PlayerControl myselfControl;
+    private List<GameObject> lights = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -46,16 +47,39 @@ public class FightScene : MonoBehaviour
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
         lightMgr.Init(GameData.room.Speed, GameData.room.Count, GameData.room.X, GameData.room.Z);
+        lights.Add(light);
     }
     public void Refresh(ServerMoveDTO move)
     {
-        for (int i = 0; i < move.ClientInfo.Count; ++i)
+        List<float> deltaTimes = new List<float>();
+        for (int i = 0; i < FrameActions.instance.FrameCount; ++i)
         {
-            // -1=>丢包
-            if (move.ClientInfo[i].Seat != -1)
+            int count = 0;
+            float deltaTime = 0;
+            for (int j = 0; j < move.ClientInfo.Count; ++j)
             {
-                PlayerControl playerControl = players[seat2Player[move.ClientInfo[i].Seat]].GetComponent<PlayerControl>();
-                playerControl.onMsgHandler(move.ClientInfo[i].Msg);
+                if (move.ClientInfo[j].Seat != -1)
+                {
+                    ++count;
+                    deltaTime += move.ClientInfo[j].Msg[i].DeltaTime;
+                }
+            }
+            deltaTimes.Add(deltaTime / count);
+            deltaTime /= count;
+
+            for (int k = 0; k < lights.Count; ++k)
+            {
+                LightManager lightManager = lights[k].GetComponent<LightManager>();
+                lightManager.Move(deltaTime);
+            }
+            for (int k = 0; k < move.ClientInfo.Count; ++k)
+            {
+                // -1=>丢包
+                if (move.ClientInfo[k].Seat != -1)
+                {
+                    PlayerControl playerControl = players[seat2Player[move.ClientInfo[k].Seat]].GetComponent<PlayerControl>();
+                    playerControl.onMsgHandler(move.ClientInfo[k].Msg[i], deltaTime);
+                }
             }
         }
     }
@@ -87,9 +111,30 @@ public class FightScene : MonoBehaviour
             myselfControl.Skill3();
         }
     }
-    public List<GameObject> Players()
+    public List<GameObject> Players
     {
-        return players;
+        get
+        {
+            return players;
+        }
+    }
+    public List<GameObject> Lights
+    {
+        get
+        {
+            return lights;
+        }
+    }
+    public void RomoveLight(GameObject light)
+    {
+        for (int i = 0; i < lights.Count; ++i)
+        {
+            if (lights[i] == light)
+            {
+                lights.Remove(light);
+                return;
+            }
+        }
     }
     // Update is called once per frame
     void Update()

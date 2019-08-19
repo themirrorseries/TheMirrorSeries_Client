@@ -66,11 +66,11 @@ public class SkillBase : MonoBehaviour
     }
     public List<GameObject> findPlayers()
     {
-        return FightScene.instance.Players();
+        return FightScene.instance.Players;
     }
     public List<GameObject> findEnemys()
     {
-        List<GameObject> players = FightScene.instance.Players();
+        List<GameObject> players = FightScene.instance.Players;
         List<GameObject> enemys = new List<GameObject>();
         for (int i = 0; i < players.Count; ++i)
         {
