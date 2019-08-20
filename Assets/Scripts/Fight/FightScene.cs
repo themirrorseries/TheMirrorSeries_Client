@@ -184,7 +184,7 @@ public class FightScene : MonoBehaviour
         death.time = gameTime;
         if (seat == RoomData.seat)
         {
-            FrameActions.instance.needAdd = false;
+            FrameActions.instance.needAdd = true;
         }
         deaths.Add(death);
         if (isEnd)
