@@ -2,40 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Google.Protobuf;
+using UnityEngine.UI;
 
 public class FightScene : MonoBehaviour
 {
     public static FightScene instance;
     [SerializeField]
     private GameObject[] seats;
-    // 当前死亡人数
-    public int deathCount;
     private Dictionary<int, int> seat2Player = new Dictionary<int, int>();
     private List<GameObject> players = new List<GameObject>();
     private GameObject myself;
     private PlayerControl myselfControl;
     private List<GameObject> lights = new List<GameObject>();
+    // 战斗进行时间
+    public float gameTime;
+    // 死亡玩家记录
+    public List<Death> deaths = new List<Death>();
+    [SerializeField]
+    private Image settlementPlane;
+    [SerializeField]
+    private GameObject[] ranklist;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        gameTime = 0;
+        settlementPlane.gameObject.SetActive(false);
         InitPlayers();
         InitLight();
     }
+    public void ShowRankList()
+    {
+        settlementPlane.gameObject.SetActive(true);
+        for (int i = 0; i < ranklist.Length; ++i)
+        {
+            if (i > deaths.Count)
+            {
+                ranklist[i].SetActive(false);
+            }
+            else
+            {
+                ranklist[i].SetActive(true);
+                ranklist[i].GetComponent<Rank>().View(i == 0, deaths[i]);
+            }
+        }
+    }
     public void InitPlayers()
     {
-        for (int i = 0; i < GameData.room.Players.Count; ++i)
+        for (int i = 0; i < RoomData.room.Players.Count; ++i)
         {
             // GameObject player = Instantiate(ResourcesTools.getMirror(GameData.room.Players[i].Roleid),
             //             seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
             GameObject player = Instantiate(ResourcesTools.getMirror(1),
-                        seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
+                        seats[RoomData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
 
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
-            playerControl.Init(GameData.room.Players[i].Seat);
+            playerControl.Init(RoomData.room.Players[i].Seat);
             players.Add(player);
-            seat2Player.Add(GameData.room.Players[i].Seat, i);
-            if (GameData.seat == GameData.room.Players[i].Seat)
+            seat2Player.Add(RoomData.room.Players[i].Seat, i);
+            if (RoomData.seat == RoomData.room.Players[i].Seat)
             {
                 myself = player;
                 myselfControl = playerControl;
@@ -46,7 +71,7 @@ public class FightScene : MonoBehaviour
     {
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
-        lightMgr.Init(GameData.room.Speed, GameData.room.Count, GameData.room.X, GameData.room.Z);
+        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, RoomData.room.X, RoomData.room.Z);
         lights.Add(light);
     }
     public void Refresh(ServerMoveDTO move)
@@ -66,6 +91,7 @@ public class FightScene : MonoBehaviour
             }
             deltaTimes.Add(deltaTime / count);
             deltaTime /= count;
+            gameTime += deltaTime;
 
             for (int k = 0; k < lights.Count; ++k)
             {
@@ -78,6 +104,10 @@ public class FightScene : MonoBehaviour
                 // 是否丢包
                 int index = -1;
                 PlayerControl playerControl = players[p].GetComponent<PlayerControl>();
+                if (playerControl.attr.isDied)
+                {
+                    return;
+                }
                 for (int q = 0; q < move.ClientInfo.Count; ++q)
                 {
                     if (move.ClientInfo[q].Seat == playerControl.attr.seat)
@@ -147,9 +177,28 @@ public class FightScene : MonoBehaviour
             }
         }
     }
-    // 游戏是否结束
-    public bool isEnd()
+    public void AddDeath(int seat, int bounces)
     {
-        return deathCount == players.Count;
+        Death death;
+        death.seat = seat;
+        death.bounces = bounces;
+        death.time = gameTime;
+        if (seat == RoomData.seat)
+        {
+            FrameActions.instance.needAdd = false;
+        }
+        deaths.Add(death);
+        if (isEnd)
+        {
+            ShowRankList();
+        }
+    }
+    // 游戏是否结束
+    public bool isEnd
+    {
+        get
+        {
+            return deaths.Count == players.Count - 1;
+        }
     }
 }

@@ -36,8 +36,8 @@ public class FrameActions : MonoBehaviour
     {
         isLock = true;
         clientMove = new ClientMoveDTO();
-        clientMove.Roomid = GameData.room.Roomid;
-        clientMove.Seat = GameData.seat;
+        clientMove.Roomid = RoomData.room.Roomid;
+        clientMove.Seat = RoomData.seat;
         clientMove.Bagid = bagid;
         clientMove.Msg.Clear();
         isLock = false;

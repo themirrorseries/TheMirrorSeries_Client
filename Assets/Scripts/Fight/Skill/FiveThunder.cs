@@ -24,6 +24,11 @@ public class FiveThunder : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             // 减少当前生命值的50%
             attr.ChangeHp(-attr.hp / 2);
+            if (attr.isDied)
+            {
+                FightScene.instance.AddDeath(attr.seat, attr.bounces);
+                return;
+            }
         }
     }
 }

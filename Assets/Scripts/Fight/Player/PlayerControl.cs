@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour
     public void Init(int seatId)
     {
         attr.seat = seatId;
-        if (seatId == GameData.seat)
+        if (seatId == RoomData.seat)
         {
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
             joystick.onMoveStart.AddListener(onMoveStartHandler);
@@ -52,6 +52,10 @@ public class PlayerControl : MonoBehaviour
     }
     void SendSkillMsg(int skillNum, float x, float y)
     {
+        if (attr.isDied)
+        {
+            return;
+        }
         if (!FrameActions.instance.isLock)
         {
             FrameInfo skillInfo = new FrameInfo();
@@ -75,6 +79,10 @@ public class PlayerControl : MonoBehaviour
     }
     void SendMoveMsg(float x, float y, float deltaTime)
     {
+        if (attr.isDied)
+        {
+            return;
+        }
         if (!FrameActions.instance.isLock)
         {
             DeltaDirection direction = new DeltaDirection();
@@ -116,7 +124,7 @@ public class PlayerControl : MonoBehaviour
                 angle += 180;
             }
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-            if (!attr.canMove()) return;
+            if (!attr.canMove) return;
             // 球形射线检测
             Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * deltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
             if (hitColliders.Length == 0)
@@ -145,6 +153,11 @@ public class PlayerControl : MonoBehaviour
         if (val < 0)
         {
             attr.ChangeHp(-2);
+            if (attr.isDied)
+            {
+                FightScene.instance.AddDeath(attr.seat, attr.bounces);
+                return;
+            }
             attr.ChangeMp(5);
             anim.Repulse();
             repulse.Check(wallDistance, direction);
@@ -152,6 +165,10 @@ public class PlayerControl : MonoBehaviour
         else
         {
             attr.ChangeHp(-7);
+            if (attr.isDied)
+            {
+                FightScene.instance.AddDeath(attr.seat, attr.bounces);
+            }
         }
     }
     public PlayerAttribute attr

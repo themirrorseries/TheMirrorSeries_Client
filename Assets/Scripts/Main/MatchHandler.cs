@@ -23,12 +23,12 @@ public class MatchHandler : MonoBehaviour, IHandler
     public void Match(byte[] message)
     {
         MatchSuccessDTO match = MatchSuccessDTO.Parser.ParseFrom(message);
-        GameData.room = match;
+        RoomData.room = match;
         for (int i = 0; i < match.Players.Count; ++i)
         {
             if (match.Players[i].Playerid == GameData.user.Id)
             {
-                GameData.seat = match.Players[i].Seat;
+                RoomData.seat = match.Players[i].Seat;
                 break;
             }
         }

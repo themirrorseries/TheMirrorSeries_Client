@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttribute : MonoBehaviour
 {
     public int seat;
+    public int bounces = 0;
     public float hp = 20;
     // 血量上限
     public float hpMax = 20;
@@ -68,9 +69,12 @@ public class PlayerAttribute : MonoBehaviour
         }
         mpText.text = "mp:" + mp.ToString();
     }
-    public bool canMove()
+    public bool canMove
     {
-        return (isRepulse == false);
+        get
+        {
+            return (isRepulse == false);
+        }
     }
     // 是否混乱
     public bool isChaos
@@ -78,6 +82,15 @@ public class PlayerAttribute : MonoBehaviour
         get
         {
             return (inChaosCount > 0);
+        }
+    }
+
+    // 是否死亡
+    public bool isDied
+    {
+        get
+        {
+            return (hp == 0);
         }
     }
 }

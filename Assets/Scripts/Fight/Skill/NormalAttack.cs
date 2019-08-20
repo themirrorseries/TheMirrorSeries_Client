@@ -25,7 +25,7 @@ public class NormalAttack : SkillBase
         light.transform.position = new Vector3(transform.position.x, light.transform.position.y, transform.position.z)
                                     + transform.forward.normalized * 2;
         LightManager lightMgr = light.GetComponent<LightManager>();
-        lightMgr.Init(GameData.room.Speed, GameData.room.Count, transform.forward.x, transform.forward.z);
+        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, transform.forward.x, transform.forward.z);
         FightScene.instance.Lights.Add(light);
     }
 }
