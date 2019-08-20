@@ -37,6 +37,8 @@ public class LightManager : MonoBehaviour
                 {
                     // ps:防止光线先改变方向
                     PlayerAttribute playerAttribute = hit.collider.gameObject.GetComponent<PlayerAttribute>();
+                    // 反弹次数暂定每次直接++, 1:每次 2:正面 3:反面 4:保护罩期间怎么计算
+                    playerAttribute.bounces++;
                     // 保护罩期间直接反弹
                     if (!playerAttribute.hasProtection)
                     {

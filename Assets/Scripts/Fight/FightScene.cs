@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Google.Protobuf;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightScene : MonoBehaviour
 {
@@ -34,17 +35,15 @@ public class FightScene : MonoBehaviour
     public void ShowRankList()
     {
         settlementPlane.gameObject.SetActive(true);
-        for (int i = 0; i < ranklist.Length; ++i)
+        int index = 0;
+        for (; index < deaths.Count; ++index)
         {
-            if (i > deaths.Count)
-            {
-                ranklist[i].SetActive(false);
-            }
-            else
-            {
-                ranklist[i].SetActive(true);
-                ranklist[i].GetComponent<Rank>().View(i == 0, deaths[i]);
-            }
+            ranklist[index].SetActive(true);
+            ranklist[index].GetComponent<Rank>().View(index == 0, deaths[index]);
+        }
+        for (; index < ranklist.Length; ++index)
+        {
+            ranklist[index].SetActive(false);
         }
     }
     public void InitPlayers()
@@ -190,7 +189,33 @@ public class FightScene : MonoBehaviour
         deaths.Add(death);
         if (isEnd)
         {
+            beforeShow();
             ShowRankList();
+        }
+    }
+    public void beforeShow()
+    {
+        for (int i = 0; i < RoomData.room.Players.Count; ++i)
+        {
+            bool isDeath = false;
+            for (int j = 0; j < deaths.Count; ++j)
+            {
+                if (RoomData.room.Players[i].Seat == deaths[j].seat)
+                {
+                    isDeath = true;
+                    break;
+                }
+            }
+            if (!isDeath)
+            {
+                Death death;
+                death.seat = RoomData.room.Players[i].Seat;
+                death.time = gameTime;
+                death.bounces = players[seat2Player[death.seat]].GetComponent<PlayerAttribute>().bounces;
+                deaths.Add(death);
+                deaths.Reverse();
+                return;
+            }
         }
     }
     // 游戏是否结束
@@ -200,5 +225,15 @@ public class FightScene : MonoBehaviour
         {
             return deaths.Count == players.Count - 1;
         }
+    }
+    public void BackToMainScene()
+    {
+        GameData.match = false;
+        SceneManager.LoadScene(SceneEunm.MAIN);
+    }
+    public void Again()
+    {
+        GameData.match = true;
+        SceneManager.LoadScene(SceneEunm.MAIN);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class NetMessagetUtil : MonoBehaviour
 {
-
     IHandler login;
     IHandler fight;
     IHandler match;
@@ -29,11 +29,25 @@ public class NetMessagetUtil : MonoBehaviour
         switch (model.type)
         {
             case (int)MsgTypes.TypeLogin:
-                login.MessageReceive(model); break;
+                {
+                    if (SceneManager.GetActiveScene().name == SceneEunm.MAIN)
+                    {
+                        login.MessageReceive(model);
+                    }
+                }
+                break;
             case (int)MsgTypes.TypeMatch:
-                match.MessageReceive(model); break;
+                if (SceneManager.GetActiveScene().name == SceneEunm.MAIN)
+                {
+                    match.MessageReceive(model);
+                }
+                break;
             case (int)MsgTypes.TypeFight:
-                fight.MessageReceive(model); break;
+                if (SceneManager.GetActiveScene().name == SceneEunm.FIGHT)
+                {
+                    fight.MessageReceive(model);
+                }
+                break;
         }
     }
 

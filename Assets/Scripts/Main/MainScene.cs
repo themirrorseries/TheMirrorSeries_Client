@@ -11,30 +11,40 @@ public class MainScene : MonoBehaviour
     private InputField nameInput;
     [SerializeField]
     private Button matchBtn;
-    private bool isMatch = false;
+    public bool isMatch = false;
     // 临时房间id,用于取消匹配用
     private int roomId = -1;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        // 没有UUID,第一次登陆
-        if (LocalStorage.GetString("UUID") == string.Empty)
+        if (GameData.user == null)
         {
-            // 生成UUID,发送给服务端,服务端返回UUID以及ID,然后记录下来
-            string uuid = System.Guid.NewGuid().ToString();
-            LocalStorage.SetString("UUID", uuid);
-            UserDTO user = new UserDTO();
-            user.Id = -1;
-            user.Uuid = uuid;
-            this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
+            // 没有UUID,第一次登陆
+            if (LocalStorage.GetString("UUID") == string.Empty)
+            {
+                // 生成UUID,发送给服务端,服务端返回UUID以及ID,然后记录下来
+                string uuid = System.Guid.NewGuid().ToString();
+                LocalStorage.SetString("UUID", uuid);
+                UserDTO user = new UserDTO();
+                user.Id = -1;
+                user.Uuid = uuid;
+                this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
+            }
+            else
+            {
+                UserDTO user = new UserDTO();
+                user.Id = -1;
+                user.Uuid = LocalStorage.GetString("UUID");
+                this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
+            }
         }
         else
         {
-            UserDTO user = new UserDTO();
-            user.Id = -1;
-            user.Uuid = LocalStorage.GetString("UUID");
-            this.WriteMessage((int)MsgTypes.TypeLogin, (int)LoginTypes.LoginCreq, user.ToByteArray());
+            if (GameData.match)
+            {
+                Match();
+            }
         }
         nameInput.onEndEdit.AddListener(EditEndHandler);
         if (LocalStorage.GetString("name") == string.Empty)

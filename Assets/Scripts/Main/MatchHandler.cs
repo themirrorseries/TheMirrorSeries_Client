@@ -32,6 +32,7 @@ public class MatchHandler : MonoBehaviour, IHandler
                 break;
             }
         }
+        MainScene.instance.isMatch = false;
         // 加载匹配场景,加载完成后进入战斗场景
         SceneManager.LoadScene(SceneEunm.FIGHT);
     }
