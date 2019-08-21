@@ -22,13 +22,13 @@ public class SkillBase : MonoBehaviour
     public string[] skillAims;
     // 技能范围
     public float skillScope;
-    private long lastSkillTime;
+    private float lastSkillTime;
     // 角色属性
     public PlayerAttribute playerAttribute;
     public int needUpdate = (int)SkillEunm.SkillState.Init;
     public virtual void Start()
     {
-        lastSkillTime = TimeTools.addTimeStamp(-cd);
+        lastSkillTime = FightScene.instance.gameTime - cd;
         playerAttribute = GetComponent<PlayerAttribute>();
     }
     public virtual void Release()
@@ -52,7 +52,7 @@ public class SkillBase : MonoBehaviour
     // 判断是否冷却完成
     public virtual bool isEndCd()
     {
-        return (TimeTools.addTimeStamp(-cd) >= lastSkillTime);
+        return ((FightScene.instance.gameTime - cd - lastSkillTime) > 0);
     }
     // 寻找攻击目标(默认为圆形)
     public virtual List<GameObject> findAckAims()
@@ -92,7 +92,7 @@ public class SkillBase : MonoBehaviour
     }
     public virtual void beforeSkill()
     {
-        lastSkillTime = TimeTools.getTimeStamp();
+        lastSkillTime = FightScene.instance.gameTime;
     }
 
     public virtual void onSkill()
