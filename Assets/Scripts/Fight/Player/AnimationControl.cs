@@ -8,8 +8,8 @@ public class AnimationControl : MonoBehaviour
     private int state = AnimaState.IDLE;
     void Awake()
     {
-        // animator = GetComponent<Animator>();
-        // animator.SetInteger(AnimaState.state, state);
+        animator = GetComponent<Animator>();
+        animator.SetInteger(AnimaState.state, state);
     }
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class AnimationControl : MonoBehaviour
         if (state != AnimaState.RUN)
         {
             state = AnimaState.RUN;
-            // animator.SetInteger(AnimaState.state, AnimaState.RUN);
+            animator.SetInteger(AnimaState.state, AnimaState.RUN);
         }
     }
 
@@ -30,7 +30,7 @@ public class AnimationControl : MonoBehaviour
         if (state != AnimaState.IDLE)
         {
             state = AnimaState.IDLE;
-            // animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+            animator.SetInteger(AnimaState.state, AnimaState.IDLE);
         }
     }
 
@@ -39,16 +39,17 @@ public class AnimationControl : MonoBehaviour
         if (state != AnimaState.ATTACK)
         {
             state = AnimaState.ATTACK;
-            // animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
+            animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
         }
+        animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
     }
 
-    public void Repulse()
+    public void Death()
     {
-        if (state != AnimaState.REPULSE)
+        if (state != AnimaState.DEATH)
         {
-            state = AnimaState.REPULSE;
-            // animator.SetInteger(AnimaState.state, AnimaState.REPULSE);
+            state = AnimaState.DEATH;
+            animator.SetInteger(AnimaState.state, AnimaState.DEATH);
         }
     }
 }

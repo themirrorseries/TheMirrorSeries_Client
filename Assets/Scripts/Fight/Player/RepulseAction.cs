@@ -31,6 +31,8 @@ public class RepulseAction : MonoBehaviour
             attr.ChangeHp(-2);
             if (attr.isDied)
             {
+                AnimationControl anim = GetComponent<AnimationControl>();
+                anim.Death();
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }

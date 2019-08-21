@@ -52,9 +52,8 @@ public class FightScene : MonoBehaviour
         {
             // GameObject player = Instantiate(ResourcesTools.getMirror(GameData.room.Players[i].Roleid),
             //             seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
-            GameObject player = Instantiate(ResourcesTools.getMirror(1),
+            GameObject player = Instantiate(ResourcesTools.getMirror(2),
                         seats[RoomData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
-
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
             playerControl.Init(RoomData.room.Players[i].Seat);
             players.Add(player);
@@ -75,7 +74,6 @@ public class FightScene : MonoBehaviour
     }
     public void Refresh(ServerMoveDTO move)
     {
-        List<float> deltaTimes = new List<float>();
         for (int i = 0; i < FrameActions.instance.FrameCount; ++i)
         {
             int count = 0;
@@ -88,10 +86,12 @@ public class FightScene : MonoBehaviour
                     deltaTime += move.ClientInfo[j].Msg[i].DeltaTime;
                 }
             }
-            deltaTimes.Add(deltaTime / count);
+            if (count == 0)
+            {
+                continue;
+            }
             deltaTime /= count;
             gameTime += deltaTime;
-
             for (int k = 0; k < lights.Count; ++k)
             {
                 LightManager lightManager = lights[k].GetComponent<LightManager>();

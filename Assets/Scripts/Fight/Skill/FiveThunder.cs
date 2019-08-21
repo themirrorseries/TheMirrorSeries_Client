@@ -27,6 +27,8 @@ public class FiveThunder : SkillBase
             attr.ChangeHp(-attr.hp / 2);
             if (attr.isDied)
             {
+                AnimationControl anim = players[i].GetComponent<AnimationControl>();
+                anim.Death();
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }

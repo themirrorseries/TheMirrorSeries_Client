@@ -155,11 +155,11 @@ public class PlayerControl : MonoBehaviour
             attr.ChangeHp(-2);
             if (attr.isDied)
             {
+                anim.Death();
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }
             attr.ChangeMp(5);
-            anim.Repulse();
             repulse.Check(wallDistance, direction);
         }
         else
@@ -167,6 +167,7 @@ public class PlayerControl : MonoBehaviour
             attr.ChangeHp(-7);
             if (attr.isDied)
             {
+                anim.Death();
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
             }
         }
