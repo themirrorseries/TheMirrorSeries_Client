@@ -20,6 +20,8 @@ public class NormalAttack : SkillBase
     }
     public override void onSkill()
     {
+        AnimationControl anim = GetComponent<AnimationControl>();
+        anim.Attack();
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         // 固定光线初始位置y方向
         light.transform.position = new Vector3(transform.position.x, light.transform.position.y, transform.position.z)

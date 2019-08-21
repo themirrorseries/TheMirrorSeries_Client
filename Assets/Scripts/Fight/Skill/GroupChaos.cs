@@ -46,7 +46,8 @@ public class GroupChaos : SkillBase
                     PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
                     if (!attr.isChaos)
                     {
-                        // 头顶播放混乱特效
+                        PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+                        effect.Play(EffectEunm.CHAOS);
                     }
                     attr.inChaosCount++;
                 }
@@ -68,7 +69,8 @@ public class GroupChaos : SkillBase
                     PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
                     if (attr.inChaosCount == 1)
                     {
-                        // 取消头顶播放混乱特效
+                        PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+                        effect.Stop(EffectEunm.CHAOS);
                     }
                     attr.inChaosCount--;
                 }

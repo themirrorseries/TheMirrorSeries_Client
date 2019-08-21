@@ -34,6 +34,15 @@ public class AnimationControl : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        if (state != AnimaState.ATTACK)
+        {
+            state = AnimaState.ATTACK;
+            // animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
+        }
+    }
+
     public void Repulse()
     {
         if (state != AnimaState.REPULSE)

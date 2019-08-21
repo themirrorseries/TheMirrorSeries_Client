@@ -34,7 +34,10 @@ public class ProtectiveCover : SkillBase
         capsuleCollider.enabled = true;
         capsuleCollider.radius += skillScope;
         playerAttribute.hasProtection = true;
-        // 保护罩UI开启
+        PlayerChildren playerChildren = GetComponent<PlayerChildren>();
+        playerChildren.cover.SetActive(true);
+        playerChildren.cover.transform.localScale = playerChildren.cover.transform.localScale +
+            new Vector3(skillScope, skillScope, skillScope);
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
     }
@@ -56,7 +59,10 @@ public class ProtectiveCover : SkillBase
                 capsuleCollider.enabled = false;
                 capsuleCollider.radius -= skillScope;
                 playerAttribute.hasProtection = false;
-                // 保护罩UI关闭
+                PlayerChildren playerChildren = GetComponent<PlayerChildren>();
+                playerChildren.cover.SetActive(false);
+                playerChildren.cover.transform.localScale = playerChildren.cover.transform.localScale -
+                    new Vector3(skillScope, skillScope, skillScope);
                 needUpdate = (int)SkillEunm.SkillState.Init;
             }
         }

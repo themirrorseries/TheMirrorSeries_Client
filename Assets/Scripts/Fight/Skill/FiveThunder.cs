@@ -20,7 +20,8 @@ public class FiveThunder : SkillBase
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
-            // 头顶播放被雷劈特效
+            PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+            effect.Play(EffectEunm.THUNDER);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             // 减少当前生命值的50%
             attr.ChangeHp(-attr.hp / 2);

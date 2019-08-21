@@ -12,27 +12,23 @@ public class PlayerAttribute : MonoBehaviour
     public float mp = 5;
     // 蓝量上限
     public float mpMax = 5;
-    [SerializeField]
-    private TextMesh hpText;
-    [SerializeField]
-    private TextMesh mpText;
     // 击退状态
     public bool isRepulse = false;
     // 保护罩状态
     public bool hasProtection = false;
     // 混乱计数
     public int inChaosCount = 0;
+    private PlayerChildren playerChildren;
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // 初始化函数为多个参数,暂时写死
     public void Init()
     {
-        hpText.text = "hp:" + hp.ToString();
-        mpText.text = "mp:" + mp.ToString();
+        children.hpText.text = "hp:" + hp.ToString();
+        children.mpText.text = "mp:" + mp.ToString();
     }
 
     // 加/减血函数,正数加血,负数减血
@@ -50,7 +46,7 @@ public class PlayerAttribute : MonoBehaviour
         {
             hp += value;
         }
-        hpText.text = "hp:" + hp.ToString();
+        children.hpText.text = "hp:" + hp.ToString();
     }
     // 加/减蓝函数,正数加蓝,负数减蓝
     public void ChangeMp(float value)
@@ -67,7 +63,7 @@ public class PlayerAttribute : MonoBehaviour
         {
             mp += value;
         }
-        mpText.text = "mp:" + mp.ToString();
+        children.mpText.text = "mp:" + mp.ToString();
     }
     public bool canMove
     {
@@ -91,6 +87,17 @@ public class PlayerAttribute : MonoBehaviour
         get
         {
             return (hp == 0);
+        }
+    }
+    public PlayerChildren children
+    {
+        get
+        {
+            if (playerChildren == null)
+            {
+                playerChildren = GetComponent<PlayerChildren>();
+            }
+            return playerChildren;
         }
     }
 }

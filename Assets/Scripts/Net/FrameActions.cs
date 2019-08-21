@@ -27,13 +27,8 @@ public class FrameActions : MonoBehaviour
     {
         if (needAdd)
         {
-            // emptyFrame.DeltaTime = Time.deltaTime;
-            // Add(emptyFrame);
-            if (!IsFull())
-            {
-                emptyFrame.DeltaTime = Time.deltaTime / (frameCount - clientMove.Msg.Count);
-                AddFull();
-            }
+            emptyFrame.DeltaTime = Time.deltaTime;
+            Add(emptyFrame);
         }
     }
 
@@ -53,15 +48,6 @@ public class FrameActions : MonoBehaviour
         clientMove.Msg.Clear();
         ++bagid;
         isLock = false;
-    }
-    public void AddFull()
-    {
-        for (int i = clientMove.Msg.Count; i < frameCount; ++i)
-        {
-            emptyFrame.Frame = clientMove.Msg.Count;
-            clientMove.Msg.Add(emptyFrame);
-        }
-        Send();
     }
     public void Add(FrameInfo frame)
     {
