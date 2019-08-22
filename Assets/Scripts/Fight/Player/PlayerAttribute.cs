@@ -9,9 +9,9 @@ public class PlayerAttribute : MonoBehaviour
     public float hp = 20;
     // 血量上限
     public float hpMax = 20;
-    public float mp = 5;
+    public float mp = 0;
     // 蓝量上限
-    public float mpMax = 5;
+    public float mpMax = 10;
     // 击退状态
     public bool isRepulse = false;
     // 保护罩状态

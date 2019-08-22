@@ -152,7 +152,7 @@ public class PlayerControl : MonoBehaviour
         // 点积结果为负=>正面
         if (val < 0)
         {
-            attr.ChangeHp(-2);
+            attr.ChangeHp(-1);
             if (attr.isDied)
             {
                 anim.Death();

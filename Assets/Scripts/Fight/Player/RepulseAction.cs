@@ -5,7 +5,7 @@ using UnityEngine;
 public class RepulseAction : MonoBehaviour
 {
     // 默认击退距离
-    private float defaultDistance = 10f;
+    private float defaultDistance = 5f;
     // 击退过程移动速度
     private float speed = 10f;
     // 击退方向
@@ -28,7 +28,7 @@ public class RepulseAction : MonoBehaviour
         if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
             // 如果击退到墙壁,会二段扣血
-            attr.ChangeHp(-2);
+            attr.ChangeHp(-7);
             if (attr.isDied)
             {
                 AnimationControl anim = GetComponent<AnimationControl>();
