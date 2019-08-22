@@ -11,9 +11,16 @@ public class PlayerControl : MonoBehaviour
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
     private PlayerAction playerAction;
+    // 上一次反弹的光线
+    private GameObject lastCollideLight;
+    // 上一次反弹光线的时间
+    private float lastCollideTime;
+    // 间隔时间
+    private float spaceTime = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
+        lastCollideTime = -spaceTime;
     }
     public void Init(int seatId)
     {
@@ -144,8 +151,18 @@ public class PlayerControl : MonoBehaviour
         action.UpdateState(deltaTime);
         skill.UpdateSkills(deltaTime);
     }
-    public void LightCollision(Vector3 direction)
+    public void LightCollision(GameObject light, Vector3 direction)
     {
+
+        if (lastCollideLight == light && FightScene.instance.gameTime - lastCollideTime < spaceTime)
+        {
+            return;
+        }
+        else
+        {
+            lastCollideLight = light;
+            lastCollideTime = FightScene.instance.gameTime;
+        }
         float val = Vector3.Dot(transform.forward, direction);
         // 点积结果为负=>正面
         if (val < 0)

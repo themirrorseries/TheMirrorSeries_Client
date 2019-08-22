@@ -43,7 +43,7 @@ public class LightManager : MonoBehaviour
                     if (!playerAttribute.hasProtection)
                     {
                         PlayerControl playerControl = hit.collider.gameObject.GetComponent<PlayerControl>();
-                        playerControl.LightCollision(direction);
+                        playerControl.LightCollision(gameObject, direction.normalized);
                     }
                 }
                 Reflect(hit.collider.gameObject.transform.forward.normalized);
