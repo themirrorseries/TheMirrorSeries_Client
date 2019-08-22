@@ -47,6 +47,7 @@ public class LightManager : MonoBehaviour
                     }
                 }
                 Reflect(hit.collider.gameObject.transform.forward.normalized);
+                transform.Translate(direction.normalized * deltaTime * curSpeed);
             }
             else
             {

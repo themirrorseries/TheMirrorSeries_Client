@@ -32,12 +32,9 @@ public class ProtectiveCover : SkillBase
     {
         boxCollider.enabled = false;
         capsuleCollider.enabled = true;
-        capsuleCollider.radius += skillScope;
         playerAttribute.hasProtection = true;
-        PlayerChildren playerChildren = GetComponent<PlayerChildren>();
-        playerChildren.cover.SetActive(true);
-        playerChildren.cover.transform.localScale = playerChildren.cover.transform.localScale +
-            new Vector3(skillScope, skillScope, skillScope);
+        PlayerEffect playerEffect = GetComponent<PlayerEffect>();
+        playerEffect.Play(EffectEunm.COVER);
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
     }
@@ -57,12 +54,9 @@ public class ProtectiveCover : SkillBase
             {
                 boxCollider.enabled = true;
                 capsuleCollider.enabled = false;
-                capsuleCollider.radius -= skillScope;
                 playerAttribute.hasProtection = false;
-                PlayerChildren playerChildren = GetComponent<PlayerChildren>();
-                playerChildren.cover.SetActive(false);
-                playerChildren.cover.transform.localScale = playerChildren.cover.transform.localScale -
-                    new Vector3(skillScope, skillScope, skillScope);
+                PlayerEffect playerEffect = GetComponent<PlayerEffect>();
+                playerEffect.Stop(EffectEunm.COVER);
                 needUpdate = (int)SkillEunm.SkillState.Init;
             }
         }
