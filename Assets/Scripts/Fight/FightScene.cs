@@ -50,9 +50,7 @@ public class FightScene : MonoBehaviour
     {
         for (int i = 0; i < RoomData.room.Players.Count; ++i)
         {
-            // GameObject player = Instantiate(ResourcesTools.getMirror(GameData.room.Players[i].Roleid),
-            //             seats[GameData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
-            GameObject player = Instantiate(ResourcesTools.getMirror(2),
+            GameObject player = Instantiate(ResourcesTools.getMirror(RoomData.room.Players[i].Roleid),
                         seats[RoomData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
             playerControl.Init(RoomData.room.Players[i].Seat);
