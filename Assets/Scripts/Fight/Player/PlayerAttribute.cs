@@ -21,9 +21,16 @@ public class PlayerAttribute : MonoBehaviour
     private PlayerChildren playerChildren;
     // 死亡后会有一段位置,用于区别血量为0的死亡和移动之后的死亡
     private bool isDeathMoveEnd = false;
+    // 自动回血计时
+    private float autoAddHpTime;
+    // 自动回血间隔
+    private float autoAddHpSpace = 1f;
+    // 自动回血数值
+    private float autoAddHpNum = 1f;
     // Start is called before the first frame update
     void Start()
     {
+        autoAddHpTime = 0;
     }
 
     // 初始化函数为多个参数,暂时写死
@@ -66,6 +73,19 @@ public class PlayerAttribute : MonoBehaviour
             mp += value;
         }
         children.mpText.text = "mp:" + mp.ToString();
+    }
+    public void UpdateState(float deltaTime)
+    {
+        AutoAddHp(deltaTime);
+    }
+    public void AutoAddHp(float deltaTime)
+    {
+        autoAddHpTime += deltaTime;
+        if (autoAddHpTime >= autoAddHpSpace)
+        {
+            autoAddHpTime = 0;
+            ChangeHp(autoAddHpNum);
+        }
     }
     public bool canMove
     {

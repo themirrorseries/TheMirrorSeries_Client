@@ -150,6 +150,7 @@ public class PlayerControl : MonoBehaviour
     {
         action.UpdateState(deltaTime);
         skill.UpdateSkills(deltaTime);
+        attr.UpdateState(deltaTime);
     }
     public void LightCollision(GameObject light, Vector3 direction)
     {

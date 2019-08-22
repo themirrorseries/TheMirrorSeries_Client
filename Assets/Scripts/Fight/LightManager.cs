@@ -66,6 +66,7 @@ public class LightManager : MonoBehaviour
         if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);
+            Destroy(gameObject);
         }
     }
 }
