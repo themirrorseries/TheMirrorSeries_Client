@@ -49,7 +49,6 @@ public class AnimationControl : MonoBehaviour
         {
             state = AnimaState.DEATH;
             animator.SetInteger(AnimaState.state, AnimaState.DEATH);
-            Debug.Log("播放死亡动画");
         }
     }
 }

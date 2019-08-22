@@ -182,6 +182,7 @@ public class FightScene : MonoBehaviour
         death.seat = seat;
         death.bounces = bounces;
         death.time = gameTime;
+        death.light = lights.Count;
         if (seat == RoomData.seat)
         {
             FrameActions.instance.needAdd = true;
@@ -212,6 +213,7 @@ public class FightScene : MonoBehaviour
                 death.seat = RoomData.room.Players[i].Seat;
                 death.time = gameTime;
                 death.bounces = players[seat2Player[death.seat]].GetComponent<PlayerAttribute>().bounces;
+                death.light = lights.Count;
                 deaths.Add(death);
                 deaths.Reverse();
                 return;
