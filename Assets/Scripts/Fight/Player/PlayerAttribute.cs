@@ -19,6 +19,8 @@ public class PlayerAttribute : MonoBehaviour
     // 混乱计数
     public int inChaosCount = 0;
     private PlayerChildren playerChildren;
+    // 死亡后会有一段位置,用于区别血量为0的死亡和移动之后的死亡
+    private bool isDeathMoveEnd = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +89,17 @@ public class PlayerAttribute : MonoBehaviour
         get
         {
             return (hp == 0);
+        }
+    }
+    public bool isEnd
+    {
+        get
+        {
+            return isDeathMoveEnd;
+        }
+        set
+        {
+            isDeathMoveEnd = value;
         }
     }
     public PlayerChildren children

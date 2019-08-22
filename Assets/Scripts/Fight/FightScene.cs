@@ -23,6 +23,8 @@ public class FightScene : MonoBehaviour
     private Image settlementPlane;
     [SerializeField]
     private GameObject[] ranklist;
+    // 墙壁距离
+    public float wallDistance = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,7 +103,7 @@ public class FightScene : MonoBehaviour
                 // 是否丢包
                 int index = -1;
                 PlayerControl playerControl = players[p].GetComponent<PlayerControl>();
-                if (playerControl.attr.isDied)
+                if (playerControl.attr.isEnd)
                 {
                     return;
                 }
@@ -113,7 +115,7 @@ public class FightScene : MonoBehaviour
                         break;
                     }
                 }
-                if (index != -1)
+                if (index != -1 && !playerControl.attr.isDied)
                 {
                     playerControl.onMsgHandler(move.ClientInfo[index].Msg[i], deltaTime);
                 }

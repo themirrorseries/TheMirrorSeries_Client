@@ -18,7 +18,7 @@ public class AnimationControl : MonoBehaviour
     }
     public void Run()
     {
-        if (state != AnimaState.RUN)
+        if (state != AnimaState.RUN && state != AnimaState.DEATH)
         {
             state = AnimaState.RUN;
             animator.SetInteger(AnimaState.state, AnimaState.RUN);
@@ -27,7 +27,7 @@ public class AnimationControl : MonoBehaviour
 
     public void Idle()
     {
-        if (state != AnimaState.IDLE)
+        if (state != AnimaState.IDLE && state != AnimaState.DEATH)
         {
             state = AnimaState.IDLE;
             animator.SetInteger(AnimaState.state, AnimaState.IDLE);
@@ -36,12 +36,11 @@ public class AnimationControl : MonoBehaviour
 
     public void Attack()
     {
-        if (state != AnimaState.ATTACK)
+        if (state != AnimaState.ATTACK && state != AnimaState.DEATH)
         {
             state = AnimaState.ATTACK;
             animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
         }
-        animator.SetInteger(AnimaState.state, AnimaState.ATTACK);
     }
 
     public void Death()
@@ -50,6 +49,7 @@ public class AnimationControl : MonoBehaviour
         {
             state = AnimaState.DEATH;
             animator.SetInteger(AnimaState.state, AnimaState.DEATH);
+            Debug.Log("播放死亡动画");
         }
     }
 }

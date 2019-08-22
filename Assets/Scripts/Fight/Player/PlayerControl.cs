@@ -7,12 +7,10 @@ public class PlayerControl : MonoBehaviour
 {
     ETCJoystick joystick;
     public float speed = 10f;
-    // 墙壁距离
-    private float wallDistance = 2f;
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
-    private RepulseAction repulseAction;
+    private PlayerAction playerAction;
     // Start is called before the first frame update
     void Start()
     {
@@ -126,7 +124,7 @@ public class PlayerControl : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!attr.canMove) return;
             // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * deltaTime * speed, wallDistance, LayerMask.GetMask(LayerEunm.WALL));
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * deltaTime * speed, FightScene.instance.wallDistance, LayerMask.GetMask(LayerEunm.WALL));
             if (hitColliders.Length == 0)
             {
                 transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
@@ -143,7 +141,7 @@ public class PlayerControl : MonoBehaviour
     }
     public void UpdateState(float deltaTime)
     {
-        repulse.Repulse(deltaTime);
+        action.UpdateState(deltaTime);
         skill.UpdateSkills(deltaTime);
     }
     public void LightCollision(Vector3 direction)
@@ -156,11 +154,12 @@ public class PlayerControl : MonoBehaviour
             if (attr.isDied)
             {
                 anim.Death();
+                action.CheckDeath(FightScene.instance.wallDistance, direction);
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }
             attr.ChangeMp(5);
-            repulse.Check(wallDistance, direction);
+            action.CheckRepulse(FightScene.instance.wallDistance, direction);
         }
         else
         {
@@ -168,6 +167,7 @@ public class PlayerControl : MonoBehaviour
             if (attr.isDied)
             {
                 anim.Death();
+                action.CheckDeath(FightScene.instance.wallDistance, direction);
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
             }
         }
@@ -205,15 +205,15 @@ public class PlayerControl : MonoBehaviour
             return playerSkill;
         }
     }
-    public RepulseAction repulse
+    public PlayerAction action
     {
         get
         {
-            if (repulseAction == null)
+            if (playerAction == null)
             {
-                repulseAction = GetComponent<RepulseAction>();
+                playerAction = GetComponent<PlayerAction>();
             }
-            return repulseAction;
+            return playerAction;
         }
     }
 }
