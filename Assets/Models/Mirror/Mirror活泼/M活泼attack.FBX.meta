@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6aa6c8acb012f37459f7e2b04d7b7feb
+guid: bf7c872c56d8373468524c61119f5377
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -39,7 +39,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 26
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,7 +58,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1.078
+        functionName: IdleAfterRun
+        data: 
+        objectReferenceParameter: {fileID: 2576425456064396803, guid: 5eefec9df944ed6469a9fa1cfa3581f3,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

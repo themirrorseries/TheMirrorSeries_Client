@@ -13,39 +13,59 @@ public class LightManager : MonoBehaviour
     private Vector3 direction;
     private float distance = 1f;
     // 延迟时间
-    private float delay = 0.5f;
+    private float delay = 0.33f;
     // 延迟计时
     private float delayTime;
     // 是否初始化
     private bool isInit;
+    // 由那个玩家创建,用于延时显示
+    private GameObject player;
+    private bool isPlayerCreate = false;
     // Start is called before the first frame update
     void Start()
     {
     }
 
+    public void Init(float _speed, int _count, GameObject _player)
+    {
+        speed = _speed;
+        curSpeed = speed;
+        count = _count;
+        player = _player;
+        delayTime = 0;
+        isInit = false;
+        gameObject.SetActive(false);
+        isPlayerCreate = true;
+    }
     public void Init(float _speed, int _count, float _x, float _z)
     {
         speed = _speed;
         curSpeed = speed;
         count = _count;
         direction = new Vector3(_x, 0, _z);
-        delayTime = 0;
-        isInit = false;
-        gameObject.SetActive(false);
+        isPlayerCreate = false;
     }
 
     public void Move(float deltaTime)
     {
-        // 延迟初始化
-        if (delayTime <= delay)
+        if (isPlayerCreate)
         {
-            delayTime += deltaTime;
-            return;
-        }
-        if (!isInit)
-        {
-            isInit = true;
-            gameObject.SetActive(true);
+            // 延迟初始化
+            if (delayTime <= delay)
+            {
+                delayTime += deltaTime;
+                return;
+            }
+            if (!isInit)
+            {
+                // 固定光线初始位置y方向
+                transform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z)
+                                            + player.transform.forward.normalized * 2;
+                direction = new Vector3(player.transform.forward.x, 0, player.transform.forward.z);
+                isInit = true;
+                gameObject.SetActive(true);
+                return;
+            }
         }
         if (index < count)
         {

@@ -14,6 +14,12 @@ public class MainScene : MonoBehaviour
     public bool isMatch = false;
     // 临时房间id,用于取消匹配用
     private int roomId = -1;
+    [SerializeField]
+    // 匹配按钮精灵图片
+    private Sprite matchSprite;
+    [SerializeField]
+    // 取消匹配按钮精灵图片
+    private Sprite cancelMatchSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,8 +83,7 @@ public class MainScene : MonoBehaviour
     public void SetRoomID(int value)
     {
         roomId = value;
-        Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
-        text.text = "取消匹配";
+        matchBtn.GetComponent<Image>().sprite = cancelMatchSprite;
         if (!isMatch)
         {
             isMatch = !isMatch;
@@ -88,8 +93,7 @@ public class MainScene : MonoBehaviour
     public void CancelMatch()
     {
         roomId = -1;
-        Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
-        text.text = "开始游戏";
+        matchBtn.GetComponent<Image>().sprite = matchSprite;
         if (isMatch)
         {
             isMatch = !isMatch;
@@ -100,11 +104,10 @@ public class MainScene : MonoBehaviour
     {
         // 防止未登陆的情况
         if (GameData.user == null) return;
-        Text text = matchBtn.transform.Find("Text").GetComponent<Text>();
         if (isMatch)
         {
             isMatch = !isMatch;
-            text.text = "开始游戏";
+            matchBtn.GetComponent<Image>().sprite = matchSprite;
             MatchRtnDTO matchRtn = new MatchRtnDTO();
             matchRtn.Id = GameData.user.Id;
             matchRtn.Cacheroomid = roomId;
@@ -113,7 +116,7 @@ public class MainScene : MonoBehaviour
         else
         {
             isMatch = !isMatch;
-            text.text = "取消匹配";
+            matchBtn.GetComponent<Image>().sprite = cancelMatchSprite;
             MatchDTO match = new MatchDTO();
             match.Id = GameData.user.Id;
             match.Name = nameInput.text;

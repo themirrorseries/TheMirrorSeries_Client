@@ -23,11 +23,8 @@ public class NormalAttack : SkillBase
         AnimationControl anim = GetComponent<AnimationControl>();
         anim.Attack();
         GameObject light = Instantiate(ResourcesTools.getLight(1));
-        // 固定光线初始位置y方向
-        light.transform.position = new Vector3(transform.position.x, light.transform.position.y, transform.position.z)
-                                    + transform.forward.normalized * 2;
         LightManager lightMgr = light.GetComponent<LightManager>();
-        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, transform.forward.x, transform.forward.z);
+        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }
 }

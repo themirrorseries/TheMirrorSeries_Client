@@ -18,16 +18,22 @@ public class AnimationControl : MonoBehaviour
     }
     public void Run()
     {
-        if (state != AnimaState.RUN && state != AnimaState.DEATH)
+        if (state != AnimaState.RUN && state != AnimaState.DEATH && state != AnimaState.ATTACK)
         {
             state = AnimaState.RUN;
             animator.SetInteger(AnimaState.state, AnimaState.RUN);
         }
     }
 
+    public void IdleAfterRun()
+    {
+        state = AnimaState.IDLE;
+        animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+    }
+
     public void Idle()
     {
-        if (state != AnimaState.IDLE && state != AnimaState.DEATH)
+        if (state != AnimaState.IDLE && state != AnimaState.DEATH && state != AnimaState.ATTACK)
         {
             state = AnimaState.IDLE;
             animator.SetInteger(AnimaState.state, AnimaState.IDLE);
