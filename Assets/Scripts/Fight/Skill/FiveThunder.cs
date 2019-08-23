@@ -8,7 +8,7 @@ public class FiveThunder : SkillBase
     {
         skillId = (int)SkillEunm.SkillID.fiveThunder;
         skillName = "五雷轰顶";
-        cd = 5;
+        cd = 45;
     }
     public override void Release()
     {
@@ -24,7 +24,7 @@ public class FiveThunder : SkillBase
             effect.Play(EffectEunm.THUNDER);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             // 减少当前生命值的50%
-            attr.ChangeHp(-attr.hp / 2);
+            attr.ChangeHp(-Mathf.Floor(attr.hp / 2));
             if (attr.isDied)
             {
                 AnimationControl anim = players[i].GetComponent<AnimationControl>();

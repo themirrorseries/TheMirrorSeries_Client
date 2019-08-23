@@ -11,7 +11,7 @@ public class LightManager : MonoBehaviour
     private int count;
     private int index = 0;
     private Vector3 direction;
-    private float distance = 1f;
+    private float distance = 1.5f;
     // 延迟时间
     private float delay = 0.33f;
     // 延迟计时
