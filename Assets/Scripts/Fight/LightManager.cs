@@ -12,6 +12,12 @@ public class LightManager : MonoBehaviour
     private int index = 0;
     private Vector3 direction;
     private float distance = 1f;
+    // 延迟时间
+    private float delay = 0.5f;
+    // 延迟计时
+    private float delayTime;
+    // 是否初始化
+    private bool isInit;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +29,24 @@ public class LightManager : MonoBehaviour
         curSpeed = speed;
         count = _count;
         direction = new Vector3(_x, 0, _z);
+        delayTime = 0;
+        isInit = false;
+        gameObject.SetActive(false);
     }
 
     public void Move(float deltaTime)
     {
+        // 延迟初始化
+        if (delayTime <= delay)
+        {
+            delayTime += deltaTime;
+            return;
+        }
+        if (!isInit)
+        {
+            isInit = true;
+            gameObject.SetActive(true);
+        }
         if (index < count)
         {
             // 射线相交计算
