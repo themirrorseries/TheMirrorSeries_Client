@@ -5,6 +5,6 @@ using UnityEngine;
 public class SceneEunm
 {
     public const string MAIN = "Main";
-    public const string READY = "Ready";
+    public const string LOAD = "Load";
     public const string FIGHT = "Fight";
 }
