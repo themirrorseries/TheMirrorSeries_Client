@@ -13,7 +13,11 @@ public class PlayerSkill : MonoBehaviour
     // 根据使用角色添加技能组件
     public void Init()
     {
-        int[] skillIds = { (int)SkillEunm.SkillID.normalAck, (int)SkillEunm.SkillID.protectiveCover, (int)SkillEunm.SkillID.groupChaos, (int)SkillEunm.SkillID.fiveThunder };
+        int[] skillIds = { (int)SkillEunm.SkillID.normalAck,
+                            (int)SkillEunm.SkillID.protectiveCover,
+                            (int)SkillEunm.SkillID.groupChaos,
+                            (int)SkillEunm.SkillID.fiveThunder ,
+                            (int)SkillEunm.SkillID.nightBringer};
         for (int i = 0; i < skillIds.Length; ++i)
         {
             skills.Add(addSkill(skillIds[i]));
@@ -55,6 +59,10 @@ public class PlayerSkill : MonoBehaviour
     {
         skills[(int)SkillEunm.SkillBtn.skill3].Release();
     }
+    public void Skill4()
+    {
+        skills[(int)SkillEunm.SkillBtn.skill4].Release();
+    }
     public SkillBase addSkill(int skillId)
     {
         switch (skillId)
@@ -63,6 +71,7 @@ public class PlayerSkill : MonoBehaviour
             case (int)SkillEunm.SkillID.protectiveCover: return gameObject.AddComponent<ProtectiveCover>();
             case (int)SkillEunm.SkillID.groupChaos: return gameObject.AddComponent<GroupChaos>();
             case (int)SkillEunm.SkillID.fiveThunder: return gameObject.AddComponent<FiveThunder>();
+            case (int)SkillEunm.SkillID.nightBringer: return gameObject.AddComponent<NightBringer>();
             default:
                 return gameObject.AddComponent<SkillBase>();
         }

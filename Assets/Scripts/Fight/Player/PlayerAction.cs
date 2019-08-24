@@ -34,6 +34,20 @@ public class PlayerAction : MonoBehaviour
     private float curDeathDistance;
     ///       end       ///
 
+    //////// 黑夜降临 ////////
+    ///       start       ///
+    [SerializeField]
+    // 环境光
+    private Light directionalLight;
+    [SerializeField]
+    // 聚光灯
+    private GameObject spotLight;
+    [SerializeField]
+    // 材质
+    public Material material;
+    private float nightScope;
+    ///       end       ///
+
     private PlayerAttribute attr;
     // Start is called before the first frame update
     void Start()
@@ -92,7 +106,7 @@ public class PlayerAction : MonoBehaviour
     }
     public void Repulse(float deltaTime)
     {
-        if (attr.isRepulse == false)
+        if (!attr.isRepulse)
         {
             return;
         }
@@ -111,7 +125,7 @@ public class PlayerAction : MonoBehaviour
     }
     public void Death(float deltaTime)
     {
-        if (isDeathMove == false)
+        if (!isDeathMove)
         {
             return;
         }
@@ -126,6 +140,99 @@ public class PlayerAction : MonoBehaviour
             {
                 isDeathMove = false;
                 attr.isEnd = true;
+            }
+        }
+    }
+    public void BeforeNight(int seat, float skillScope)
+    {
+        if (seat == RoomData.seat)
+        {
+            directionalLight.color = Color.grey;
+        }
+        else
+        {
+            nightScope = skillScope;
+            directionalLight.enabled = false;
+            spotLight.SetActive(true);
+            // 开启自己的自发光,关闭别人的自发光
+            List<GameObject> players = FightScene.instance.Players;
+            for (int i = 0; i < players.Count; ++i)
+            {
+                PlayerAction action = players[i].GetComponent<PlayerAction>();
+                if (action.attr.seat == RoomData.seat)
+                {
+                    action.material.EnableKeyword("Emission");
+                }
+                else
+                {
+                    action.material.DisableKeyword("Emission");
+                }
+            }
+            // 关闭光线的自发光
+            List<GameObject> lights = FightScene.instance.Lights;
+            for (int i = 0; i < lights.Count; ++i)
+            {
+                LightManager lightManager = lights[i].GetComponent<LightManager>();
+                lightManager.material.DisableKeyword("Emission");
+            }
+            Night();
+        }
+    }
+    public void Night()
+    {
+        if (!attr.inSelfNight || !attr.inNight)
+        {
+            return;
+        }
+        if (attr.inNight)
+        {
+            // 球形射线检测
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position,
+                        nightScope, LayerMask.GetMask(LayerEunm.PLAYER) | LayerMask.GetMask(LayerEunm.LIGHT));
+            for (int i = 0; i < hitColliders.Length; ++i)
+            {
+                if (hitColliders[i].gameObject.layer == LayerMask.GetMask(LayerEunm.PLAYER))
+                {
+                    PlayerAction action = hitColliders[i].gameObject.GetComponent<PlayerAction>();
+                    if (!action.material.IsKeywordEnabled("Emission"))
+                    {
+                        action.material.EnableKeyword("Emission");
+                    }
+                }
+                else if (hitColliders[i].gameObject.layer == LayerMask.GetMask(LayerEunm.LIGHT))
+                {
+                    LightManager lightManager = hitColliders[i].gameObject.GetComponent<LightManager>();
+                    if (!lightManager.material.IsKeywordEnabled("Emission"))
+                    {
+                        lightManager.material.EnableKeyword("Emission");
+                    }
+                }
+            }
+        }
+    }
+    public void AfterNight(int seat)
+    {
+        if (seat == RoomData.seat)
+        {
+            directionalLight.color = Color.grey;
+        }
+        else
+        {
+            directionalLight.enabled = true;
+            spotLight.SetActive(false);
+            // 关闭角色自发光
+            List<GameObject> players = FightScene.instance.Players;
+            for (int i = 0; i < players.Count; ++i)
+            {
+                PlayerAction action = players[i].GetComponent<PlayerAction>();
+                action.material.DisableKeyword("Emission");
+            }
+            // 关闭光线自发光
+            List<GameObject> lights = FightScene.instance.Lights;
+            for (int i = 0; i < lights.Count; ++i)
+            {
+                LightManager lightManager = lights[i].GetComponent<LightManager>();
+                lightManager.material.DisableKeyword("Emission");
             }
         }
     }

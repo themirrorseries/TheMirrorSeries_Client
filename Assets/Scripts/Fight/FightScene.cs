@@ -151,6 +151,13 @@ public class FightScene : MonoBehaviour
             myselfControl.Skill3();
         }
     }
+    public void skill4()
+    {
+        if (myselfControl)
+        {
+            myselfControl.Skill4();
+        }
+    }
     public List<GameObject> Players
     {
         get

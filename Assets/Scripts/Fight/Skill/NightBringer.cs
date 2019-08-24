@@ -31,6 +31,8 @@ public class NightBringer : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.inNight = true;
         }
+        PlayerAction action = GetComponent<PlayerAction>();
+        action.BeforeNight(playerAttribute.seat, skillScope);
     }
     public override void afterDuration()
     {
@@ -41,5 +43,7 @@ public class NightBringer : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.inNight = false;
         }
+        PlayerAction action = GetComponent<PlayerAction>();
+        action.AfterNight(playerAttribute.seat);
     }
 }

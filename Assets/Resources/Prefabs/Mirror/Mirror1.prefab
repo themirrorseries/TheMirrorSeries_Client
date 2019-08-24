@@ -280,6 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357eeb34f8f8dc542b4f989d420948ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionalLight: {fileID: 0}
+  spotLight: {fileID: 36155236}
+  material: {fileID: 2100000, guid: 99d9b63f624efe343807d31337ce879d, type: 2}
 --- !u!114 &8517945919035736077
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -450,6 +450,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357eeb34f8f8dc542b4f989d420948ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionalLight: {fileID: 0}
+  spotLight: {fileID: 5071650092295388049}
+  material: {fileID: 2100000, guid: 1d354c37ec6a1534cacadcbb03673ed6, type: 2}
 --- !u!65 &6276603510508365269
 BoxCollider:
   m_ObjectHideFlags: 0

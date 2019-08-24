@@ -55,6 +55,10 @@ public class PlayerControl : MonoBehaviour
     {
         SendSkillMsg((int)SkillEunm.SkillBtn.skill3, 0, 0);
     }
+    public void Skill4()
+    {
+        SendSkillMsg((int)SkillEunm.SkillBtn.skill4, 0, 0);
+    }
     void SendSkillMsg(int skillNum, float x, float y)
     {
         if (attr.isDied)
@@ -135,6 +139,7 @@ public class PlayerControl : MonoBehaviour
             if (hitColliders.Length == 0)
             {
                 transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
+                action.Night();
             }
         }
         else

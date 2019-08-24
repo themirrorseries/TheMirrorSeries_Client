@@ -21,6 +21,9 @@ public class LightManager : MonoBehaviour
     // 由那个玩家创建,用于延时显示
     private GameObject player;
     private bool isPlayerCreate = false;
+    [SerializeField]
+    // 材质
+    public Material material;
     // Start is called before the first frame update
     void Start()
     {
