@@ -201,3 +201,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ca4798cca0c49014b8b97ded0045df01, type: 2}
+  trailMaterial: {fileID: 2100000, guid: e013d49975be34033a86a6226b42d85d, type: 2}

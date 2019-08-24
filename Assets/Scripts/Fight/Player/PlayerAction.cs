@@ -162,6 +162,7 @@ public class PlayerAction : MonoBehaviour
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
                 if (action.attr.seat == RoomData.seat)
                 {
+                    Debug.Log("开启自己的自发光");
                     action.material.EnableKeyword(Emission);
                 }
                 else
@@ -169,12 +170,13 @@ public class PlayerAction : MonoBehaviour
                     action.material.DisableKeyword(Emission);
                 }
             }
-            // 关闭光线的自发光
+            // 关闭光线的自发光和透明化拖尾材质
             List<GameObject> lights = FightScene.instance.Lights;
             for (int i = 0; i < lights.Count; ++i)
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
                 lightManager.material.DisableKeyword(Emission);
+                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent);
             }
             Night();
         }
@@ -210,6 +212,7 @@ public class PlayerAction : MonoBehaviour
                     if (!lightManager.material.IsKeywordEnabled(Emission))
                     {
                         lightManager.material.EnableKeyword(Emission);
+                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.nottransparent);
                     }
                 }
             }
@@ -250,6 +253,7 @@ public class PlayerAction : MonoBehaviour
                     if (lightManager.material.IsKeywordEnabled(Emission))
                     {
                         lightManager.material.DisableKeyword(Emission);
+                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent);
                     }
                 }
             }
@@ -278,6 +282,7 @@ public class PlayerAction : MonoBehaviour
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
                 lightManager.material.DisableKeyword(Emission);
+                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.nottransparent);
             }
         }
     }

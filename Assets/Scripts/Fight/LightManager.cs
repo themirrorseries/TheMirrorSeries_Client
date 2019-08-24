@@ -24,6 +24,14 @@ public class LightManager : MonoBehaviour
     [SerializeField]
     // 材质
     public Material material;
+    [SerializeField]
+    // 拖尾材质
+    public Material trailMaterial;
+    public string tintColor = "_TintColor";
+    // 透明
+    public Color transparent = new Color(107, 153, 160, 0);
+    // 不透明
+    public Color nottransparent = new Color(107, 153, 160, 133);
     // Start is called before the first frame update
     void Start()
     {
