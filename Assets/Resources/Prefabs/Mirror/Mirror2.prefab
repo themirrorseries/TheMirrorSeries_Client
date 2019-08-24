@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6361493336576608835
 Transform:
   m_ObjectHideFlags: 0
@@ -968,6 +968,8 @@ MonoBehaviour:
   isRepulse: 0
   hasProtection: 0
   inChaosCount: 0
+  inNight: 0
+  inSelfNight: 0
 --- !u!114 &4549548748903590109
 MonoBehaviour:
   m_ObjectHideFlags: 0
