@@ -45,6 +45,7 @@ public class PlayerAction : MonoBehaviour
     // 材质
     public Material material;
     private float nightScope;
+    private string Emission = "_EMISSION";
     ///       end       ///
 
     private PlayerAttribute attr;
@@ -143,13 +144,13 @@ public class PlayerAction : MonoBehaviour
             }
         }
     }
-    public void BeforeNight(int seat, float skillScope)
+    public void BeforeNight(float skillScope)
     {
-        if (seat == RoomData.seat)
+        if (attr.inSelfNight)
         {
             directionalLight.GetComponent<Light>().color = Color.grey;
         }
-        else
+        else if (attr.inNight)
         {
             nightScope = skillScope;
             directionalLight.SetActive(false);
@@ -161,11 +162,11 @@ public class PlayerAction : MonoBehaviour
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
                 if (action.attr.seat == RoomData.seat)
                 {
-                    action.material.EnableKeyword("Emission");
+                    action.material.EnableKeyword(Emission);
                 }
                 else
                 {
-                    action.material.DisableKeyword("Emission");
+                    action.material.DisableKeyword(Emission);
                 }
             }
             // 关闭光线的自发光
@@ -173,14 +174,14 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < lights.Count; ++i)
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
-                lightManager.material.DisableKeyword("Emission");
+                lightManager.material.DisableKeyword(Emission);
             }
             Night();
         }
     }
     public void Night()
     {
-        if (!attr.inSelfNight || !attr.inNight)
+        if (!attr.inSelfNight && !attr.inNight)
         {
             return;
         }
@@ -191,32 +192,76 @@ public class PlayerAction : MonoBehaviour
                         nightScope, LayerMask.GetMask(LayerEunm.PLAYER) | LayerMask.GetMask(LayerEunm.LIGHT));
             for (int i = 0; i < hitColliders.Length; ++i)
             {
-                if (hitColliders[i].gameObject.layer == LayerMask.GetMask(LayerEunm.PLAYER))
+                if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.PLAYER))
                 {
                     PlayerAction action = hitColliders[i].gameObject.GetComponent<PlayerAction>();
-                    if (!action.material.IsKeywordEnabled("Emission"))
+                    if (action.attr.seat == RoomData.seat)
                     {
-                        action.material.EnableKeyword("Emission");
+                        continue;
+                    }
+                    if (!action.material.IsKeywordEnabled(Emission))
+                    {
+                        action.material.EnableKeyword(Emission);
                     }
                 }
-                else if (hitColliders[i].gameObject.layer == LayerMask.GetMask(LayerEunm.LIGHT))
+                else if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.LIGHT))
                 {
                     LightManager lightManager = hitColliders[i].gameObject.GetComponent<LightManager>();
-                    if (!lightManager.material.IsKeywordEnabled("Emission"))
+                    if (!lightManager.material.IsKeywordEnabled(Emission))
                     {
-                        lightManager.material.EnableKeyword("Emission");
+                        lightManager.material.EnableKeyword(Emission);
+                    }
+                }
+            }
+            for (int i = 0; i < FightScene.instance.Players.Count; ++i)
+            {
+                bool isIn = false;
+                for (int j = 0; j < hitColliders.Length; ++j)
+                {
+                    if (hitColliders[j].gameObject == FightScene.instance.Players[i])
+                    {
+                        isIn = true;
+                        break;
+                    }
+                }
+                if (!isIn)
+                {
+                    PlayerAction action = FightScene.instance.Players[i].GetComponent<PlayerAction>();
+                    if (action.material.IsKeywordEnabled(Emission))
+                    {
+                        action.material.DisableKeyword(Emission);
+                    }
+                }
+            }
+            for (int i = 0; i < FightScene.instance.Lights.Count; ++i)
+            {
+                bool isIn = false;
+                for (int j = 0; j < hitColliders.Length; ++j)
+                {
+                    if (hitColliders[j].gameObject == FightScene.instance.Lights[i])
+                    {
+                        isIn = true;
+                        break;
+                    }
+                }
+                if (!isIn)
+                {
+                    LightManager lightManager = FightScene.instance.Lights[i].GetComponent<LightManager>();
+                    if (lightManager.material.IsKeywordEnabled(Emission))
+                    {
+                        lightManager.material.DisableKeyword(Emission);
                     }
                 }
             }
         }
     }
-    public void AfterNight(int seat)
+    public void AfterNight()
     {
-        if (seat == RoomData.seat)
+        if (attr.inSelfNight)
         {
             directionalLight.GetComponent<Light>().color = Color.white;
         }
-        else
+        else if (attr.inNight)
         {
             directionalLight.SetActive(true);
             spotLight.SetActive(false);
@@ -225,14 +270,14 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < players.Count; ++i)
             {
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
-                action.material.DisableKeyword("Emission");
+                action.material.DisableKeyword(Emission);
             }
             // 关闭光线自发光
             List<GameObject> lights = FightScene.instance.Lights;
             for (int i = 0; i < lights.Count; ++i)
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
-                lightManager.material.DisableKeyword("Emission");
+                lightManager.material.DisableKeyword(Emission);
             }
         }
     }

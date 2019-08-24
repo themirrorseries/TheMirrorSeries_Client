@@ -139,7 +139,10 @@ public class PlayerControl : MonoBehaviour
             if (hitColliders.Length == 0)
             {
                 transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
-                action.Night();
+                if (attr.seat == RoomData.seat)
+                {
+                    action.Night();
+                }
             }
         }
         else

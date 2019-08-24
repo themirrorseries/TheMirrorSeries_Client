@@ -31,11 +31,11 @@ public class NightBringer : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.inNight = true;
         }
-        PlayerAction action = GetComponent<PlayerAction>();
-        action.BeforeNight(playerAttribute.seat, skillScope);
+        FightScene.instance.myselfControl.action.BeforeNight(skillScope);
     }
     public override void afterDuration()
     {
+        FightScene.instance.myselfControl.action.AfterNight();
         playerAttribute.inSelfNight = false;
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
@@ -43,7 +43,5 @@ public class NightBringer : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.inNight = false;
         }
-        PlayerAction action = GetComponent<PlayerAction>();
-        action.AfterNight(playerAttribute.seat);
     }
 }

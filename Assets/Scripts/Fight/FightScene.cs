@@ -12,8 +12,7 @@ public class FightScene : MonoBehaviour
     private GameObject[] seats;
     private Dictionary<int, int> seat2Player = new Dictionary<int, int>();
     private List<GameObject> players = new List<GameObject>();
-    private GameObject myself;
-    private PlayerControl myselfControl;
+    public PlayerControl myselfControl;
     private List<GameObject> lights = new List<GameObject>();
     // 战斗进行时间
     public float gameTime;
@@ -60,7 +59,6 @@ public class FightScene : MonoBehaviour
             seat2Player.Add(RoomData.room.Players[i].Seat, i);
             if (RoomData.seat == RoomData.room.Players[i].Seat)
             {
-                myself = player;
                 myselfControl = playerControl;
             }
         }
