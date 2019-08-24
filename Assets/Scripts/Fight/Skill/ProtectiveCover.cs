@@ -38,27 +38,12 @@ public class ProtectiveCover : SkillBase
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
     }
-    public override void UpdateState(float deltaTime)
+    public override void afterDuration()
     {
-        if (needUpdate == (int)SkillEunm.SkillState.Init)
-        {
-            return;
-        }
-        else if (needUpdate == (int)SkillEunm.SkillState.Duration)
-        {
-            if (passTime + deltaTime < durationTime)
-            {
-                passTime += deltaTime;
-            }
-            else
-            {
-                boxCollider.enabled = true;
-                capsuleCollider.enabled = false;
-                playerAttribute.hasProtection = false;
-                PlayerEffect playerEffect = GetComponent<PlayerEffect>();
-                playerEffect.Stop(EffectEunm.COVER);
-                needUpdate = (int)SkillEunm.SkillState.Init;
-            }
-        }
+        boxCollider.enabled = true;
+        capsuleCollider.enabled = false;
+        playerAttribute.hasProtection = false;
+        PlayerEffect playerEffect = GetComponent<PlayerEffect>();
+        playerEffect.Stop(EffectEunm.COVER);
     }
 }

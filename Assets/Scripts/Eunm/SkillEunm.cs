@@ -14,7 +14,9 @@ public class SkillEunm
         // 技能按钮2
         skill2 = 2,
         // 技能按钮3
-        skill3 = 3
+        skill3 = 3,
+        // 技能按钮4
+        skill4 = 4
     }
     public enum SkillID
     {
@@ -30,6 +32,8 @@ public class SkillEunm
         groupChaos = 3,
         // 五雷轰顶
         fiveThunder = 4,
+        // 黑夜降临
+        nightBringer = 5
     }
     public enum SkillState
     {

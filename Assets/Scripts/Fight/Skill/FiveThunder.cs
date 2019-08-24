@@ -34,4 +34,8 @@ public class FiveThunder : SkillBase
             }
         }
     }
+    public override void UpdateState(float deltaTime)
+    {
+        return;
+    }
 }

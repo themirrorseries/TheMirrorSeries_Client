@@ -25,57 +25,36 @@ public class GroupChaos : SkillBase
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Release;
     }
-    public override void UpdateState(float deltaTime)
+    public override void onDelay(float deltaTime)
     {
-        if (needUpdate == (int)SkillEunm.SkillState.Init)
+        // 更新进度条
+    }
+    public override void afterDelay()
+    {
+        List<GameObject> players = findEnemys();
+        for (int i = 0; i < players.Count; ++i)
         {
-            return;
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (!attr.isChaos)
+            {
+                PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+                effect.Play(EffectEunm.CHAOS);
+            }
+            attr.inChaosCount++;
         }
-        else if (needUpdate == (int)SkillEunm.SkillState.Release)
+    }
+    public override void afterDuration()
+    {
+        List<GameObject> players = findEnemys();
+        for (int i = 0; i < players.Count; ++i)
         {
-            if (passTime + deltaTime < delayTime)
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (attr.inChaosCount == 1)
             {
-                passTime += deltaTime;
-                // 更新进度条
+                PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+                effect.Stop(EffectEunm.CHAOS);
             }
-            else
-            {
-                List<GameObject> players = findEnemys();
-                for (int i = 0; i < players.Count; ++i)
-                {
-                    PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-                    if (!attr.isChaos)
-                    {
-                        PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
-                        effect.Play(EffectEunm.CHAOS);
-                    }
-                    attr.inChaosCount++;
-                }
-                needUpdate = (int)SkillEunm.SkillState.Duration;
-                passTime = 0;
-            }
-        }
-        else
-        {
-            if (passTime + deltaTime < durationTime)
-            {
-                passTime += deltaTime;
-            }
-            else
-            {
-                List<GameObject> players = findEnemys();
-                for (int i = 0; i < players.Count; ++i)
-                {
-                    PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-                    if (attr.inChaosCount == 1)
-                    {
-                        PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
-                        effect.Stop(EffectEunm.CHAOS);
-                    }
-                    attr.inChaosCount--;
-                }
-                needUpdate = (int)SkillEunm.SkillState.Init;
-            }
+            attr.inChaosCount--;
         }
     }
 }

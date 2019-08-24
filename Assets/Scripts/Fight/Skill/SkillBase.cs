@@ -38,6 +38,56 @@ public class SkillBase : MonoBehaviour
     // 更新buff流逝时间
     public virtual void UpdateState(float deltaTime)
     {
+        if (needUpdate == (int)SkillEunm.SkillState.Init)
+        {
+            return;
+        }
+        else if (needUpdate == (int)SkillEunm.SkillState.Release)
+        {
+            if (passTime + deltaTime < delayTime)
+            {
+                passTime += deltaTime;
+                onDelay(deltaTime);
+            }
+            else
+            {
+                afterDelay();
+                needUpdate = (int)SkillEunm.SkillState.Duration;
+                passTime = 0;
+            }
+        }
+        else
+        {
+            if (passTime + deltaTime < durationTime)
+            {
+                passTime += deltaTime;
+                onDuration(deltaTime);
+            }
+            else
+            {
+                afterDuration();
+                needUpdate = (int)SkillEunm.SkillState.Init;
+            }
+        }
+    }
+    // 读条
+    public virtual void onDelay(float deltaTime)
+    {
+
+    }
+    // 读条完成
+    public virtual void afterDelay()
+    {
+
+    }
+    // 施法
+    public virtual void onDuration(float deltaTime)
+    {
+
+    }
+    // 施法完成
+    public virtual void afterDuration()
+    {
 
     }
     // 判断蓝量是否足够

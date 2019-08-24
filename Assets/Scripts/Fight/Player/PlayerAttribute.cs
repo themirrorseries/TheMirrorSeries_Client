@@ -27,6 +27,10 @@ public class PlayerAttribute : MonoBehaviour
     private float autoAddHpSpace = 1f;
     // 自动回血数值
     private float autoAddHpNum = 1f;
+    // 被释放黑夜降临
+    public bool inNight = false;
+    // 主动释放黑夜降临
+    public bool inSelfNight = false;
     // Start is called before the first frame update
     void Start()
     {

@@ -27,4 +27,8 @@ public class NormalAttack : SkillBase
         lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }
+    public override void UpdateState(float deltaTime)
+    {
+        return;
+    }
 }
