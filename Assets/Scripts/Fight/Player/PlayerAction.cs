@@ -150,7 +150,7 @@ public class PlayerAction : MonoBehaviour
         {
             directionalLight.GetComponent<Light>().color = Color.grey;
         }
-        else if (attr.inNight)
+        else if (attr.inNightCount > 0)
         {
             nightScope = skillScope;
             directionalLight.SetActive(false);
@@ -162,7 +162,6 @@ public class PlayerAction : MonoBehaviour
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
                 if (action.attr.seat == RoomData.seat)
                 {
-                    Debug.Log("开启自己的自发光");
                     action.material.EnableKeyword(Emission);
                 }
                 else
@@ -183,11 +182,11 @@ public class PlayerAction : MonoBehaviour
     }
     public void Night()
     {
-        if (!attr.inSelfNight && !attr.inNight)
+        if (!attr.inSelfNight && (attr.inNightCount == 0))
         {
             return;
         }
-        if (attr.inNight)
+        if (attr.inNightCount > 0)
         {
             // 球形射线检测
             Collider[] hitColliders = Physics.OverlapSphere(transform.position,
@@ -265,7 +264,7 @@ public class PlayerAction : MonoBehaviour
         {
             directionalLight.GetComponent<Light>().color = Color.white;
         }
-        else if (attr.inNight)
+        else if (attr.inNightCount > 0)
         {
             directionalLight.SetActive(true);
             spotLight.SetActive(false);

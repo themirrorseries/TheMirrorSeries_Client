@@ -29,7 +29,7 @@ public class NightBringer : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            attr.inNight = true;
+            ++attr.inNightCount;
         }
         FightScene.instance.myselfControl.action.BeforeNight(skillScope);
     }
@@ -41,7 +41,7 @@ public class NightBringer : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            attr.inNight = false;
+            --attr.inChaosCount;
         }
     }
 }
