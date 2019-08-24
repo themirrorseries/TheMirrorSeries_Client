@@ -41,6 +41,7 @@ public class PlayerSkill : MonoBehaviour
             case (int)SkillEunm.SkillBtn.skill1: Skill1(); break;
             case (int)SkillEunm.SkillBtn.skill2: Skill2(); break;
             case (int)SkillEunm.SkillBtn.skill3: Skill3(); break;
+            case (int)SkillEunm.SkillBtn.skill4: Skill4(); break;
         }
     }
     public void NormalAck()

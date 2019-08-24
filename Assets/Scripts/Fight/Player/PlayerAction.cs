@@ -36,9 +36,8 @@ public class PlayerAction : MonoBehaviour
 
     //////// 黑夜降临 ////////
     ///       start       ///
-    [SerializeField]
     // 环境光
-    private Light directionalLight;
+    private GameObject directionalLight;
     [SerializeField]
     // 聚光灯
     private GameObject spotLight;
@@ -53,6 +52,7 @@ public class PlayerAction : MonoBehaviour
     void Start()
     {
         attr = GetComponent<PlayerAttribute>();
+        directionalLight = GameObject.Find("Directional Light");
     }
     public void UpdateState(float deltaTime)
     {
@@ -147,12 +147,12 @@ public class PlayerAction : MonoBehaviour
     {
         if (seat == RoomData.seat)
         {
-            directionalLight.color = Color.grey;
+            directionalLight.GetComponent<Light>().color = Color.grey;
         }
         else
         {
             nightScope = skillScope;
-            directionalLight.enabled = false;
+            directionalLight.SetActive(false);
             spotLight.SetActive(true);
             // 开启自己的自发光,关闭别人的自发光
             List<GameObject> players = FightScene.instance.Players;
@@ -214,11 +214,11 @@ public class PlayerAction : MonoBehaviour
     {
         if (seat == RoomData.seat)
         {
-            directionalLight.color = Color.grey;
+            directionalLight.GetComponent<Light>().color = Color.white;
         }
         else
         {
-            directionalLight.enabled = true;
+            directionalLight.SetActive(true);
             spotLight.SetActive(false);
             // 关闭角色自发光
             List<GameObject> players = FightScene.instance.Players;
