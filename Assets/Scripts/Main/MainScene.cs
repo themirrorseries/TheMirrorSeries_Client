@@ -20,6 +20,17 @@ public class MainScene : MonoBehaviour
     [SerializeField]
     // 取消匹配按钮精灵图片
     private Sprite cancelMatchSprite;
+    [SerializeField]
+    private Sprite[] roles;
+    private int selectIndex = 1;
+    [SerializeField]
+    private Image first;
+    [SerializeField]
+    private Image second;
+    [SerializeField]
+    private Image third;
+    [SerializeField]
+    private Image fourth;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +74,7 @@ public class MainScene : MonoBehaviour
         {
             nameInput.text = LocalStorage.GetString("name");
         }
+        UpdateSelected();
     }
     private void EditEndHandler(string str)
     {
@@ -120,9 +132,35 @@ public class MainScene : MonoBehaviour
             MatchDTO match = new MatchDTO();
             match.Id = GameData.user.Id;
             match.Name = nameInput.text;
-            // 选择角色id,暂无
-            match.RoleID = Random.Range(1, 5);
+            match.RoleID = selectIndex + 1;
             this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.EnterCreq, match.ToByteArray());
         }
+    }
+    private void UpdateSelected()
+    {
+        first.sprite = roles[getIndex(selectIndex - 1)];
+        second.sprite = roles[getIndex(selectIndex)];
+        third.sprite = roles[getIndex(selectIndex + 1)];
+        fourth.sprite = roles[getIndex(selectIndex + 2)];
+    }
+    public void onPrevHandler()
+    {
+        selectIndex = getIndex(--selectIndex);
+        UpdateSelected();
+    }
+    public void onNextHandler()
+    {
+        selectIndex = getIndex(++selectIndex);
+        UpdateSelected();
+    }
+
+    private int getIndex(int index)
+    {
+        if (index == -1)
+        {
+            index = roles.Length - 1;
+        }
+        index %= roles.Length;
+        return index;
     }
 }
