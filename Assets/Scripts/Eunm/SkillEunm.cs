@@ -9,14 +9,8 @@ public class SkillEunm
     {
         // 普通攻击按钮
         ack = 0,
-        // 技能按钮1
-        skill1 = 1,
-        // 技能按钮2
-        skill2 = 2,
-        // 技能按钮3
-        skill3 = 3,
-        // 技能按钮4
-        skill4 = 4
+        // 技能按钮
+        skill = 1,
     }
     public enum SkillID
     {

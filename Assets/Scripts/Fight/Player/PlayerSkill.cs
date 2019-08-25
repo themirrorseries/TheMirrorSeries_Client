@@ -1,26 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
-    public List<SkillBase> skills;
+    [SerializeField]
+    private List<int> skillIds;
+    private List<SkillBase> skills = new List<SkillBase>();
     // Start is called before the first frame update
     void Start()
     {
 
     }
-    // 根据使用角色添加技能组件
+
     public void Init()
     {
-        int[] skillIds = { (int)SkillEunm.SkillID.normalAck,
-                            (int)SkillEunm.SkillID.protectiveCover,
-                            (int)SkillEunm.SkillID.groupChaos,
-                            (int)SkillEunm.SkillID.fiveThunder ,
-                            (int)SkillEunm.SkillID.nightBringer};
-        for (int i = 0; i < skillIds.Length; ++i)
+        for (int i = 0; i < skillIds.Count; ++i)
         {
             skills.Add(addSkill(skillIds[i]));
+        }
+        PlayerAttribute attr = GetComponent<PlayerAttribute>();
+        if (attr.seat == RoomData.seat)
+        {
+            for (int i = 0; i < skillIds.Count; ++i)
+            {
+                FightScene.instance.skillBtns[i].transform.Find("Text").GetComponent<Text>().text = skills[i].skillName;
+            }
         }
     }
 
@@ -34,35 +40,19 @@ public class PlayerSkill : MonoBehaviour
 
     public void Release(int skillNum)
     {
-        // 这里还应该有一个 判断这个技能编号是否大于了技能数组的长度
         switch (skillNum)
         {
             case (int)SkillEunm.SkillBtn.ack: NormalAck(); break;
-            case (int)SkillEunm.SkillBtn.skill1: Skill1(); break;
-            case (int)SkillEunm.SkillBtn.skill2: Skill2(); break;
-            case (int)SkillEunm.SkillBtn.skill3: Skill3(); break;
-            case (int)SkillEunm.SkillBtn.skill4: Skill4(); break;
+            case (int)SkillEunm.SkillBtn.skill: Skill(); break;
         }
     }
     public void NormalAck()
     {
         skills[(int)SkillEunm.SkillBtn.ack].Release();
     }
-    public void Skill1()
+    public void Skill()
     {
-        skills[(int)SkillEunm.SkillBtn.skill1].Release();
-    }
-    public void Skill2()
-    {
-        skills[(int)SkillEunm.SkillBtn.skill2].Release();
-    }
-    public void Skill3()
-    {
-        skills[(int)SkillEunm.SkillBtn.skill3].Release();
-    }
-    public void Skill4()
-    {
-        skills[(int)SkillEunm.SkillBtn.skill4].Release();
+        skills[(int)SkillEunm.SkillBtn.skill].Release();
     }
     public SkillBase addSkill(int skillId)
     {

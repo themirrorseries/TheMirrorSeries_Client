@@ -41,23 +41,9 @@ public class PlayerControl : MonoBehaviour
     {
         SendSkillMsg((int)SkillEunm.SkillBtn.ack, 0, 0);
     }
-    public void Skill1()
+    public void Skill()
     {
-        SendSkillMsg((int)SkillEunm.SkillBtn.skill1, 0, 0);
-    }
-
-    public void Skill2()
-    {
-        SendSkillMsg((int)SkillEunm.SkillBtn.skill2, 0, 0);
-    }
-
-    public void Skill3()
-    {
-        SendSkillMsg((int)SkillEunm.SkillBtn.skill3, 0, 0);
-    }
-    public void Skill4()
-    {
-        SendSkillMsg((int)SkillEunm.SkillBtn.skill4, 0, 0);
+        SendSkillMsg((int)SkillEunm.SkillBtn.skill, 0, 0);
     }
     void SendSkillMsg(int skillNum, float x, float y)
     {

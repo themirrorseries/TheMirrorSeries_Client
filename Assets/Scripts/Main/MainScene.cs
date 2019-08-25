@@ -43,6 +43,7 @@ public class MainScene : MonoBehaviour
                 // 生成UUID,发送给服务端,服务端返回UUID以及ID,然后记录下来
                 string uuid = System.Guid.NewGuid().ToString();
                 LocalStorage.SetString("UUID", uuid);
+                LocalStorage.SetInt("ROLE", selectIndex);
                 UserDTO user = new UserDTO();
                 user.Id = -1;
                 user.Uuid = uuid;
@@ -50,6 +51,7 @@ public class MainScene : MonoBehaviour
             }
             else
             {
+                selectIndex = LocalStorage.GetInt("ROLE");
                 UserDTO user = new UserDTO();
                 user.Id = -1;
                 user.Uuid = LocalStorage.GetString("UUID");
@@ -58,6 +60,7 @@ public class MainScene : MonoBehaviour
         }
         else
         {
+            selectIndex = LocalStorage.GetInt("ROLE");
             if (GameData.match)
             {
                 Match();
@@ -146,11 +149,13 @@ public class MainScene : MonoBehaviour
     public void onPrevHandler()
     {
         selectIndex = getIndex(--selectIndex);
+        LocalStorage.SetInt("ROLE", selectIndex);
         UpdateSelected();
     }
     public void onNextHandler()
     {
         selectIndex = getIndex(++selectIndex);
+        LocalStorage.SetInt("ROLE", selectIndex);
         UpdateSelected();
     }
 

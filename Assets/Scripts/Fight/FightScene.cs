@@ -10,6 +10,8 @@ public class FightScene : MonoBehaviour
     public static FightScene instance;
     [SerializeField]
     private GameObject[] seats;
+    [SerializeField]
+    public List<Button> skillBtns;
     private Dictionary<int, int> seat2Player = new Dictionary<int, int>();
     private List<GameObject> players = new List<GameObject>();
     public PlayerControl myselfControl;
@@ -128,32 +130,11 @@ public class FightScene : MonoBehaviour
             myselfControl.Ack();
         }
     }
-    public void Skill1()
+    public void Skill()
     {
         if (myselfControl)
         {
-            myselfControl.Skill1();
-        }
-    }
-    public void skill2()
-    {
-        if (myselfControl)
-        {
-            myselfControl.Skill2();
-        }
-    }
-    public void skill3()
-    {
-        if (myselfControl)
-        {
-            myselfControl.Skill3();
-        }
-    }
-    public void skill4()
-    {
-        if (myselfControl)
-        {
-            myselfControl.Skill4();
+            myselfControl.Skill();
         }
     }
     public List<GameObject> Players

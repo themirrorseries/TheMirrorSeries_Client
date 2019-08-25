@@ -1512,7 +1512,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d60384485372340ad2a5d78719f78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skills: []
+  skillIds: 0100000005000000
+  skillBtns:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &867490923573533986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1608,11 +1611,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cover
-      objectReference: {fileID: 0}
-    - target: {fileID: 6050125980556035940, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6050125980555549508, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
         type: 3}
