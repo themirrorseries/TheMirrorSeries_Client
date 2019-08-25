@@ -8,4 +8,7 @@ public class PlayerChildren : MonoBehaviour
     public TextMesh hpText;
     [SerializeField]
     public TextMesh mpText;
+    [SerializeField]
+    // 闪电
+    public GameObject thunder;
 }

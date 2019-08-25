@@ -248,6 +248,7 @@ MonoBehaviour:
   - {fileID: 1248632816}
   - {fileID: 320457255}
   - {fileID: 971195074}
+  myselfControl: {fileID: 0}
   gameTime: 0
   settlementPlane: {fileID: 1050316712}
   ranklist:

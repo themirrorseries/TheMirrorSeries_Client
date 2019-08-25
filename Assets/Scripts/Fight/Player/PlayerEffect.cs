@@ -8,9 +8,6 @@ public class PlayerEffect : MonoBehaviour
     // 混乱
     private ParticleSystem chaos;
     [SerializeField]
-    // 雷电
-    private ParticleSystem thunder;
-    [SerializeField]
     // 保护罩
     private ParticleSystem cover;
     public void Play(string effect)
@@ -34,9 +31,7 @@ public class PlayerEffect : MonoBehaviour
         switch (name)
         {
             case EffectEunm.CHAOS: return chaos;
-            case EffectEunm.THUNDER: return thunder;
-            case EffectEunm.COVER:
-                return cover;
+            case EffectEunm.COVER: return cover;
             default:
                 return null;
         }
