@@ -22,16 +22,18 @@ public static partial class MatchSuccessDTOReflection {
   static MatchSuccessDTOReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChNNYXRjaFN1Y2Nlc3NEVE8udHh0Im8KD01hdGNoU3VjY2Vzc0RUTxIOCgZy",
-          "b29taWQYASABKAUSCQoBeBgCIAEoAhIJCgF6GAMgASgCEg0KBXNwZWVkGAQg",
-          "ASgCEg0KBWNvdW50GAUgASgFEhgKB3BsYXllcnMYBiADKAsyBy5QbGF5ZXIi",
-          "RgoGUGxheWVyEhAKCHBsYXllcmlkGAEgASgFEgwKBG5hbWUYAiABKAkSDgoG",
-          "cm9sZWlkGAMgASgFEgwKBHNlYXQYBCABKAViBnByb3RvMw=="));
+          "ChNNYXRjaFN1Y2Nlc3NEVE8udHh0IlkKD01hdGNoU3VjY2Vzc0RUTxIOCgZy",
+          "b29taWQYASABKAUSGwoHcGxheWVycxgCIAMoCzIKLlBsYXllckRUTxIZCgZs",
+          "aWdodHMYAyADKAsyCS5MaWdodERUTyJJCglQbGF5ZXJEVE8SEAoIcGxheWVy",
+          "aWQYASABKAUSDAoEbmFtZRgCIAEoCRIOCgZyb2xlaWQYAyABKAUSDAoEc2Vh",
+          "dBgEIAEoBSI+CghMaWdodERUTxINCgVzcGVlZBgBIAEoAhINCgVjb3VudBgC",
+          "IAEoAhIJCgF4GAMgASgCEgkKAXoYBCABKAJiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::MatchSuccessDTO), global::MatchSuccessDTO.Parser, new[]{ "Roomid", "X", "Z", "Speed", "Count", "Players" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Player), global::Player.Parser, new[]{ "Playerid", "Name", "Roleid", "Seat" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::MatchSuccessDTO), global::MatchSuccessDTO.Parser, new[]{ "Roomid", "Players", "Lights" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerDTO), global::PlayerDTO.Parser, new[]{ "Playerid", "Name", "Roleid", "Seat" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LightDTO), global::LightDTO.Parser, new[]{ "Speed", "Count", "X", "Z" }, null, null, null, null)
         }));
   }
   #endregion
@@ -64,11 +66,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public MatchSuccessDTO(MatchSuccessDTO other) : this() {
     roomid_ = other.roomid_;
-    x_ = other.x_;
-    z_ = other.z_;
-    speed_ = other.speed_;
-    count_ = other.count_;
     players_ = other.players_.Clone();
+    lights_ = other.lights_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -88,58 +87,24 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
     }
   }
 
-  /// <summary>Field number for the "x" field.</summary>
-  public const int XFieldNumber = 2;
-  private float x_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float X {
-    get { return x_; }
-    set {
-      x_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "z" field.</summary>
-  public const int ZFieldNumber = 3;
-  private float z_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float Z {
-    get { return z_; }
-    set {
-      z_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "speed" field.</summary>
-  public const int SpeedFieldNumber = 4;
-  private float speed_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public float Speed {
-    get { return speed_; }
-    set {
-      speed_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "count" field.</summary>
-  public const int CountFieldNumber = 5;
-  private int count_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int Count {
-    get { return count_; }
-    set {
-      count_ = value;
-    }
-  }
-
   /// <summary>Field number for the "players" field.</summary>
-  public const int PlayersFieldNumber = 6;
-  private static readonly pb::FieldCodec<global::Player> _repeated_players_codec
-      = pb::FieldCodec.ForMessage(50, global::Player.Parser);
-  private readonly pbc::RepeatedField<global::Player> players_ = new pbc::RepeatedField<global::Player>();
+  public const int PlayersFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::PlayerDTO> _repeated_players_codec
+      = pb::FieldCodec.ForMessage(18, global::PlayerDTO.Parser);
+  private readonly pbc::RepeatedField<global::PlayerDTO> players_ = new pbc::RepeatedField<global::PlayerDTO>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public pbc::RepeatedField<global::Player> Players {
+  public pbc::RepeatedField<global::PlayerDTO> Players {
     get { return players_; }
+  }
+
+  /// <summary>Field number for the "lights" field.</summary>
+  public const int LightsFieldNumber = 3;
+  private static readonly pb::FieldCodec<global::LightDTO> _repeated_lights_codec
+      = pb::FieldCodec.ForMessage(26, global::LightDTO.Parser);
+  private readonly pbc::RepeatedField<global::LightDTO> lights_ = new pbc::RepeatedField<global::LightDTO>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::LightDTO> Lights {
+    get { return lights_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -156,11 +121,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
       return true;
     }
     if (Roomid != other.Roomid) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
-    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
-    if (Count != other.Count) return false;
     if(!players_.Equals(other.players_)) return false;
+    if(!lights_.Equals(other.lights_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -168,11 +130,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
   public override int GetHashCode() {
     int hash = 1;
     if (Roomid != 0) hash ^= Roomid.GetHashCode();
-    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-    if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
-    if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
-    if (Count != 0) hash ^= Count.GetHashCode();
     hash ^= players_.GetHashCode();
+    hash ^= lights_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -190,23 +149,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
       output.WriteRawTag(8);
       output.WriteInt32(Roomid);
     }
-    if (X != 0F) {
-      output.WriteRawTag(21);
-      output.WriteFloat(X);
-    }
-    if (Z != 0F) {
-      output.WriteRawTag(29);
-      output.WriteFloat(Z);
-    }
-    if (Speed != 0F) {
-      output.WriteRawTag(37);
-      output.WriteFloat(Speed);
-    }
-    if (Count != 0) {
-      output.WriteRawTag(40);
-      output.WriteInt32(Count);
-    }
     players_.WriteTo(output, _repeated_players_codec);
+    lights_.WriteTo(output, _repeated_lights_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -218,19 +162,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
     if (Roomid != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(Roomid);
     }
-    if (X != 0F) {
-      size += 1 + 4;
-    }
-    if (Z != 0F) {
-      size += 1 + 4;
-    }
-    if (Speed != 0F) {
-      size += 1 + 4;
-    }
-    if (Count != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
-    }
     size += players_.CalculateSize(_repeated_players_codec);
+    size += lights_.CalculateSize(_repeated_lights_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -245,19 +178,8 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
     if (other.Roomid != 0) {
       Roomid = other.Roomid;
     }
-    if (other.X != 0F) {
-      X = other.X;
-    }
-    if (other.Z != 0F) {
-      Z = other.Z;
-    }
-    if (other.Speed != 0F) {
-      Speed = other.Speed;
-    }
-    if (other.Count != 0) {
-      Count = other.Count;
-    }
     players_.Add(other.players_);
+    lights_.Add(other.lights_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -273,24 +195,12 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
           Roomid = input.ReadInt32();
           break;
         }
-        case 21: {
-          X = input.ReadFloat();
-          break;
-        }
-        case 29: {
-          Z = input.ReadFloat();
-          break;
-        }
-        case 37: {
-          Speed = input.ReadFloat();
-          break;
-        }
-        case 40: {
-          Count = input.ReadInt32();
-          break;
-        }
-        case 50: {
+        case 18: {
           players_.AddEntriesFrom(input, _repeated_players_codec);
+          break;
+        }
+        case 26: {
+          lights_.AddEntriesFrom(input, _repeated_lights_codec);
           break;
         }
       }
@@ -299,11 +209,11 @@ public sealed partial class MatchSuccessDTO : pb::IMessage<MatchSuccessDTO> {
 
 }
 
-public sealed partial class Player : pb::IMessage<Player> {
-  private static readonly pb::MessageParser<Player> _parser = new pb::MessageParser<Player>(() => new Player());
+public sealed partial class PlayerDTO : pb::IMessage<PlayerDTO> {
+  private static readonly pb::MessageParser<PlayerDTO> _parser = new pb::MessageParser<PlayerDTO>(() => new PlayerDTO());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<Player> Parser { get { return _parser; } }
+  public static pb::MessageParser<PlayerDTO> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -316,14 +226,14 @@ public sealed partial class Player : pb::IMessage<Player> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Player() {
+  public PlayerDTO() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Player(Player other) : this() {
+  public PlayerDTO(PlayerDTO other) : this() {
     playerid_ = other.playerid_;
     name_ = other.name_;
     roleid_ = other.roleid_;
@@ -332,8 +242,8 @@ public sealed partial class Player : pb::IMessage<Player> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Player Clone() {
-    return new Player(this);
+  public PlayerDTO Clone() {
+    return new PlayerDTO(this);
   }
 
   /// <summary>Field number for the "playerid" field.</summary>
@@ -382,11 +292,11 @@ public sealed partial class Player : pb::IMessage<Player> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as Player);
+    return Equals(other as PlayerDTO);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(Player other) {
+  public bool Equals(PlayerDTO other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
@@ -463,7 +373,7 @@ public sealed partial class Player : pb::IMessage<Player> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(Player other) {
+  public void MergeFrom(PlayerDTO other) {
     if (other == null) {
       return;
     }
@@ -504,6 +414,219 @@ public sealed partial class Player : pb::IMessage<Player> {
         }
         case 32: {
           Seat = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class LightDTO : pb::IMessage<LightDTO> {
+  private static readonly pb::MessageParser<LightDTO> _parser = new pb::MessageParser<LightDTO>(() => new LightDTO());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<LightDTO> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MatchSuccessDTOReflection.Descriptor.MessageTypes[2]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LightDTO() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LightDTO(LightDTO other) : this() {
+    speed_ = other.speed_;
+    count_ = other.count_;
+    x_ = other.x_;
+    z_ = other.z_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public LightDTO Clone() {
+    return new LightDTO(this);
+  }
+
+  /// <summary>Field number for the "speed" field.</summary>
+  public const int SpeedFieldNumber = 1;
+  private float speed_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Speed {
+    get { return speed_; }
+    set {
+      speed_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "count" field.</summary>
+  public const int CountFieldNumber = 2;
+  private float count_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Count {
+    get { return count_; }
+    set {
+      count_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "x" field.</summary>
+  public const int XFieldNumber = 3;
+  private float x_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float X {
+    get { return x_; }
+    set {
+      x_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "z" field.</summary>
+  public const int ZFieldNumber = 4;
+  private float z_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Z {
+    get { return z_; }
+    set {
+      z_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as LightDTO);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(LightDTO other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Count, other.Count)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+    if (Count != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Count);
+    if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+    if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Speed != 0F) {
+      output.WriteRawTag(13);
+      output.WriteFloat(Speed);
+    }
+    if (Count != 0F) {
+      output.WriteRawTag(21);
+      output.WriteFloat(Count);
+    }
+    if (X != 0F) {
+      output.WriteRawTag(29);
+      output.WriteFloat(X);
+    }
+    if (Z != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Z);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Speed != 0F) {
+      size += 1 + 4;
+    }
+    if (Count != 0F) {
+      size += 1 + 4;
+    }
+    if (X != 0F) {
+      size += 1 + 4;
+    }
+    if (Z != 0F) {
+      size += 1 + 4;
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(LightDTO other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Speed != 0F) {
+      Speed = other.Speed;
+    }
+    if (other.Count != 0F) {
+      Count = other.Count;
+    }
+    if (other.X != 0F) {
+      X = other.X;
+    }
+    if (other.Z != 0F) {
+      Z = other.Z;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 13: {
+          Speed = input.ReadFloat();
+          break;
+        }
+        case 21: {
+          Count = input.ReadFloat();
+          break;
+        }
+        case 29: {
+          X = input.ReadFloat();
+          break;
+        }
+        case 37: {
+          Z = input.ReadFloat();
           break;
         }
       }

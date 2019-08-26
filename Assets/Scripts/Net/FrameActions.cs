@@ -6,6 +6,8 @@ using Google.Protobuf;
 public class FrameActions : MonoBehaviour
 {
     public static FrameActions instance = null;
+    // 是否开始,加载场景完成后,发送一个请求,收到回复后才开始
+    public bool isStart = false;
     private ClientMoveDTO clientMove;
     private int bagid = 1;
     private int frameCount = 3;
@@ -16,6 +18,10 @@ public class FrameActions : MonoBehaviour
     void Awake()
     {
         instance = this;
+        FightLoadDTO fight = new FightLoadDTO();
+        fight.Roomid = RoomData.room.Roomid;
+        fight.Seat = RoomData.seat;
+        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.LoadUpCreq, fight.ToByteArray());
     }
     void Start()
     {
@@ -25,7 +31,7 @@ public class FrameActions : MonoBehaviour
     }
     void Update()
     {
-        if (needAdd)
+        if (needAdd && isStart)
         {
             emptyFrame.DeltaTime = Time.deltaTime;
             Add(emptyFrame);
@@ -51,6 +57,7 @@ public class FrameActions : MonoBehaviour
     }
     public void Add(FrameInfo frame)
     {
+        if (!isStart) return;
         if (clientMove.Msg.Count < frameCount)
         {
             frame.Frame = clientMove.Msg.Count;
