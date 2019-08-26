@@ -7,6 +7,7 @@ public class LightManager : MonoBehaviour
     // 初始速度
     private float speed;
     private float curSpeed;
+    private float maxSpeed = 55;
     // 碰撞次数
     private int count;
     private int index = 0;
@@ -27,14 +28,20 @@ public class LightManager : MonoBehaviour
     [SerializeField]
     // 拖尾材质
     public Material trailMaterial;
+    [SerializeField]
+    public ParticleSystem particle;
     public string tintColor = "_TintColor";
+    private string Emission = "_EMISSION";
     // 透明
-    public Color transparent = new Color(107, 153, 160, 0);
+    public Color transparent = new Color(128, 128, 128, 0);
     // 不透明
-    public Color nottransparent = new Color(107, 153, 160, 133);
+    public Color nottransparent = new Color(128, 128, 128, 128);
     // Start is called before the first frame update
     void Start()
     {
+        material.DisableKeyword(Emission);
+        trailMaterial.SetColor(tintColor, nottransparent);
+        particle.gameObject.SetActive(true);
     }
 
     public void Init(float _speed, int _count, GameObject _player)
@@ -113,7 +120,10 @@ public class LightManager : MonoBehaviour
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
         // 碰撞次数++
         index++;
-        curSpeed = speed + Mathf.Log(index + 1, 1.2f);
+        if (curSpeed + 1 <= maxSpeed)
+        {
+            curSpeed++;
+        }
         if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);

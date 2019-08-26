@@ -24,7 +24,7 @@ public class LoadScene : MonoBehaviour
     }
     IEnumerator Load()
     {
-        while ((curCount / mod) < RoomData.room.Players.Count)
+        while (progress.fillAmount < 1)
         {
             progress.fillAmount += 0.01f;
             curCount++;

@@ -23,7 +23,7 @@ public class FiveThunder : SkillBase
             PlayerChildren children = players[i].GetComponent<PlayerChildren>();
             children.thunder.SetActive(true);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            // 减少当前生命值的50%
+            // 减少当前生命值的50%(向上取整)
             attr.ChangeHp(-Mathf.Floor(attr.hp / 2));
             if (attr.isDied)
             {

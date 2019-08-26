@@ -162,7 +162,7 @@ public class PlayerControl : MonoBehaviour
         // 点积结果为负=>正面
         if (val < 0)
         {
-            attr.ChangeHp(-1);
+            attr.ChangeHp(attr.damage_normal);
             if (attr.isDied)
             {
                 anim.Death();
@@ -175,7 +175,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            attr.ChangeHp(-7);
+            attr.ChangeHp(attr.damage_hit);
             if (attr.isDied)
             {
                 anim.Death();

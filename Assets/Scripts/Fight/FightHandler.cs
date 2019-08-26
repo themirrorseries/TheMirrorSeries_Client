@@ -25,7 +25,6 @@ public class FightHandler : MonoBehaviour, IHandler
     }
     private void StartHandler(byte[] message)
     {
-        Debug.Log("开始游戏");
         FrameActions.instance.isStart = true;
     }
 }
