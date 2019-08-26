@@ -68,7 +68,7 @@ public class PlayerAction : MonoBehaviour
         if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultRepulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
             // 如果击退到墙壁,会二段扣血
-            attr.ChangeHp(-7);
+            attr.ChangeHp(attr.damage_repel);
             if (attr.isDied)
             {
                 AnimationControl anim = GetComponent<AnimationControl>();

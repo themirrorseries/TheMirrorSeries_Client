@@ -22,9 +22,10 @@ public static partial class FightTypesReflection {
   static FightTypesReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChRwcm90by9GaWdodFR5cGVzLnR4dCo8CgpGaWdodFR5cGVzEg0KCU1PVkVf",
-          "Q1JFURAAEg4KClNLSUxMX0NSRVEQARIPCgtJTkZPUk1fU1JFUxACYgZwcm90",
-          "bzM="));
+          "ChRwcm90by9GaWdodFR5cGVzLnR4dCqRAQoKRmlnaHRUeXBlcxINCglNT1ZF",
+          "X0NSRVEQABIOCgpTS0lMTF9DUkVREAESEAoMTE9BRF9VUF9DUkVREAISEAoM",
+          "TE9BRF9VUF9TUkVREAMSDwoLSU5GT1JNX1NSRVMQBBIRCg1MSVZFUk9PTV9D",
+          "UkVREAUSDgoKREVBVEhfQ1JFURAGEgwKCFdJTl9DUkVREAdiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::FightTypes), }, null, null));
@@ -36,7 +37,12 @@ public static partial class FightTypesReflection {
 public enum FightTypes {
   [pbr::OriginalName("MOVE_CREQ")] MoveCreq = 0,
   [pbr::OriginalName("SKILL_CREQ")] SkillCreq = 1,
-  [pbr::OriginalName("INFORM_SRES")] InformSres = 2,
+  [pbr::OriginalName("LOAD_UP_CREQ")] LoadUpCreq = 2,
+  [pbr::OriginalName("LOAD_UP_SREQ")] LoadUpSreq = 3,
+  [pbr::OriginalName("INFORM_SRES")] InformSres = 4,
+  [pbr::OriginalName("LIVEROOM_CREQ")] LiveroomCreq = 5,
+  [pbr::OriginalName("DEATH_CREQ")] DeathCreq = 6,
+  [pbr::OriginalName("WIN_CREQ")] WinCreq = 7,
 }
 
 #endregion
