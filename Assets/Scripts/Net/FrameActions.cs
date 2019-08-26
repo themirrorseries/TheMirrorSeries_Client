@@ -48,12 +48,18 @@ public class FrameActions : MonoBehaviour
         clientMove.Msg.Clear();
         isLock = false;
     }
-
-    public void Remove()
+    public void SendCache()
+    {
+        isLock = false;
+        if (IsFull())
+        {
+            Send();
+        }
+    }
+    public void CacheNext()
     {
         clientMove.Msg.Clear();
         ++bagid;
-        isLock = false;
     }
     public void Add(FrameInfo frame)
     {
@@ -64,7 +70,10 @@ public class FrameActions : MonoBehaviour
             clientMove.Msg.Add(frame);
             if (IsFull())
             {
-                Send();
+                if (!isLock)
+                {
+                    Send();
+                }
             }
         }
     }
@@ -78,7 +87,7 @@ public class FrameActions : MonoBehaviour
     {
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
-        Remove();
+        CacheNext();
     }
 
     public int FrameCount
