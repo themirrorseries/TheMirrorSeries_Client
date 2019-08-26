@@ -6,9 +6,9 @@ public class PlayerAttribute : MonoBehaviour
 {
     public int seat;
     public int bounces = 0;
-    public float hp = 5;
+    public float hp = 10;
     // 血量上限
-    public float hpMax = 5;
+    public float hpMax = 10;
     public float mp = 100;
     // 蓝量上限
     public float mpMax = 100;
@@ -24,8 +24,8 @@ public class PlayerAttribute : MonoBehaviour
     public bool isRepulse = false;
     // 保护罩状态
     public bool hasProtection = false;
-    // 混乱计数
-    public int inChaosCount = 0;
+    // 混乱状态
+    public bool isChaos;
     private PlayerChildren playerChildren;
     // 死亡后会有一段位置,用于区别血量为0的死亡和移动之后的死亡
     private bool isDeathMoveEnd = false;
@@ -35,10 +35,10 @@ public class PlayerAttribute : MonoBehaviour
     private float autoAddHpSpace = 1f;
     // 自动回血数值
     private float autoAddHpNum = 1f;
-    // 被释放黑夜降临
-    public int inNightCount = 0;
     // 主动释放黑夜降临
     public bool inSelfNight = false;
+    // 被释放黑夜降临
+    public bool inNight = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,14 +104,6 @@ public class PlayerAttribute : MonoBehaviour
         get
         {
             return (isRepulse == false);
-        }
-    }
-    // 是否混乱
-    public bool isChaos
-    {
-        get
-        {
-            return (inChaosCount > 0);
         }
     }
 

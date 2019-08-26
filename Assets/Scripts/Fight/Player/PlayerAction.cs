@@ -151,7 +151,7 @@ public class PlayerAction : MonoBehaviour
         {
             directionalLight.GetComponent<Light>().color = Color.grey;
         }
-        else if (attr.inNightCount > 0)
+        else if (attr.inNight)
         {
             nightScope = skillScope;
             directionalLight.SetActive(false);
@@ -184,11 +184,11 @@ public class PlayerAction : MonoBehaviour
     }
     public void Night()
     {
-        if (!attr.inSelfNight && (attr.inNightCount == 0))
+        if (!attr.inSelfNight && !attr.inNight)
         {
             return;
         }
-        if (attr.inNightCount > 0)
+        if (attr.inNight)
         {
             // 球形射线检测
             Collider[] hitColliders = Physics.OverlapSphere(transform.position,
@@ -268,7 +268,7 @@ public class PlayerAction : MonoBehaviour
         {
             directionalLight.GetComponent<Light>().color = Color.white;
         }
-        else if (attr.inNightCount > 0)
+        else if (attr.inNight)
         {
             directionalLight.SetActive(true);
             spotLight.SetActive(false);

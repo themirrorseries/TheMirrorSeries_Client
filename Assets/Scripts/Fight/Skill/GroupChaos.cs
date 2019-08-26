@@ -22,6 +22,10 @@ public class GroupChaos : SkillBase
     }
     public override void onSkill()
     {
+        if (needUpdate != (int)SkillEunm.SkillState.Init)
+        {
+            afterDuration();
+        }
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Release;
     }
@@ -40,7 +44,6 @@ public class GroupChaos : SkillBase
                 PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
                 effect.Play(EffectEunm.CHAOS);
             }
-            attr.inChaosCount++;
         }
     }
     public override void afterDuration()
@@ -49,12 +52,11 @@ public class GroupChaos : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            if (attr.inChaosCount == 1)
+            if (attr.isChaos)
             {
                 PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
                 effect.Stop(EffectEunm.CHAOS);
             }
-            attr.inChaosCount--;
         }
     }
 }

@@ -961,8 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seat: 0
   bounces: 0
-  hp: 5
-  hpMax: 5
+  hp: 10
+  hpMax: 10
   mp: 100
   mpMax: 100
   bounceAddMp: 50
@@ -1545,6 +1545,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cover
       objectReference: {fileID: 0}
+    - target: {fileID: 6050125980537200132, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6050125980555549508, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1615,7 +1620,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.4000005
       objectReference: {fileID: 0}
-    - target: {fileID: 6050125980537200132, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
+    - target: {fileID: 6050125980537270780, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
         type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -1625,17 +1630,12 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6050125980537200130, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6050125980537200128, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
         type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6050125980537270780, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
+    - target: {fileID: 6050125980537200130, guid: 01a67bb7c24e0fe4e90cc3c6c1d230c1,
         type: 3}
       propertyPath: playOnAwake
       value: 0

@@ -8,7 +8,7 @@ public class NightBringer : SkillBase
     {
         skillId = (int)SkillEunm.SkillID.nightBringer;
         skillName = "黑夜降临";
-        cd = 5;
+        cd = 45;
         durationTime = 5;
         skillScope = 8;
     }
@@ -22,6 +22,10 @@ public class NightBringer : SkillBase
     }
     public override void onSkill()
     {
+        if (needUpdate != (int)SkillEunm.SkillState.Init)
+        {
+            afterDuration();
+        }
         playerAttribute.inSelfNight = true;
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
@@ -29,7 +33,7 @@ public class NightBringer : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            ++attr.inNightCount;
+            attr.inNight = true;
         }
         FightScene.instance.myselfControl.action.BeforeNight(skillScope);
     }
@@ -41,7 +45,7 @@ public class NightBringer : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            --attr.inChaosCount;
+            attr.inNight = false;
         }
     }
 }

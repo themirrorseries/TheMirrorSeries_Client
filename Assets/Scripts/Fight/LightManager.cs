@@ -120,7 +120,7 @@ public class LightManager : MonoBehaviour
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
         // 碰撞次数++
         index++;
-        if (curSpeed + 1 <= maxSpeed)
+        if (curSpeed + 0.5f <= maxSpeed)
         {
             curSpeed++;
         }

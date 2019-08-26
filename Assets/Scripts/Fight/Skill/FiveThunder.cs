@@ -12,8 +12,11 @@ public class FiveThunder : SkillBase
     }
     public override void Release()
     {
-        beforeSkill();
-        onSkill();
+        if (isEndCd())
+        {
+            beforeSkill();
+            onSkill();
+        }
     }
     public override void onSkill()
     {
