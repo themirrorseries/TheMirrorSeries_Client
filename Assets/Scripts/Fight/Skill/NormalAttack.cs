@@ -24,8 +24,7 @@ public class NormalAttack : SkillBase
         anim.Attack();
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
-
-        lightMgr.Init(RoomData.room.Lights[0].Speed, (int)RoomData.room.Lights[0].Count, gameObject);
+        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }
     public override void UpdateState(float deltaTime)

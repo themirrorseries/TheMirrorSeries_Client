@@ -170,7 +170,7 @@ public class PlayerControl : MonoBehaviour
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }
-            attr.ChangeMp(5);
+            attr.ChangeMp(attr.bounceAddMp);
             action.CheckRepulse(FightScene.instance.wallDistance, direction);
         }
         else

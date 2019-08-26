@@ -72,7 +72,7 @@ public class FightScene : MonoBehaviour
 
             GameObject light = Instantiate(ResourcesTools.getLight(1));
             LightManager lightMgr = light.GetComponent<LightManager>();
-            lightMgr.Init(RoomData.room.Lights[0].Speed, (int)RoomData.room.Lights[0].Count, RoomData.room.Lights[0].X, RoomData.room.Lights[0].Z);
+            lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, RoomData.room.Lights[0].X, RoomData.room.Lights[0].Z);
             lights.Add(light);
         }
 
