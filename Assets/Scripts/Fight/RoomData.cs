@@ -30,4 +30,8 @@ public class RoomData
         }
         return string.Empty;
     }
+    public static bool isMainRole(int seatId)
+    {
+        return seat == seatId;
+    }
 }

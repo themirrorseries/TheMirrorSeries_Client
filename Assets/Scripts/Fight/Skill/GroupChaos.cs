@@ -22,28 +22,59 @@ public class GroupChaos : SkillBase
     }
     public override void onSkill()
     {
-        if (needUpdate != (int)SkillEunm.SkillState.Init)
-        {
-            afterDuration();
-        }
+        BreakOtherSkill();
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Release;
+        List<GameObject> players = findEnemys();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
+            playerChildren.title.progressActive(true);
+        }
     }
     public override void onDelay(float deltaTime)
     {
-        // 更新进度条
+        List<GameObject> players = findEnemys();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
+            playerChildren.title.progressView(passTime / delayTime);
+        }
     }
     public override void afterDelay()
     {
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
+            PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
+            playerChildren.title.progressActive(false);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            if (!attr.isChaos)
+            attr.isChaos = true;
+            PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+            if (!effect.isPlay(EffectEunm.CHAOS))
             {
-                PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
                 effect.Play(EffectEunm.CHAOS);
             }
+        }
+    }
+    public void BreakOtherSkill()
+    {
+        List<GameObject> players = findEnemys();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            GroupChaos chaos = players[i].GetComponent<GroupChaos>();
+            if (chaos != null)
+            {
+                if (chaos.needUpdate == (int)SkillEunm.SkillState.Release)
+                {
+                    chaos.needUpdate = (int)SkillEunm.SkillState.BreakRelease;
+                }
+                else if (chaos.needUpdate == (int)SkillEunm.SkillState.Duration)
+                {
+                    chaos.needUpdate = (int)SkillEunm.SkillState.BreakDuration;
+                }
+            }
+
         }
     }
     public override void afterDuration()
@@ -52,11 +83,31 @@ public class GroupChaos : SkillBase
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
-            if (attr.isChaos)
+            attr.isChaos = false;
+            PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+            if (effect.isPlay(EffectEunm.CHAOS))
             {
-                PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
                 effect.Stop(EffectEunm.CHAOS);
             }
+        }
+    }
+    public override void onBreakDuration(float deltaTime)
+    {
+        if (passTime + deltaTime < delayTime)
+        {
+            passTime += deltaTime;
+            onDelay(deltaTime);
+        }
+        else
+        {
+            List<GameObject> players = findEnemys();
+            for (int i = 0; i < players.Count; ++i)
+            {
+                PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
+                playerChildren.title.progressActive(false);
+            }
+            needUpdate = (int)SkillEunm.SkillState.Init;
+            passTime = 0;
         }
     }
 }

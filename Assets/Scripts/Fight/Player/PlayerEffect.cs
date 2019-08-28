@@ -10,6 +10,15 @@ public class PlayerEffect : MonoBehaviour
     [SerializeField]
     // 保护罩
     private ParticleSystem cover;
+    public bool isPlay(string effect)
+    {
+        ParticleSystem ps = name2Ps(effect);
+        if (ps != null)
+        {
+            return ps.isPlaying;
+        }
+        return false;
+    }
     public void Play(string effect)
     {
         ParticleSystem ps = name2Ps(effect);

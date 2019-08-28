@@ -56,7 +56,7 @@ public class SkillBase : MonoBehaviour
                 passTime = 0;
             }
         }
-        else
+        else if (needUpdate == (int)SkillEunm.SkillState.Duration)
         {
             if (passTime + deltaTime < durationTime)
             {
@@ -69,9 +69,22 @@ public class SkillBase : MonoBehaviour
                 needUpdate = (int)SkillEunm.SkillState.Init;
             }
         }
+        else if (needUpdate == (int)SkillEunm.SkillState.BreakRelease)
+        {
+            onBreakDelay(deltaTime);
+        }
+        else if (needUpdate == (int)SkillEunm.SkillState.BreakDuration)
+        {
+            onBreakDuration(deltaTime);
+        }
     }
     // 读条
     public virtual void onDelay(float deltaTime)
+    {
+
+    }
+    // 读条被打断
+    public virtual void onBreakDelay(float deltaTime)
     {
 
     }
@@ -82,6 +95,11 @@ public class SkillBase : MonoBehaviour
     }
     // 施法
     public virtual void onDuration(float deltaTime)
+    {
+
+    }
+    // 施法被打断
+    public virtual void onBreakDuration(float deltaTime)
     {
 
     }
@@ -103,6 +121,10 @@ public class SkillBase : MonoBehaviour
     public virtual bool isEndCd()
     {
         return ((FightScene.instance.gameTime - cd - lastSkillTime) > 0);
+    }
+    public virtual float cdPercentage()
+    {
+        return 1 - (FightScene.instance.gameTime - lastSkillTime) / cd;
     }
     // 寻找攻击目标(默认为圆形)
     public virtual List<GameObject> findAckAims()

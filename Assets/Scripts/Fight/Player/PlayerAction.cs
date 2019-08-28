@@ -161,7 +161,7 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < players.Count; ++i)
             {
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
-                if (action.attr.seat == RoomData.seat)
+                if (RoomData.isMainRole(action.attr.seat))
                 {
                     action.material.EnableKeyword(Emission);
                 }
@@ -198,7 +198,7 @@ public class PlayerAction : MonoBehaviour
                 if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.PLAYER))
                 {
                     PlayerAction action = hitColliders[i].gameObject.GetComponent<PlayerAction>();
-                    if (action.attr.seat == RoomData.seat)
+                    if (RoomData.isMainRole(action.attr.seat))
                     {
                         continue;
                     }

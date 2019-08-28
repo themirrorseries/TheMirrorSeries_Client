@@ -35,7 +35,11 @@ public class SkillEunm
         Init = -1,
         // 释放状态
         Release = 0,
+        // 释放被打断
+        BreakRelease = 1,
         // 持续状态
-        Duration = 1
+        Duration = 2,
+        // 持续被打断
+        BreakDuration = 3
     }
 }

@@ -7,6 +7,8 @@ public class PlayerSkill : MonoBehaviour
 {
     [SerializeField]
     private List<int> skillIds;
+    private List<Button> skillBtns;
+    private List<Image> cdMasks = new List<Image>();
     private List<SkillBase> skills = new List<SkillBase>();
     // Start is called before the first frame update
     void Start()
@@ -16,25 +18,49 @@ public class PlayerSkill : MonoBehaviour
 
     public void Init()
     {
+        skillBtns = FightScene.instance.skillBtns;
         for (int i = 0; i < skillIds.Count; ++i)
         {
             skills.Add(addSkill(skillIds[i]));
         }
         PlayerAttribute attr = GetComponent<PlayerAttribute>();
-        if (attr.seat == RoomData.seat)
+        if (RoomData.isMainRole(attr.seat))
         {
             for (int i = 0; i < skillIds.Count; ++i)
             {
-                FightScene.instance.skillBtns[i].transform.Find("Text").GetComponent<Text>().text = skills[i].skillName;
+                skillBtns[i].GetComponent<Image>().sprite = ResourcesTools.getSkillIcon(skills[i].skillId);
+                if (i > 0)
+                {
+                    cdMasks.Add(skillBtns[i].transform.Find("CD").gameObject.GetComponent<Image>());
+                }
             }
         }
     }
 
+    // 更新技能cd遮罩
     public void UpdateSkills(float deltaTime)
     {
         for (int i = 0; i < skills.Count; ++i)
         {
             skills[i].UpdateState(deltaTime);
+        }
+        for (int i = 0; i < cdMasks.Count; ++i)
+        {
+            if (skills[i + 1].isEndCd())
+            {
+                if (cdMasks[i].gameObject.activeInHierarchy)
+                {
+                    cdMasks[i].gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                if (!cdMasks[i].gameObject.activeInHierarchy)
+                {
+                    cdMasks[i].gameObject.SetActive(true);
+                }
+                cdMasks[i].fillAmount = skills[i + 1].cdPercentage();
+            }
         }
     }
 

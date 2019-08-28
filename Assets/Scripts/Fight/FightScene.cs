@@ -56,10 +56,10 @@ public class FightScene : MonoBehaviour
             GameObject player = Instantiate(ResourcesTools.getMirror(RoomData.room.Players[i].Roleid),
                         seats[RoomData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
-            playerControl.Init(RoomData.room.Players[i].Seat);
+            playerControl.Init(RoomData.room.Players[i]);
             players.Add(player);
             seat2Player.Add(RoomData.room.Players[i].Seat, i);
-            if (RoomData.seat == RoomData.room.Players[i].Seat)
+            if (RoomData.isMainRole(RoomData.room.Players[i].Seat))
             {
                 myselfControl = playerControl;
             }
@@ -174,7 +174,7 @@ public class FightScene : MonoBehaviour
         death.bounces = bounces;
         death.time = gameTime;
         death.light = lights.Count;
-        if (seat == RoomData.seat)
+        if (RoomData.isMainRole(seat))
         {
             FrameActions.instance.needAdd = true;
         }

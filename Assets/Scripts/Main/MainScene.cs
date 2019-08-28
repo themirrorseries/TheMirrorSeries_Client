@@ -24,17 +24,39 @@ public class MainScene : MonoBehaviour
     private Sprite[] roles;
     private int selectIndex = 1;
     [SerializeField]
-    private Image first;
-    [SerializeField]
-    private Image second;
-    [SerializeField]
-    private Image third;
-    [SerializeField]
-    private Image fourth;
+    private Button[] roleBtns;
+    private Vector3 prescale;
+    private NameTool nameTool;
     // Start is called before the first frame update
     void Start()
     {
+        nameTool = GetComponent<NameTool>();
         instance = this;
+        for (int i = 0; i < roleBtns.Length; ++i)
+        {
+            int index = i;
+            roleBtns[i].onClick.AddListener(
+                delegate ()
+                {
+                    onClickHandler(index);
+                }
+            );
+            if (index == 0)
+            {
+                prescale = roleBtns[i].transform.localScale;
+            }
+        }
+        nameInput.onEndEdit.AddListener(EditEndHandler);
+        if (LocalStorage.GetString("name") == string.Empty)
+        {
+            string name = nameTool.getName();
+            nameInput.text = name;
+            LocalStorage.SetString("name", name);
+        }
+        else
+        {
+            nameInput.text = LocalStorage.GetString("name");
+        }
         if (GameData.user == null)
         {
             // 没有UUID,第一次登陆
@@ -66,18 +88,16 @@ public class MainScene : MonoBehaviour
                 Match();
             }
         }
-        nameInput.onEndEdit.AddListener(EditEndHandler);
-        if (LocalStorage.GetString("name") == string.Empty)
-        {
-            string name = MakeName();
-            nameInput.text = name;
-            LocalStorage.SetString("name", name);
-        }
-        else
-        {
-            nameInput.text = LocalStorage.GetString("name");
-        }
-        UpdateSelected();
+        onClickHandler(selectIndex);
+    }
+    private void onClickHandler(int index)
+    {
+        roleBtns[selectIndex].transform.localScale = prescale;
+        roleBtns[selectIndex].transform.SetSiblingIndex(index);
+        selectIndex = index;
+        roleBtns[selectIndex].transform.localScale = prescale * 1.5f;
+        roleBtns[selectIndex].transform.SetSiblingIndex(roleBtns.Length);
+        LocalStorage.SetInt("ROLE", selectIndex);
     }
     private void EditEndHandler(string str)
     {
@@ -85,16 +105,10 @@ public class MainScene : MonoBehaviour
     }
     public void ReName()
     {
-        string name = MakeName();
+        string name = nameTool.getName();
         nameInput.text = name;
+        LocalStorage.SetString("name", name);
     }
-    private string MakeName()
-    {
-        int randomNum = Random.Range(0, 100);
-        LocalStorage.SetString("name", "好名都被狗取了" + randomNum.ToString());
-        return "好名都被狗取了" + randomNum.ToString();
-    }
-
     public void SetRoomID(int value)
     {
         roomId = value;
@@ -138,34 +152,5 @@ public class MainScene : MonoBehaviour
             match.RoleID = selectIndex + 1;
             this.WriteMessage((int)MsgTypes.TypeMatch, (int)MatchTypes.EnterCreq, match.ToByteArray());
         }
-    }
-    private void UpdateSelected()
-    {
-        first.sprite = roles[getIndex(selectIndex - 1)];
-        second.sprite = roles[getIndex(selectIndex)];
-        third.sprite = roles[getIndex(selectIndex + 1)];
-        fourth.sprite = roles[getIndex(selectIndex + 2)];
-    }
-    public void onPrevHandler()
-    {
-        selectIndex = getIndex(--selectIndex);
-        LocalStorage.SetInt("ROLE", selectIndex);
-        UpdateSelected();
-    }
-    public void onNextHandler()
-    {
-        selectIndex = getIndex(++selectIndex);
-        LocalStorage.SetInt("ROLE", selectIndex);
-        UpdateSelected();
-    }
-
-    private int getIndex(int index)
-    {
-        if (index == -1)
-        {
-            index = roles.Length - 1;
-        }
-        index %= roles.Length;
-        return index;
     }
 }

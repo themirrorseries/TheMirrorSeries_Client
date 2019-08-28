@@ -5,10 +5,17 @@ using UnityEngine;
 public class PlayerChildren : MonoBehaviour
 {
     [SerializeField]
-    public TextMesh hpText;
-    [SerializeField]
-    public TextMesh mpText;
+    public PlayerTitle title;
     [SerializeField]
     // 闪电
     public GameObject thunder;
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+    public void Init(int seat)
+    {
+        title.Init(seat);
+    }
 }

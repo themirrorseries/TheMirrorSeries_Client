@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     private AnimationControl animationControl;
     private PlayerSkill playerSkill;
     private PlayerAction playerAction;
+    private PlayerChildren playerChildren;
     // 上一次反弹的光线
     private GameObject lastCollideLight;
     // 上一次反弹光线的时间
@@ -22,10 +23,10 @@ public class PlayerControl : MonoBehaviour
     {
         lastCollideTime = -spaceTime;
     }
-    public void Init(int seatId)
+    public void Init(PlayerDTO player)
     {
-        attr.seat = seatId;
-        if (seatId == RoomData.seat)
+        attr.seat = player.Seat;
+        if (RoomData.isMainRole(player.Seat))
         {
             joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
             joystick.onMoveStart.AddListener(onMoveStartHandler);
@@ -35,6 +36,7 @@ public class PlayerControl : MonoBehaviour
         }
         attr.Init();
         skill.Init();
+        children.Init(attr.seat);
     }
 
     public void Ack()
@@ -125,7 +127,7 @@ public class PlayerControl : MonoBehaviour
             if (hitColliders.Length == 0)
             {
                 transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
-                if (attr.seat == RoomData.seat)
+                if (RoomData.isMainRole(attr.seat))
                 {
                     action.Night();
                 }
@@ -171,7 +173,7 @@ public class PlayerControl : MonoBehaviour
                 return;
             }
             attr.ChangeMp(attr.bounceAddMp);
-            action.CheckRepulse(FightScene.instance.wallDistance, direction);
+            action.CheckRepulse(FightScene.instance.wallDistance * 1.5f, direction);
         }
         else
         {
@@ -226,6 +228,17 @@ public class PlayerControl : MonoBehaviour
                 playerAction = GetComponent<PlayerAction>();
             }
             return playerAction;
+        }
+    }
+    public PlayerChildren children
+    {
+        get
+        {
+            if (playerChildren == null)
+            {
+                playerChildren = GetComponent<PlayerChildren>();
+            }
+            return playerChildren;
         }
     }
 }

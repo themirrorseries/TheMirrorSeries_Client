@@ -48,8 +48,7 @@ public class PlayerAttribute : MonoBehaviour
     // 初始化函数为多个参数,暂时写死
     public void Init()
     {
-        children.hpText.text = "hp:" + hp.ToString();
-        children.mpText.text = "mp:" + mp.ToString();
+        children.title.hpView(hp / hpMax);
     }
 
     // 加/减血函数,正数加血,负数减血
@@ -67,7 +66,7 @@ public class PlayerAttribute : MonoBehaviour
         {
             hp += value;
         }
-        children.hpText.text = "hp:" + hp.ToString();
+        children.title.hpView(hp / hpMax);
     }
     // 加/减蓝函数,正数加蓝,负数减蓝
     public void ChangeMp(float value)
@@ -84,7 +83,17 @@ public class PlayerAttribute : MonoBehaviour
         {
             mp += value;
         }
-        children.mpText.text = "mp:" + mp.ToString();
+        if (RoomData.isMainRole(seat))
+        {
+            if (mp == mpMax)
+            {
+                FightScene.instance.skillBtns[0].image.sprite = ResourcesTools.getSkillIcon(1);
+            }
+            else
+            {
+                FightScene.instance.skillBtns[0].image.sprite = ResourcesTools.getSkillIcon(-1);
+            }
+        }
     }
     public void UpdateState(float deltaTime)
     {

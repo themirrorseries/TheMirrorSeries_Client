@@ -8,6 +8,7 @@ public class LightManager : MonoBehaviour
     private float speed;
     private float curSpeed;
     private float maxSpeed = 55;
+    private float perSpeed = 0.5f;
     // 碰撞次数
     private int count;
     private int index = 0;
@@ -91,9 +92,8 @@ public class LightManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, distance, LayerMask.GetMask(LayerEunm.WALL) | LayerMask.GetMask(LayerEunm.PLAYER)))
             {
-                if (hit.collider.gameObject.tag == "Player")
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer(LayerEunm.PLAYER))
                 {
-                    // ps:防止光线先改变方向
                     PlayerAttribute playerAttribute = hit.collider.gameObject.GetComponent<PlayerAttribute>();
                     // 反弹次数暂定每次直接++, 1:每次 2:正面 3:反面 4:保护罩期间怎么计算
                     playerAttribute.bounces++;
@@ -105,12 +105,8 @@ public class LightManager : MonoBehaviour
                     }
                 }
                 Reflect(hit.collider.gameObject.transform.forward.normalized);
-                transform.Translate(direction.normalized * deltaTime * curSpeed);
             }
-            else
-            {
-                transform.Translate(direction.normalized * deltaTime * curSpeed);
-            }
+            transform.Translate(direction.normalized * deltaTime * curSpeed);
         }
     }
 
@@ -120,9 +116,9 @@ public class LightManager : MonoBehaviour
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
         // 碰撞次数++
         index++;
-        if (curSpeed + 0.5f <= maxSpeed)
+        if (curSpeed + perSpeed <= maxSpeed)
         {
-            curSpeed++;
+            curSpeed += perSpeed;
         }
         if (index == count)
         {

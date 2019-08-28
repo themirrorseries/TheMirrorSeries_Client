@@ -13,6 +13,7 @@ public class LoadScene : MonoBehaviour
     // 个数显示
     private Text count;
     private int curCount = 1;
+    private float progressNum = 0;
     // 模数
     private int mod;
     // Start is called before the first frame update
@@ -24,9 +25,11 @@ public class LoadScene : MonoBehaviour
     }
     IEnumerator Load()
     {
-        while (progress.fillAmount < 1)
+        while (progressNum < 1)
         {
-            progress.fillAmount += 0.01f;
+            progressNum += 0.01f;
+            progress.transform.localScale = new Vector3(progressNum, 1, 1);
+            progress.transform.localPosition = new Vector3(5 - 450 * (1 - progressNum), 3, 0);
             curCount++;
             if (curCount % mod == 0)
             {

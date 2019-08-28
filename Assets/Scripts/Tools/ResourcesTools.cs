@@ -14,9 +14,21 @@ public class ResourcesTools
     public static string lightPre = "Light";
     // 角色模型前缀
     public static string mirrorPre = "Mirror";
-    public static string getResourceUrl(string url)
+    // UI路径
+    public static string UI = "UI/";
+    // 战斗场景路径
+    public static string FightUrl = "Fight/";
+    // 技能Icon路径
+    public static string SkillUrl = "Skill/";
+    // 血条预制体前缀
+    public static string hpPre = "Hp";
+    public static string getPrefabUrl(string url)
     {
         return prefabUrl + url;
+    }
+    public static string getUIUrl(string url)
+    {
+        return UI + url;
     }
     public static GameObject getResource(string url)
     {
@@ -25,10 +37,18 @@ public class ResourcesTools
 
     public static GameObject getMirror(int id)
     {
-        return getResource(getResourceUrl(mirrorUrl) + mirrorPre + id.ToString());
+        return getResource(getPrefabUrl(mirrorUrl) + mirrorPre + id.ToString());
     }
     public static GameObject getLight(int id)
     {
-        return getResource(getResourceUrl(lightUrl) + lightPre + id.ToString());
+        return getResource(getPrefabUrl(lightUrl) + lightPre + id.ToString());
+    }
+    public static Sprite getSkillIcon(int id)
+    {
+        return Resources.Load<Sprite>(UI + FightUrl + SkillUrl + id.ToString());
+    }
+    public static Sprite getHpBar(int id)
+    {
+        return Resources.Load<Sprite>(UI + FightUrl + hpPre + id.ToString());
     }
 }
