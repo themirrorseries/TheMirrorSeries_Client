@@ -12,10 +12,12 @@ public class FightHandler : MonoBehaviour, IHandler
             case (int)FightTypes.InformSres:
                 MoveHandler(model.message);
                 break;
-            case (int)FightTypes.LoadUpSreq:
+            case (int)FightTypes.LoadUpSres:
                 StartHandler(model.message);
                 break;
-
+            case (int)FightTypes.DeathSres:
+                DeathHandler(model.message);
+                break;
         }
     }
     private void MoveHandler(byte[] message)
@@ -27,5 +29,9 @@ public class FightHandler : MonoBehaviour, IHandler
     private void StartHandler(byte[] message)
     {
         FrameActions.instance.isStart = true;
+    }
+    private void DeathHandler(byte[] message)
+    {
+
     }
 }

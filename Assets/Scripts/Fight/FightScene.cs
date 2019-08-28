@@ -176,7 +176,10 @@ public class FightScene : MonoBehaviour
         death.light = lights.Count;
         if (RoomData.isMainRole(seat))
         {
-            FrameActions.instance.needAdd = true;
+            FightLeaveDTO leaveDTO = new FightLeaveDTO();
+            leaveDTO.Roomid = RoomData.room.Roomid;
+            leaveDTO.Seat = RoomData.seat;
+            this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.DeathCreq, leaveDTO.ToByteArray());
         }
         deaths.Add(death);
         if (isEnd)

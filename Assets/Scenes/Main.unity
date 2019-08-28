@@ -960,7 +960,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\t\t\u597D\u540D\u90FD\u88AB\u72D7\u53D6\u4E86"
+  m_Text: "\t\t\u6E23\u6E23\u955C"
 --- !u!222 &787919433
 CanvasRenderer:
   m_ObjectHideFlags: 0

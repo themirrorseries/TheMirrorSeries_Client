@@ -9,6 +9,8 @@ public class PlayerTitle : MonoBehaviour
     private HpSlider hp;
     [SerializeField]
     private ProgressSlider progress;
+    [SerializeField]
+    private TextMesh nameText;
     private GameObject parent;
     void Start()
     {
@@ -24,6 +26,7 @@ public class PlayerTitle : MonoBehaviour
     public void Init(int seat)
     {
         hp.Init(seat);
+        nameText.text = RoomData.seat2PlayerName(seat);
     }
     public void hpView(float value)
     {
