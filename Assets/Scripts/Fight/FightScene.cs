@@ -88,7 +88,7 @@ public class FightScene : MonoBehaviour
             float deltaTime = 0;
             for (int j = 0; j < move.ClientInfo.Count; ++j)
             {
-                if (move.ClientInfo[j].Seat != -1)
+                if (move.ClientInfo[j].Seat != -1 && !isInDeath(move.ClientInfo[j].Seat))
                 {
                     ++count;
                     deltaTime += move.ClientInfo[j].Msg[i].DeltaTime;
@@ -113,7 +113,7 @@ public class FightScene : MonoBehaviour
                 PlayerControl playerControl = players[p].GetComponent<PlayerControl>();
                 if (playerControl.attr.isEnd)
                 {
-                    return;
+                    continue;
                 }
                 for (int q = 0; q < move.ClientInfo.Count; ++q)
                 {
@@ -123,7 +123,7 @@ public class FightScene : MonoBehaviour
                         break;
                     }
                 }
-                if (index != -1 && !playerControl.attr.isDied)
+                if (index != -1 && !playerControl.attr.isEnd)
                 {
                     playerControl.onMsgHandler(move.ClientInfo[index].Msg[i], deltaTime);
                 }
@@ -179,6 +179,8 @@ public class FightScene : MonoBehaviour
         death.light = lights.Count;
         if (RoomData.isMainRole(seat))
         {
+            RoomData.isDeath = true;
+            FrameActions.instance.needAdd = true;
             FightLeaveDTO leaveDTO = new FightLeaveDTO();
             leaveDTO.Roomid = RoomData.room.Roomid;
             leaveDTO.Seat = RoomData.seat;
@@ -227,12 +229,25 @@ public class FightScene : MonoBehaviour
     }
     public void BackToMainScene()
     {
+        RoomData.isDeath = false;
         GameData.match = false;
         SceneManager.LoadScene(SceneEunm.MAIN);
     }
     public void Again()
     {
+        RoomData.isDeath = false;
         GameData.match = true;
         SceneManager.LoadScene(SceneEunm.MAIN);
+    }
+    public bool isInDeath(int seat)
+    {
+        for (int i = 0; i < deaths.Count; ++i)
+        {
+            if (deaths[i].seat == seat)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

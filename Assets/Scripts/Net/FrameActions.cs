@@ -35,7 +35,7 @@ public class FrameActions : MonoBehaviour
     }
     void Update()
     {
-        if (needAdd && isStart)
+        if ((needAdd) && isStart)
         {
             emptyFrame.DeltaTime = Time.deltaTime;
             Add(emptyFrame);
