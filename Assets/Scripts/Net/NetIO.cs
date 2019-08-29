@@ -5,12 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Google.Protobuf;
+using System.Net;
+using System.Text;
 public class NetIO
 {
 
     public static NetIO instance;
     private Socket socket;
-    private string ip = "192.168.243.185";
+    private string ip = "127.0.0.1";
+    private string domain = "http://mirror.murmur.top/";
     private int port = 9700;
     private byte[] readBuff = new byte[1024];
     List<byte> cache = new List<byte>();
@@ -29,6 +32,7 @@ public class NetIO
     }
     private NetIO()
     {
+        ip = SendRequest(domain, Encoding.UTF8);
         try
         {
             //创建客户端连接
@@ -168,6 +172,14 @@ public class NetIO
             Debug.Log("网络错误，请重新登陆" + e.Message);
         }
 
+    }
+    public string SendRequest(string url, Encoding encoding)
+    {
+        HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+        webRequest.Method = "GET";
+        HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+        StreamReader sr = new StreamReader(webResponse.GetResponseStream(), encoding);
+        return sr.ReadToEnd();
     }
 
 }
