@@ -31,6 +31,10 @@ public class FPSCounter : MonoBehaviour
         titleStyle.fontSize = 20;
         titleStyle.normal.textColor = new Color(46f / 256f, 163f / 256f, 256f / 256f, 256f / 256f);
     }//Start ()_end
+    void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
     void Update()
     {
         ++frames;
