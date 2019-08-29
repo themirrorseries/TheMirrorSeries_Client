@@ -6,9 +6,9 @@ public class PlayerAttribute : MonoBehaviour
 {
     public int seat;
     public int bounces = 0;
-    public float hp = 5;
+    public float hp = 10;
     // 血量上限
-    public float hpMax = 5;
+    public float hpMax = 10;
     public float mp = 100;
     // 蓝量上限
     public float mpMax = 100;
@@ -19,9 +19,9 @@ public class PlayerAttribute : MonoBehaviour
     // 光线正面减少技能cd时间
     public float damage_cd = -5f;
     // 光线背面击中伤害
-    public float damage_hit = -2;
+    public float damage_hit = -3;
     // 击退撞墙伤害
-    public float damage_repel = -2;
+    public float damage_repel = -3;
     // 击退状态
     public bool isRepulse = false;
     // 保护罩状态

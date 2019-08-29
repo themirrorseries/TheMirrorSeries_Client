@@ -33,7 +33,7 @@ public class MainScene : MonoBehaviour
     {
         nameTool = GetComponent<NameTool>();
         audioController = GetComponent<AudioController>();
-        audioController.BGMPlay(AudioEunm.mainBGM);
+        audioController.BGMPlay(AudioEunm.mainBGM, 0.8f);
         instance = this;
         for (int i = 0; i < roleBtns.Length; ++i)
         {

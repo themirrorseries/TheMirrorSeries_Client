@@ -257,6 +257,7 @@ MonoBehaviour:
   - {fileID: 355284273}
   - {fileID: 852290377}
   wallDistance: 2
+  audioController: {fileID: 0}
 --- !u!114 &26934484
 MonoBehaviour:
   m_ObjectHideFlags: 0

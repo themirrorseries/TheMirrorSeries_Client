@@ -31,14 +31,24 @@ public class FightScene : MonoBehaviour
     void Start()
     {
         audioController = GetComponent<AudioController>();
-        audioController.BGMPlay(AudioEunm.fightBGM);
+        audioController.BGMPlay(AudioEunm.fightBGM, 0.8f);
         instance = this;
         gameTime = 0;
         settlementPlane.gameObject.SetActive(false);
         InitPlayers();
         InitLight();
     }
-    public void ShowRankList()
+    public void ShowOtherList()
+    {
+        settlementPlane.gameObject.SetActive(true);
+        for (int i = 1; i < ranklist.Length; ++i)
+        {
+            ranklist[i].SetActive(false);
+        }
+        ranklist[0].SetActive(false);
+        ranklist[0].GetComponent<Rank>().View(false, deaths[0]);
+    }
+    public void ShowFirstList()
     {
         settlementPlane.gameObject.SetActive(true);
         int index = 0;
@@ -187,10 +197,14 @@ public class FightScene : MonoBehaviour
             this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.DeathCreq, leaveDTO.ToByteArray());
         }
         deaths.Add(death);
+        beforeShow();
         if (isEnd)
         {
-            beforeShow();
-            ShowRankList();
+            ShowFirstList();
+        }
+        else
+        {
+
         }
     }
     public void beforeShow()

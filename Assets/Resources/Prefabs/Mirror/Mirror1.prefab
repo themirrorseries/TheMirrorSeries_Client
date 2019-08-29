@@ -221,8 +221,9 @@ MonoBehaviour:
   hpMax: 10
   mp: 100
   mpMax: 100
-  bounceAddMp: 50
+  bounceAddMp: 100
   damage_normal: -1
+  damage_cd: -5
   damage_hit: -3
   damage_repel: -3
   isRepulse: 0
@@ -271,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 8723701687181545762}
   thunder: {fileID: 1345728713}
+  arrowhead: {fileID: 0}
 --- !u!114 &8517945919035736076
 MonoBehaviour:
   m_ObjectHideFlags: 0
