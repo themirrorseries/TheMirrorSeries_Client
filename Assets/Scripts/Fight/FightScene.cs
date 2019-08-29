@@ -45,7 +45,7 @@ public class FightScene : MonoBehaviour
         {
             ranklist[i].SetActive(false);
         }
-        ranklist[0].SetActive(false);
+        ranklist[0].SetActive(true);
         ranklist[0].GetComponent<Rank>().View(false, deaths[0]);
     }
     public void ShowFirstList()
@@ -197,16 +197,27 @@ public class FightScene : MonoBehaviour
             this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.DeathCreq, leaveDTO.ToByteArray());
         }
         deaths.Add(death);
-        beforeShow();
         if (isEnd)
         {
-            ShowFirstList();
+            if (isInDeath(RoomData.seat))
+            {
+                ShowOtherList();
+            }
+            else
+            {
+                beforeShow();
+                ShowFirstList();
+            }
         }
         else
         {
-
+            if (RoomData.isMainRole(seat))
+            {
+                ShowOtherList();
+            }
         }
     }
+
     public void beforeShow()
     {
         for (int i = 0; i < RoomData.room.Players.Count; ++i)
