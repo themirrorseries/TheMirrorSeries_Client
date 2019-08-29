@@ -7,7 +7,7 @@ public class PlayerAction : MonoBehaviour
     ////////// 击退 //////////
     ///       start       ///
     // 默认击退距离
-    private float defaultRepulseDistance = 5f;
+    private float defaultRepulseDistance = 8f;
     // 击退过程移动速度
     private float repulseSpeed = 10f;
     // 击退方向
@@ -16,6 +16,7 @@ public class PlayerAction : MonoBehaviour
     private float repulseDistance;
     // 当前击退距离
     private float curRepulseDistance;
+    private bool isRepulseWall = false;
     ///       end       ///
 
     ////////// 死亡 //////////
@@ -66,14 +67,20 @@ public class PlayerAction : MonoBehaviour
         // 射线相交计算
         RaycastHit hit;
         float moveDistance = defaultRepulseDistance;
+        isRepulseWall = false;
         if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultRepulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
+            isRepulseWall = true;
             // 如果击退到墙壁,会二段扣血
             attr.ChangeHp(attr.damage_repel);
             if (attr.isDied)
             {
                 AnimationControl anim = GetComponent<AnimationControl>();
                 anim.Death();
+                if (RoomData.isMainRole(attr.seat))
+                {
+                    FightScene.instance.audioController.SoundPlay(AudioEunm.death);
+                }
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }
@@ -121,6 +128,10 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
+                if (RoomData.isMainRole(attr.seat) && isRepulseWall)
+                {
+                    FightScene.instance.audioController.SoundPlay(AudioEunm.repulse);
+                }
                 attr.isRepulse = false;
             }
         }

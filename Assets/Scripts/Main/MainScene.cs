@@ -27,10 +27,13 @@ public class MainScene : MonoBehaviour
     private Button[] roleBtns;
     private Vector3 prescale;
     private NameTool nameTool;
+    private AudioController audioController;
     // Start is called before the first frame update
     void Start()
     {
         nameTool = GetComponent<NameTool>();
+        audioController = GetComponent<AudioController>();
+        audioController.BGMPlay(AudioEunm.mainBGM);
         instance = this;
         for (int i = 0; i < roleBtns.Length; ++i)
         {
@@ -92,6 +95,7 @@ public class MainScene : MonoBehaviour
     }
     private void onClickHandler(int index)
     {
+        audioController.SoundPlay(AudioEunm.btnClick);
         roleBtns[selectIndex].transform.localScale = prescale;
         roleBtns[selectIndex].transform.SetSiblingIndex(index);
         selectIndex = index;
@@ -105,6 +109,7 @@ public class MainScene : MonoBehaviour
     }
     public void ReName()
     {
+        audioController.SoundPlay(AudioEunm.dice);
         string name = nameTool.getName();
         nameInput.text = name;
         LocalStorage.SetString("name", name);
@@ -131,6 +136,7 @@ public class MainScene : MonoBehaviour
 
     public void Match()
     {
+        audioController.SoundPlay(AudioEunm.btnClick);
         // 防止未登陆的情况
         if (GameData.user == null) return;
         if (isMatch)

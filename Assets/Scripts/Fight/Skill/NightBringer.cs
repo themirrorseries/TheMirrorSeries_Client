@@ -29,6 +29,7 @@ public class NightBringer : SkillBase
         playerAttribute.inSelfNight = true;
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
+        FightScene.instance.audioController.SoundPlay(AudioEunm.nightBringer);
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
         {

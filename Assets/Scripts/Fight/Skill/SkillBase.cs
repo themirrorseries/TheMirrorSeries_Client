@@ -126,6 +126,10 @@ public class SkillBase : MonoBehaviour
     {
         return 1 - (FightScene.instance.gameTime - lastSkillTime) / cd;
     }
+    public virtual void diffCd(float value)
+    {
+        lastSkillTime += value;
+    }
     // 寻找攻击目标(默认为圆形)
     public virtual List<GameObject> findAckAims()
     {

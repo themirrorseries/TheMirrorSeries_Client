@@ -80,6 +80,10 @@ public class PlayerSkill : MonoBehaviour
     {
         skills[(int)SkillEunm.SkillBtn.skill].Release();
     }
+    public void ChangeCd(int skillNum, float cd)
+    {
+        skills[skillNum].diffCd(cd);
+    }
     public SkillBase addSkill(int skillId)
     {
         switch (skillId)

@@ -9,7 +9,7 @@ public class ProtectiveCover : SkillBase
     public ProtectiveCover()
     {
         skillId = (int)SkillEunm.SkillID.protectiveCover;
-        skillName = "保护罩";
+        skillName = "粒子护盾";
         cd = 45;
         durationTime = 5;
         skillScope = 10;
@@ -35,6 +35,7 @@ public class ProtectiveCover : SkillBase
         playerAttribute.hasProtection = true;
         PlayerEffect playerEffect = GetComponent<PlayerEffect>();
         playerEffect.Play(EffectEunm.COVER);
+        FightScene.instance.audioController.SoundPlay(AudioEunm.protectiveCover);
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
     }

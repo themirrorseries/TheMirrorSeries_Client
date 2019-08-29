@@ -23,6 +23,7 @@ public class GroupChaos : SkillBase
     public override void onSkill()
     {
         BreakOtherSkill();
+        FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDelay);
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Release;
         List<GameObject> players = findEnemys();
@@ -43,6 +44,7 @@ public class GroupChaos : SkillBase
     }
     public override void afterDelay()
     {
+        FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDuration);
         List<GameObject> players = findEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
@@ -100,6 +102,7 @@ public class GroupChaos : SkillBase
         }
         else
         {
+            FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDelay);
             List<GameObject> players = findEnemys();
             for (int i = 0; i < players.Count; ++i)
             {

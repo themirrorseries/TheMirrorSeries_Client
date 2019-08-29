@@ -21,6 +21,10 @@ public class FrameActions : MonoBehaviour
         FightLoadDTO fight = new FightLoadDTO();
         fight.Roomid = RoomData.room.Roomid;
         fight.Seat = RoomData.seat;
+        clientMove = new ClientMoveDTO();
+        clientMove.Roomid = RoomData.room.Roomid;
+        clientMove.Seat = RoomData.seat;
+        clientMove.Bagid = bagid;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.LoadUpCreq, fight.ToByteArray());
     }
     void Start()
@@ -41,10 +45,6 @@ public class FrameActions : MonoBehaviour
     public void Init()
     {
         isLock = true;
-        clientMove = new ClientMoveDTO();
-        clientMove.Roomid = RoomData.room.Roomid;
-        clientMove.Seat = RoomData.seat;
-        clientMove.Bagid = bagid;
         clientMove.Msg.Clear();
         isLock = false;
     }

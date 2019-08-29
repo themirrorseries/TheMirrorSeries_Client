@@ -26,9 +26,12 @@ public class FightScene : MonoBehaviour
     private GameObject[] ranklist;
     // 墙壁距离
     public float wallDistance = 2f;
+    public AudioController audioController;
     // Start is called before the first frame update
     void Start()
     {
+        audioController = GetComponent<AudioController>();
+        audioController.BGMPlay(AudioEunm.fightBGM);
         instance = this;
         gameTime = 0;
         settlementPlane.gameObject.SetActive(false);

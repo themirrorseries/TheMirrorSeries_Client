@@ -22,9 +22,13 @@ public class NormalAttack : SkillBase
     {
         AnimationControl anim = GetComponent<AnimationControl>();
         anim.Attack();
+        if (RoomData.isMainRole(playerAttribute.seat))
+        {
+            FightScene.instance.audioController.SoundPlay(AudioEunm.attack);
+        }
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
-        lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, gameObject);
+        lightMgr.Init(RoomData.room.Speed + playerAttribute.bounces, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }
     public override void UpdateState(float deltaTime)

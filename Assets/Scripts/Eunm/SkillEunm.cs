@@ -20,7 +20,7 @@ public class SkillEunm
         notSkill = -1,
         // 普通攻击
         normalAck = 1,
-        // 保护罩
+        // 粒子护盾
         protectiveCover = 2,
         // 群体混乱
         groupChaos = 3,

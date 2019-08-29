@@ -28,10 +28,15 @@ public class FiveThunder : SkillBase
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             // 减少当前生命值的50%(向上取整)
             attr.ChangeHp(-Mathf.Floor(attr.hp / 2));
+            FightScene.instance.audioController.SoundPlay(AudioEunm.fiveThunder);
             if (attr.isDied)
             {
                 AnimationControl anim = players[i].GetComponent<AnimationControl>();
                 anim.Death();
+                if (RoomData.isMainRole(attr.seat))
+                {
+                    FightScene.instance.audioController.SoundPlay(AudioEunm.death);
+                }
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
                 return;
             }
