@@ -31,7 +31,8 @@ public class FrameActions : MonoBehaviour
     }
     void Update()
     {
-        if (needAdd && isStart)
+        //if ((needAdd||RoomData.isDeath) && isStart)
+        if ((needAdd) && isStart)
         {
             emptyFrame.DeltaTime = Time.deltaTime;
             Add(emptyFrame);
@@ -85,6 +86,7 @@ public class FrameActions : MonoBehaviour
 
     private void Send()
     {
+        //Debug.Log("死亡发包");
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
         CacheNext();

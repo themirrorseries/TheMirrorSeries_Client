@@ -10,7 +10,8 @@ public class NetIO
 
     public static NetIO instance;
     private Socket socket;
-    private string ip = "192.168.124.171";
+    //private string ip = "192.168.124.171";
+    private string ip = "127.0.0.1";
     private int port = 9700;
     private byte[] readBuff = new byte[1024];
     List<byte> cache = new List<byte>();

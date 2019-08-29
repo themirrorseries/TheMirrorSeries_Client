@@ -6,6 +6,7 @@ public class RoomData
 {
     public static MatchSuccessDTO room = null;
     public static int seat = -1;
+    public static bool isDeath = false;
     public static int seat2PlayerId(int seat)
     {
         if (room == null) return -1;
