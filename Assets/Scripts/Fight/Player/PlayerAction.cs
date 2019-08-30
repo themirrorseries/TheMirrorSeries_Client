@@ -151,6 +151,8 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
+                PlayerChildren children = GetComponent<PlayerChildren>();
+                children.title.gameObject.SetActive(false);
                 isDeathMove = false;
                 attr.isEnd = true;
             }
