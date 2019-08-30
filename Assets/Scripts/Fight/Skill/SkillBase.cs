@@ -126,6 +126,10 @@ public class SkillBase : MonoBehaviour
     {
         return 1 - (FightScene.instance.gameTime - lastSkillTime) / cd;
     }
+    public virtual int remainCd()
+    {
+        return Mathf.CeilToInt(cd - (FightScene.instance.gameTime - lastSkillTime));
+    }
     public virtual void diffCd(float value)
     {
         lastSkillTime += value;

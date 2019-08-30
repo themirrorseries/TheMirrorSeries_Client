@@ -81,13 +81,11 @@ public class FightScene : MonoBehaviour
     {
         for (int i = 0; i < RoomData.room.Lights.Count; ++i)
         {
-
             GameObject light = Instantiate(ResourcesTools.getLight(1));
             LightManager lightMgr = light.GetComponent<LightManager>();
             lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, RoomData.room.Lights[0].X, RoomData.room.Lights[0].Z);
             lights.Add(light);
         }
-
     }
     public void Refresh(ServerMoveDTO move)
     {
@@ -182,6 +180,7 @@ public class FightScene : MonoBehaviour
     public void AddDeath(int seat, int bounces)
     {
         if (RoomData.isDeath) return;
+        if (isInDeath(RoomData.seat)) return;
         Death death;
         death.seat = seat;
         death.bounces = bounces;

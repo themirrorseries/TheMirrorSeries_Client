@@ -8,7 +8,6 @@ public class LightManager : MonoBehaviour
     private float speed;
     private float curSpeed;
     public float maxSpeed = 55;
-    private float perSpeed = 0.5f;
     // 碰撞次数
     private int count;
     private int index = 0;
@@ -116,14 +115,28 @@ public class LightManager : MonoBehaviour
         direction = direction - 2 * Vector3.Dot(direction, forward) * forward;
         // 碰撞次数++
         index++;
-        if (curSpeed + perSpeed <= maxSpeed)
-        {
-            curSpeed += perSpeed;
-        }
+        curSpeed = SpeedFormula(curSpeed);
         if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);
             Destroy(gameObject);
         }
+    }
+
+    private float SpeedFormula(float curSpeed)
+    {
+        if (curSpeed < 40)
+        {
+            curSpeed += 2;
+        }
+        else if (curSpeed < 50)
+        {
+            curSpeed += 1;
+        }
+        else if (curSpeed < maxSpeed)
+        {
+            curSpeed += 0.5f;
+        }
+        return curSpeed;
     }
 }

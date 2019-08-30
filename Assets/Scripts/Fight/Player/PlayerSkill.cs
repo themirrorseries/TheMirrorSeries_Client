@@ -8,7 +8,10 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField]
     private List<int> skillIds;
     private List<Button> skillBtns;
+    // cd遮罩
     private List<Image> cdMasks = new List<Image>();
+    // cd文字
+    private List<Text> cdTexts = new List<Text>();
     private List<SkillBase> skills = new List<SkillBase>();
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,7 @@ public class PlayerSkill : MonoBehaviour
                 if (i > 0)
                 {
                     cdMasks.Add(skillBtns[i].transform.Find("CD").gameObject.GetComponent<Image>());
+                    cdTexts.Add(skillBtns[i].transform.Find("Text").gameObject.GetComponent<Text>());
                 }
             }
         }
@@ -51,6 +55,7 @@ public class PlayerSkill : MonoBehaviour
                 if (cdMasks[i].gameObject.activeInHierarchy)
                 {
                     cdMasks[i].gameObject.SetActive(false);
+                    cdTexts[i].gameObject.SetActive(false);
                 }
             }
             else
@@ -58,8 +63,10 @@ public class PlayerSkill : MonoBehaviour
                 if (!cdMasks[i].gameObject.activeInHierarchy)
                 {
                     cdMasks[i].gameObject.SetActive(true);
+                    cdTexts[i].gameObject.SetActive(true);
                 }
                 cdMasks[i].fillAmount = skills[i + 1].cdPercentage();
+                cdTexts[i].text = skills[i + 1].remainCd().ToString();
             }
         }
     }

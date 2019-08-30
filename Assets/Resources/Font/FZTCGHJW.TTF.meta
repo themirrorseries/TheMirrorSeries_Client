@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bcac8955852c1714bbae5cee6ac5da08
+guid: 3159b509d3d2e594ea20107fdbb56b76
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: FZZongYi-M05S
+  fontName: FZTeCuGuangHuiS-R-GB
   fontNames:
-  - FZZongYi-M05S
+  - FZTeCuGuangHuiS-R-GB
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
