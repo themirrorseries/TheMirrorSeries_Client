@@ -39,8 +39,14 @@ public class LightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Material new_material = new Material(material);
+        material = new_material;
+        gameObject.GetComponent<MeshRenderer>().material = material;
         material.DisableKeyword(Emission);
         trailMaterial.SetColor(tintColor, nottransparent);
+        Material new_trailMaterial = new Material(trailMaterial);
+        trailMaterial = new_trailMaterial;
+        gameObject.GetComponent<TrailRenderer>().material = trailMaterial;
         particle.gameObject.SetActive(true);
     }
 
