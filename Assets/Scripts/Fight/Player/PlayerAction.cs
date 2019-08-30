@@ -172,13 +172,16 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < players.Count; ++i)
             {
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
+                PlayerChildren children = players[i].GetComponent<PlayerChildren>();
                 if (RoomData.isMainRole(action.attr.seat))
                 {
                     action.material.EnableKeyword(Emission);
+                    children.title.gameObject.SetActive(true);
                 }
                 else
                 {
                     action.material.DisableKeyword(Emission);
+                    children.title.gameObject.SetActive(false);
                 }
             }
             // 关闭光线的自发光和透明化拖尾材质
@@ -294,7 +297,7 @@ public class PlayerAction : MonoBehaviour
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
                 action.material.DisableKeyword(Emission);
                 PlayerChildren children = players[i].GetComponent<PlayerChildren>();
-                children.title.gameObject.SetActive(false);
+                children.title.gameObject.SetActive(true);
             }
             // 关闭光线自发光
             List<GameObject> lights = FightScene.instance.Lights;

@@ -150,6 +150,7 @@ public class MainScene : MonoBehaviour
             {
                 roleBtns[i].enabled = true;
             }
+            nameInput.enabled = true;
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = matchSprite;
             MatchRtnDTO matchRtn = new MatchRtnDTO();
@@ -163,6 +164,7 @@ public class MainScene : MonoBehaviour
             {
                 roleBtns[i].enabled = false;
             }
+            nameInput.enabled = false;
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = cancelMatchSprite;
             MatchDTO match = new MatchDTO();
