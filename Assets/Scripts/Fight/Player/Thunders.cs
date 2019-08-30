@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Thunder : MonoBehaviour
+public class Thunders : MonoBehaviour
 {
     private GameObject parent;
-    // Start is called before the first frame update
     void Start()
     {
         parent = transform.parent.gameObject;
     }
-
-    public void HideThunder()
+    void Update()
     {
-        if (parent.activeInHierarchy)
+        if (gameObject.activeInHierarchy)
         {
-            parent.SetActive(false);
+            transform.localEulerAngles = new Vector3(0, 360 - parent.transform.localEulerAngles.y, 0);
         }
     }
 }
