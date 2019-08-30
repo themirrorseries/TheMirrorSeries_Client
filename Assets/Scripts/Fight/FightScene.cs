@@ -45,7 +45,7 @@ public class FightScene : MonoBehaviour
             ranklist[i].SetActive(false);
         }
         ranklist[0].SetActive(true);
-        ranklist[0].GetComponent<Rank>().View(false, deaths[0]);
+        ranklist[0].GetComponent<Rank>().View(false, deaths[deaths.Count - 1]);
     }
     public void ShowFirstList()
     {
@@ -181,6 +181,7 @@ public class FightScene : MonoBehaviour
     }
     public void AddDeath(int seat, int bounces)
     {
+        if (RoomData.isDeath) return;
         Death death;
         death.seat = seat;
         death.bounces = bounces;

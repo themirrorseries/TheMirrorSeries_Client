@@ -7,7 +7,7 @@ public class LightManager : MonoBehaviour
     // 初始速度
     private float speed;
     private float curSpeed;
-    private float maxSpeed = 55;
+    public float maxSpeed = 55;
     private float perSpeed = 0.5f;
     // 碰撞次数
     private int count;
