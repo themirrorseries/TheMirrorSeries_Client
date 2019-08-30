@@ -103,6 +103,7 @@ public class PlayerAttribute : MonoBehaviour
     }
     public void AutoAddHp(float deltaTime)
     {
+        if (isDied) return;
         autoAddHpTime += deltaTime;
         if (autoAddHpTime >= autoAddHpSpace)
         {

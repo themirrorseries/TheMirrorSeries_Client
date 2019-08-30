@@ -50,6 +50,4 @@ public class NetMessagetUtil : MonoBehaviour
                 break;
         }
     }
-
-
 }

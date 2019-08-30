@@ -105,6 +105,11 @@ public class MainScene : MonoBehaviour
     }
     private void EditEndHandler(string str)
     {
+        if (str == string.Empty)
+        {
+            str = nameTool.getName();
+            nameInput.text = str;
+        }
         LocalStorage.SetString("name", str);
     }
     public void ReName()
@@ -141,6 +146,10 @@ public class MainScene : MonoBehaviour
         if (GameData.user == null) return;
         if (isMatch)
         {
+            for (int i = 0; i < roleBtns.Length; ++i)
+            {
+                roleBtns[i].enabled = true;
+            }
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = matchSprite;
             MatchRtnDTO matchRtn = new MatchRtnDTO();
@@ -150,6 +159,10 @@ public class MainScene : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < roleBtns.Length; ++i)
+            {
+                roleBtns[i].enabled = false;
+            }
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = cancelMatchSprite;
             MatchDTO match = new MatchDTO();

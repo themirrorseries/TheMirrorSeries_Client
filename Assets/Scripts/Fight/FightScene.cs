@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Google.Protobuf;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class FightScene : MonoBehaviour
 {
@@ -121,6 +120,7 @@ public class FightScene : MonoBehaviour
                 // 是否丢包
                 int index = -1;
                 PlayerControl playerControl = players[p].GetComponent<PlayerControl>();
+                playerControl.UpdateState(deltaTime);
                 if (playerControl.attr.isEnd)
                 {
                     continue;
@@ -137,7 +137,6 @@ public class FightScene : MonoBehaviour
                 {
                     playerControl.onMsgHandler(move.ClientInfo[index].Msg[i], deltaTime);
                 }
-                playerControl.UpdateState(deltaTime);
             }
         }
     }
@@ -190,7 +189,7 @@ public class FightScene : MonoBehaviour
         if (RoomData.isMainRole(seat))
         {
             RoomData.isDeath = true;
-            FrameActions.instance.needAdd = true;
+            FrameActions.instance.needAdd = false;
             FightLeaveDTO leaveDTO = new FightLeaveDTO();
             leaveDTO.Roomid = RoomData.room.Roomid;
             leaveDTO.Seat = RoomData.seat;
@@ -252,17 +251,24 @@ public class FightScene : MonoBehaviour
             return deaths.Count == players.Count - 1;
         }
     }
+    private void LeaveRoom()
+    {
+        FightLeaveDTO leaveDTO = new FightLeaveDTO();
+        leaveDTO.Roomid = RoomData.room.Roomid;
+        leaveDTO.Seat = RoomData.seat;
+        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.LaeveCreq, leaveDTO.ToByteArray());
+    }
     public void BackToMainScene()
     {
         RoomData.isDeath = false;
         GameData.match = false;
-        SceneManager.LoadScene(SceneEunm.MAIN);
+        LeaveRoom();
     }
     public void Again()
     {
         RoomData.isDeath = false;
         GameData.match = true;
-        SceneManager.LoadScene(SceneEunm.MAIN);
+        LeaveRoom();
     }
     public bool isInDeath(int seat)
     {

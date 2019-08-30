@@ -216,6 +216,8 @@ public class PlayerAction : MonoBehaviour
                     if (!action.material.IsKeywordEnabled(Emission))
                     {
                         action.material.EnableKeyword(Emission);
+                        PlayerChildren children = hitColliders[i].GetComponent<PlayerChildren>();
+                        children.title.gameObject.SetActive(true);
                     }
                 }
                 else if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.LIGHT))
@@ -246,6 +248,8 @@ public class PlayerAction : MonoBehaviour
                     if (action.material.IsKeywordEnabled(Emission))
                     {
                         action.material.DisableKeyword(Emission);
+                        PlayerChildren children = FightScene.instance.Players[i].GetComponent<PlayerChildren>();
+                        children.title.gameObject.SetActive(false);
                     }
                 }
             }
@@ -283,12 +287,14 @@ public class PlayerAction : MonoBehaviour
         {
             directionalLight.SetActive(true);
             spotLight.SetActive(false);
-            // 关闭角色自发光
+            // 关闭角色自发光和角色头顶
             List<GameObject> players = FightScene.instance.Players;
             for (int i = 0; i < players.Count; ++i)
             {
                 PlayerAction action = players[i].GetComponent<PlayerAction>();
                 action.material.DisableKeyword(Emission);
+                PlayerChildren children = players[i].GetComponent<PlayerChildren>();
+                children.title.gameObject.SetActive(false);
             }
             // 关闭光线自发光
             List<GameObject> lights = FightScene.instance.Lights;

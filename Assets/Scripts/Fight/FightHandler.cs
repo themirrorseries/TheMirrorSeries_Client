@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Google.Protobuf;
+using UnityEngine.SceneManagement;
 
 public class FightHandler : MonoBehaviour, IHandler
 {
@@ -18,6 +19,9 @@ public class FightHandler : MonoBehaviour, IHandler
             case (int)FightTypes.DeathSres:
                 DeathHandler(model.message);
                 break;
+            case (int)FightTypes.LaeveSres:
+                LeaveHandler(model.message);
+                break;
         }
     }
     private void MoveHandler(byte[] message)
@@ -33,5 +37,9 @@ public class FightHandler : MonoBehaviour, IHandler
     private void DeathHandler(byte[] message)
     {
 
+    }
+    private void LeaveHandler(byte[] message)
+    {
+        SceneManager.LoadScene(SceneEunm.MAIN);
     }
 }
