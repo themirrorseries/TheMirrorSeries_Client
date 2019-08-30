@@ -45,7 +45,6 @@ public class PlayerAction : MonoBehaviour
     [SerializeField]
     // 材质
     public Material material;
-    private float nightScope;
     private string Emission = "_EMISSION";
     ///       end       ///
 
@@ -166,7 +165,8 @@ public class PlayerAction : MonoBehaviour
         }
         else if (attr.inNight)
         {
-            nightScope = skillScope;
+            if (!RoomData.isMainRole(attr.seat)) return;
+            FightScene.instance.nightScope = skillScope;
             directionalLight.SetActive(false);
             spotLight.SetActive(true);
             // 开启自己的自发光,关闭别人的自发光
@@ -206,9 +206,10 @@ public class PlayerAction : MonoBehaviour
         }
         if (attr.inNight)
         {
+            if (!RoomData.isMainRole(attr.seat)) return;
             // 球形射线检测
             Collider[] hitColliders = Physics.OverlapSphere(transform.position,
-                        nightScope, LayerMask.GetMask(LayerEunm.PLAYER) | LayerMask.GetMask(LayerEunm.LIGHT));
+                        FightScene.instance.nightScope, LayerMask.GetMask(LayerEunm.PLAYER) | LayerMask.GetMask(LayerEunm.LIGHT));
             for (int i = 0; i < hitColliders.Length; ++i)
             {
                 if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.PLAYER))
@@ -290,6 +291,8 @@ public class PlayerAction : MonoBehaviour
         }
         else if (attr.inNight)
         {
+            if (!RoomData.isMainRole(attr.seat)) return;
+            FightScene.instance.nightScope = -1;
             directionalLight.SetActive(true);
             spotLight.SetActive(false);
             // 关闭角色自发光和角色头顶

@@ -87,6 +87,48 @@ public class LightManager : MonoBehaviour
         }
         if (index < count)
         {
+            if (FightScene.instance.nightScope != -1)
+            {
+                // 球形射线检测
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + direction * deltaTime * curSpeed, FightScene.instance.nightScope, LayerMask.GetMask(LayerEunm.PLAYER));
+                if (hitColliders.Length == 0)
+                {
+                    if (material.IsKeywordEnabled(Emission))
+                    {
+                        material.DisableKeyword(Emission);
+                        trailMaterial.SetColor(tintColor, transparent);
+                        particle.gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    bool isIn = false;
+                    for (int i = 0; i < hitColliders.Length; ++i)
+                    {
+                        PlayerAttribute attr = hitColliders[i].gameObject.GetComponent<PlayerAttribute>();
+                        if (RoomData.isMainRole(attr.seat))
+                        {
+                            if (!material.IsKeywordEnabled(Emission))
+                            {
+                                material.EnableKeyword(Emission);
+                                trailMaterial.SetColor(tintColor, nottransparent);
+                                particle.gameObject.SetActive(true);
+                            }
+                            isIn = true;
+                            break;
+                        }
+                    }
+                    if (!isIn)
+                    {
+                        if (material.IsKeywordEnabled(Emission))
+                        {
+                            material.DisableKeyword(Emission);
+                            trailMaterial.SetColor(tintColor, transparent);
+                            particle.gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
             // 射线相交计算
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, distance, LayerMask.GetMask(LayerEunm.WALL) | LayerMask.GetMask(LayerEunm.PLAYER)))

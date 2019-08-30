@@ -26,6 +26,7 @@ public class FightScene : MonoBehaviour
     // 墙壁距离
     public float wallDistance = 2f;
     public AudioController audioController;
+    public float nightScope = -1;
     // Start is called before the first frame update
     void Start()
     {
