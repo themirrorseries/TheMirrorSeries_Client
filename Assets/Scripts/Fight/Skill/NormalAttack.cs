@@ -8,13 +8,13 @@ public class NormalAttack : SkillBase
     {
         skillId = (int)SkillEunm.SkillID.normalAck;
         skillName = "普通攻击";
-        cd = 0;
+        cd = 5;
     }
     public override void Release()
     {
-        if (isMpEnough(playerAttribute.mpMax))
+        if (isEndCd())
         {
-            AddMp(-playerAttribute.mp);
+            beforeSkill();
             onSkill();
         }
     }

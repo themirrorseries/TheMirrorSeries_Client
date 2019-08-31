@@ -15,9 +15,6 @@ public class Rank : MonoBehaviour
     // 姓名
     private Text nickname;
     [SerializeField]
-    // 光线数量
-    private Text lightCount;
-    [SerializeField]
     // 生存时间
     private Text time;
     [SerializeField]
@@ -27,7 +24,6 @@ public class Rank : MonoBehaviour
     {
         imperialCrown.gameObject.SetActive(isFirst);
         nickname.text = RoomData.seat2PlayerName(death.seat);
-        lightCount.text = death.light.ToString();
         time.text = TimeTools.Num2TimeString(death.time);
         bounce.text = death.bounces.ToString();
     }

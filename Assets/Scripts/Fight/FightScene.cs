@@ -23,6 +23,17 @@ public class FightScene : MonoBehaviour
     private Image settlementPlane;
     [SerializeField]
     private GameObject[] ranklist;
+    // 掉血UI
+    [SerializeField]
+    public Image bleedingImg;
+    [SerializeField]
+    // 引导箭头
+    private Image guildImg;
+    [SerializeField]
+    // 倒计时
+    private Image countdownImg;
+    // 倒计时协程
+    private Coroutine countdownCoroutine;
     // 墙壁距离
     public float wallDistance = 2f;
     public AudioController audioController;
@@ -30,6 +41,7 @@ public class FightScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        countdownCoroutine = StartCoroutine(Countdown());
         audioController = GetComponent<AudioController>();
         audioController.BGMPlay(AudioEunm.fightBGM, 0.8f);
         instance = this;
@@ -37,6 +49,24 @@ public class FightScene : MonoBehaviour
         settlementPlane.gameObject.SetActive(false);
         InitPlayers();
         InitLight();
+    }
+
+    private IEnumerator Countdown()
+    {
+        int count = 3;
+        while (count > 0)
+        {
+            countdownImg.sprite = ResourcesTools.getCountdown(count);
+            --count;
+            yield return new WaitForSeconds(1f);
+        }
+        countdownImg.gameObject.SetActive(false);
+        guildImg.gameObject.SetActive(false);
+        FightLoadDTO fight = new FightLoadDTO();
+        fight.Roomid = RoomData.room.Roomid;
+        fight.Seat = RoomData.seat;
+        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.LoadUpCreq, fight.ToByteArray());
+        StopCoroutine(countdownCoroutine);
     }
     public void ShowOtherList()
     {

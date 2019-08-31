@@ -39,14 +39,14 @@ public class LightManager : MonoBehaviour
     // 颜色变化表
     public Color[] colors ={
         new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
-        new Color(255f/255f, 0/255f, 0/255f, 1f),
-        new Color(255f / 255f, 0/255f, 183f / 255f, 1f)
+        new Color(210f/255f, 39/255f, 0/255f, 1f),
+        new Color(255f / 255f, 0/255f, 0f / 255f, 1f)
     };
     // 透明颜色表
     public Color[] transparent ={
         new Color(255f/255f, 201f / 255f, 26f / 255f, 0),
-        new Color(255f/255f, 0/255f, 0/255f, 0),
-        new Color(255f / 255f, 0/255f, 183f / 255f, 0)
+        new Color(210f/255f, 39/255f, 0/255f, 0),
+        new Color(255f / 255f, 0/255f, 0f / 255f,0)
     };
     // 当前颜色下标
     public int colorIndex = 0;
@@ -68,6 +68,16 @@ public class LightManager : MonoBehaviour
     {
         speed = _speed;
         curSpeed = speed;
+        if (curSpeed >= speedRange[0])
+        {
+            colorIndex++;
+            trailMaterial.SetColor(tintColor, colors[colorIndex]);
+        }
+        else if (curSpeed >= speedRange[1])
+        {
+            colorIndex += 2;
+            trailMaterial.SetColor(tintColor, colors[colorIndex]);
+        }
         count = _count;
         player = _player;
         delayTime = 0;

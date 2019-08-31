@@ -56,6 +56,14 @@ public class PlayerAttribute : MonoBehaviour
     // 加/减血函数,正数加血,负数减血
     public void ChangeHp(float value)
     {
+        if (RoomData.isMainRole(seat))
+        {
+            if (value < 0)
+            {
+                PlayerAction action = GetComponent<PlayerAction>();
+                action.DoBleeding();
+            }
+        }
         if (hp + value > hpMax)
         {
             hp = hpMax;

@@ -48,6 +48,15 @@ public class PlayerAction : MonoBehaviour
     private string Emission = "_EMISSION";
     ///       end       ///
 
+    ////////  掉血   /////////
+    ///       start       ///
+    // 掉血协程
+    public Coroutine bleedingCoroutine;
+    // 是否在掉血
+    private bool isInBleeding = false;
+    private float bleedingTime = 0.5f;
+    ///       end       ///
+
     private PlayerAttribute attr;
     // Start is called before the first frame update
     void Start()
@@ -60,6 +69,22 @@ public class PlayerAction : MonoBehaviour
     {
         Repulse(deltaTime);
         Death(deltaTime);
+    }
+    public void DoBleeding()
+    {
+        if (isInBleeding)
+        {
+            StopCoroutine(bleedingCoroutine);
+        }
+        isInBleeding = true;
+        bleedingCoroutine = StartCoroutine(Bleeding());
+    }
+    public IEnumerator Bleeding()
+    {
+        FightScene.instance.bleedingImg.gameObject.SetActive(true);
+        yield return new WaitForSeconds(bleedingTime);
+        FightScene.instance.bleedingImg.gameObject.SetActive(false);
+        isInBleeding = false;
     }
     public void CheckRepulse(float wallDistance, Vector3 direction)
     {

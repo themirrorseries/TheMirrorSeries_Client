@@ -32,11 +32,8 @@ public class PlayerSkill : MonoBehaviour
             for (int i = 0; i < skillIds.Count; ++i)
             {
                 skillBtns[i].GetComponent<Image>().sprite = ResourcesTools.getSkillIcon(skills[i].skillId);
-                if (i > 0)
-                {
-                    cdMasks.Add(skillBtns[i].transform.Find("CD").gameObject.GetComponent<Image>());
-                    cdTexts.Add(skillBtns[i].transform.Find("Text").gameObject.GetComponent<Text>());
-                }
+                cdMasks.Add(skillBtns[i].transform.Find("CDMask").gameObject.GetComponent<Image>());
+                cdTexts.Add(skillBtns[i].transform.Find("Text").gameObject.GetComponent<Text>());
             }
         }
     }
@@ -50,7 +47,7 @@ public class PlayerSkill : MonoBehaviour
         }
         for (int i = 0; i < cdMasks.Count; ++i)
         {
-            if (skills[i + 1].isEndCd())
+            if (skills[i].isEndCd())
             {
                 if (cdMasks[i].gameObject.activeInHierarchy)
                 {
@@ -65,8 +62,8 @@ public class PlayerSkill : MonoBehaviour
                     cdMasks[i].gameObject.SetActive(true);
                     cdTexts[i].gameObject.SetActive(true);
                 }
-                cdMasks[i].fillAmount = skills[i + 1].cdPercentage();
-                cdTexts[i].text = skills[i + 1].remainCd().ToString();
+                cdMasks[i].fillAmount = skills[i].cdPercentage();
+                cdTexts[i].text = skills[i].remainCd().ToString();
             }
         }
     }

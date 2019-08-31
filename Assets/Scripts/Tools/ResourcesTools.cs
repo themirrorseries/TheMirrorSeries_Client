@@ -16,10 +16,16 @@ public class ResourcesTools
     public static string mirrorPre = "Mirror";
     // UI路径
     public static string UI = "UI/";
+    // 主场景路径
+    public static string Main = "Main/";
     // 战斗场景路径
     public static string FightUrl = "Fight/";
+    // 角色原画路径
+    public static string Role = "Role/";
     // 技能Icon路径
     public static string SkillUrl = "Skill/";
+    // 倒计时路径
+    public static string CountdownUrl = "Countdown/";
     // 血条预制体前缀
     public static string hpPre = "Hp";
     public static string getPrefabUrl(string url)
@@ -50,5 +56,13 @@ public class ResourcesTools
     public static Sprite getHpBar(int id)
     {
         return Resources.Load<Sprite>(UI + FightUrl + hpPre + id.ToString());
+    }
+    public static Sprite getRole(int id)
+    {
+        return Resources.Load<Sprite>(UI + Main + Role + id.ToString());
+    }
+    public static Sprite getCountdown(int id)
+    {
+        return Resources.Load<Sprite>(UI + FightUrl + CountdownUrl + id.ToString());
     }
 }

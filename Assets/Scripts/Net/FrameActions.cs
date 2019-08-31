@@ -18,14 +18,11 @@ public class FrameActions : MonoBehaviour
     void Awake()
     {
         instance = this;
-        FightLoadDTO fight = new FightLoadDTO();
-        fight.Roomid = RoomData.room.Roomid;
-        fight.Seat = RoomData.seat;
+
         clientMove = new ClientMoveDTO();
         clientMove.Roomid = RoomData.room.Roomid;
         clientMove.Seat = RoomData.seat;
         clientMove.Bagid = bagid;
-        this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.LoadUpCreq, fight.ToByteArray());
     }
     void Start()
     {
