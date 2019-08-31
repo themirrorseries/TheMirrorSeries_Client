@@ -29,8 +29,8 @@ public class NormalAttack : SkillBase
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
 
-        float speed = ((RoomData.room.Speed + playerAttribute.bounces) > lightMgr.maxSpeed) ?
-                        lightMgr.maxSpeed : (RoomData.room.Speed + playerAttribute.bounces);
+        float speed = ((RoomData.room.Speed + playerAttribute.bounces) > lightMgr.speedRange[lightMgr.speedRange.Length - 1]) ?
+                        lightMgr.speedRange[lightMgr.speedRange.Length - 1] : (RoomData.room.Speed + playerAttribute.bounces);
         lightMgr.Init(speed, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }

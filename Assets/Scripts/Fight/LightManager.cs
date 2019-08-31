@@ -7,7 +7,11 @@ public class LightManager : MonoBehaviour
     // 初始速度
     private float speed;
     private float curSpeed;
-    public float maxSpeed = 55;
+    public float[] speedRange ={
+        40f,
+        50f,
+        55f
+    };
     // 碰撞次数
     private int count;
     private int index = 0;
@@ -32,10 +36,20 @@ public class LightManager : MonoBehaviour
     public ParticleSystem particle;
     public string tintColor = "_TintColor";
     private string Emission = "_EMISSION";
-    // 透明
-    public Color transparent = new Color(128, 128, 128, 0);
-    // 不透明
-    public Color nottransparent = new Color(128, 128, 128, 128);
+    // 颜色变化表
+    public Color[] colors ={
+        new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
+        new Color(255f/255f, 0/255f, 0/255f, 1f),
+        new Color(255f / 255f, 0/255f, 183f / 255f, 1f)
+    };
+    // 透明颜色表
+    public Color[] transparent ={
+        new Color(255f/255f, 201f / 255f, 26f / 255f, 0),
+        new Color(255f/255f, 0/255f, 0/255f, 0),
+        new Color(255f / 255f, 0/255f, 183f / 255f, 0)
+    };
+    // 当前颜色下标
+    public int colorIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +57,7 @@ public class LightManager : MonoBehaviour
         material = new_material;
         gameObject.GetComponent<MeshRenderer>().material = material;
         material.DisableKeyword(Emission);
-        trailMaterial.SetColor(tintColor, nottransparent);
+        trailMaterial.SetColor(tintColor, colors[colorIndex]);
         Material new_trailMaterial = new Material(trailMaterial);
         trailMaterial = new_trailMaterial;
         gameObject.GetComponent<TrailRenderer>().material = trailMaterial;
@@ -93,48 +107,7 @@ public class LightManager : MonoBehaviour
         }
         if (index < count)
         {
-            if (FightScene.instance.nightScope != -1)
-            {
-                // 球形射线检测
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + direction * deltaTime * curSpeed, FightScene.instance.nightScope, LayerMask.GetMask(LayerEunm.PLAYER));
-                if (hitColliders.Length == 0)
-                {
-                    if (material.IsKeywordEnabled(Emission))
-                    {
-                        material.DisableKeyword(Emission);
-                        trailMaterial.SetColor(tintColor, transparent);
-                        particle.gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    bool isIn = false;
-                    for (int i = 0; i < hitColliders.Length; ++i)
-                    {
-                        PlayerAttribute attr = hitColliders[i].gameObject.GetComponent<PlayerAttribute>();
-                        if (RoomData.isMainRole(attr.seat))
-                        {
-                            if (!material.IsKeywordEnabled(Emission))
-                            {
-                                material.EnableKeyword(Emission);
-                                trailMaterial.SetColor(tintColor, nottransparent);
-                                particle.gameObject.SetActive(true);
-                            }
-                            isIn = true;
-                            break;
-                        }
-                    }
-                    if (!isIn)
-                    {
-                        if (material.IsKeywordEnabled(Emission))
-                        {
-                            material.DisableKeyword(Emission);
-                            trailMaterial.SetColor(tintColor, transparent);
-                            particle.gameObject.SetActive(false);
-                        }
-                    }
-                }
-            }
+            // 先进行射线相交,计算出下次是否需要反射,移动的方向,然后进行球形检查,确定透明度,再移动
             // 射线相交计算
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, distance, LayerMask.GetMask(LayerEunm.WALL) | LayerMask.GetMask(LayerEunm.PLAYER)))
@@ -153,6 +126,48 @@ public class LightManager : MonoBehaviour
                 }
                 Reflect(hit.collider.gameObject.transform.forward.normalized);
             }
+            if (FightScene.instance.nightScope != -1)
+            {
+                // 球形射线检测
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + direction * deltaTime * curSpeed, FightScene.instance.nightScope, LayerMask.GetMask(LayerEunm.PLAYER));
+                if (hitColliders.Length == 0)
+                {
+                    if (material.IsKeywordEnabled(Emission))
+                    {
+                        material.DisableKeyword(Emission);
+                        trailMaterial.SetColor(tintColor, transparent[colorIndex]);
+                        particle.gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    bool isIn = false;
+                    for (int i = 0; i < hitColliders.Length; ++i)
+                    {
+                        PlayerAttribute attr = hitColliders[i].gameObject.GetComponent<PlayerAttribute>();
+                        if (RoomData.isMainRole(attr.seat))
+                        {
+                            if (!material.IsKeywordEnabled(Emission))
+                            {
+                                material.EnableKeyword(Emission);
+                                trailMaterial.SetColor(tintColor, colors[colorIndex]);
+                                particle.gameObject.SetActive(true);
+                            }
+                            isIn = true;
+                            break;
+                        }
+                    }
+                    if (!isIn)
+                    {
+                        if (material.IsKeywordEnabled(Emission))
+                        {
+                            material.DisableKeyword(Emission);
+                            trailMaterial.SetColor(tintColor, transparent[colorIndex]);
+                            particle.gameObject.SetActive(false);
+                        }
+                    }
+                }
+            }
             transform.Translate(direction.normalized * deltaTime * curSpeed);
         }
     }
@@ -164,6 +179,16 @@ public class LightManager : MonoBehaviour
         // 碰撞次数++
         index++;
         curSpeed = SpeedFormula(curSpeed);
+        if (curSpeed == speedRange[0])
+        {
+            colorIndex++;
+            trailMaterial.SetColor(tintColor, colors[colorIndex]);
+        }
+        else if (curSpeed == speedRange[1])
+        {
+            colorIndex++;
+            trailMaterial.SetColor(tintColor, colors[colorIndex]);
+        }
         if (index == count)
         {
             FightScene.instance.RomoveLight(gameObject);
@@ -173,15 +198,15 @@ public class LightManager : MonoBehaviour
 
     private float SpeedFormula(float curSpeed)
     {
-        if (curSpeed < 40)
+        if (curSpeed < speedRange[0])
         {
             curSpeed += 2;
         }
-        else if (curSpeed < 50)
+        else if (curSpeed < speedRange[1])
         {
             curSpeed += 1;
         }
-        else if (curSpeed < maxSpeed)
+        else if (curSpeed < speedRange[2])
         {
             curSpeed += 0.5f;
         }

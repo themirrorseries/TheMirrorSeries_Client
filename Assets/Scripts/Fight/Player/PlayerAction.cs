@@ -192,7 +192,7 @@ public class PlayerAction : MonoBehaviour
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
                 lightManager.material.DisableKeyword(Emission);
-                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent);
+                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent[lightManager.colorIndex]);
                 lightManager.particle.gameObject.SetActive(false);
             }
             Night();
@@ -232,7 +232,7 @@ public class PlayerAction : MonoBehaviour
                     if (!lightManager.material.IsKeywordEnabled(Emission))
                     {
                         lightManager.material.EnableKeyword(Emission);
-                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.nottransparent);
+                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.colors[lightManager.colorIndex]);
                         lightManager.particle.gameObject.SetActive(true);
                     }
                 }
@@ -276,7 +276,7 @@ public class PlayerAction : MonoBehaviour
                     if (lightManager.material.IsKeywordEnabled(Emission))
                     {
                         lightManager.material.DisableKeyword(Emission);
-                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent);
+                        lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent[lightManager.colorIndex]);
                         lightManager.particle.gameObject.SetActive(false);
                     }
                 }
@@ -310,7 +310,7 @@ public class PlayerAction : MonoBehaviour
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
                 lightManager.material.DisableKeyword(Emission);
-                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.nottransparent);
+                lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.colors[lightManager.colorIndex]);
                 lightManager.particle.gameObject.SetActive(true);
             }
         }
