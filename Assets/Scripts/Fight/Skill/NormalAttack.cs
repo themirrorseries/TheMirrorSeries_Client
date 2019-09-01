@@ -10,6 +10,11 @@ public class NormalAttack : SkillBase
         skillName = "普通攻击";
         cd = 5;
     }
+    public override void Start()
+    {
+        base.Start();
+        diffCd(-cd);
+    }
     public override void Release()
     {
         if (isEndCd())
