@@ -135,7 +135,7 @@ public class PlayerSkill : MonoBehaviour
     public void ChangeCd(int skillNum, float cd)
     {
         skills[skillNum].diffCd(cd);
-        if (!skills[skillNum].isEndCd())
+        if (!skills[skillNum].isEndCd() && RoomData.isMainRole(attr.seat))
         {
             anims[skillNum - 1].Play();
         }
