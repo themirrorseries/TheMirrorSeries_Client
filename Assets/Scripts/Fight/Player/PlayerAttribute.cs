@@ -34,9 +34,9 @@ public class PlayerAttribute : MonoBehaviour
     // 自动回血计时
     private float autoAddHpTime;
     // 自动回血间隔
-    private float autoAddHpSpace = 1f;
+    public float autoAddHpSpace = 1f;
     // 自动回血数值
-    private float autoAddHpNum = 1f;
+    public float autoAddHpNum = 1f;
     // 主动释放黑夜降临
     public bool inSelfNight = false;
     // 被释放黑夜降临

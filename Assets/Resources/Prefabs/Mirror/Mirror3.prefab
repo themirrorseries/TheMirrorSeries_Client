@@ -387,6 +387,8 @@ MonoBehaviour:
   isRepulse: 0
   hasProtection: 0
   isChaos: 0
+  autoAddHpSpace: 2
+  autoAddHpNum: 1
   inSelfNight: 0
   inNight: 0
 --- !u!114 &5827834230676998003
