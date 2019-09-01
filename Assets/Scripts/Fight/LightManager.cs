@@ -37,22 +37,24 @@ public class LightManager : MonoBehaviour
     public string tintColor = "_TintColor";
     private string Emission = "_EMISSION";
     // 颜色变化表
-    public Color[] colors ={
-        new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
-        new Color(202f/255f, 37/255f, 185/255f, 1f),
-        new Color(255f / 255f, 0/255f, 0f / 255f, 1f)
-    };
+    public Color[] colors;
     // 透明颜色表
-    public Color[] transparent ={
-        new Color(255f/255f, 201f / 255f, 26f / 255f, 0),
-        new Color(202f/255f, 37/255f, 185/255f, 0),
-        new Color(255f / 255f, 0/255f, 0f / 255f,0)
-    };
+    public Color[] transparent;
     // 当前颜色下标
     public int colorIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
+        colors = new Color[] {
+            new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
+            new Color(202f/255f, 37/255f, 185/255f, 1f),
+            new Color(255f / 255f, 0/255f, 0f / 255f, 1f)
+        };
+        transparent = new Color[] {
+            new Color(255f/255f, 201f / 255f, 26f / 255f, 0),
+            new Color(202f/255f, 37/255f, 185/255f, 0),
+            new Color(255f / 255f, 0/255f, 0f / 255f,0)
+        };
         Material new_material = new Material(material);
         material = new_material;
         gameObject.GetComponent<MeshRenderer>().material = material;
