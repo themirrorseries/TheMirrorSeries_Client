@@ -39,13 +39,13 @@ public class LightManager : MonoBehaviour
     // 颜色变化表
     public Color[] colors ={
         new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
-        new Color(210f/255f, 39/255f, 0/255f, 1f),
+        new Color(202f/255f, 37/255f, 185/255f, 1f),
         new Color(255f / 255f, 0/255f, 0f / 255f, 1f)
     };
     // 透明颜色表
     public Color[] transparent ={
         new Color(255f/255f, 201f / 255f, 26f / 255f, 0),
-        new Color(210f/255f, 39/255f, 0/255f, 0),
+        new Color(202f/255f, 37/255f, 185/255f, 0),
         new Color(255f / 255f, 0/255f, 0f / 255f,0)
     };
     // 当前颜色下标

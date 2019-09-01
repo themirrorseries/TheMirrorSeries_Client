@@ -26,6 +26,8 @@ public class ResourcesTools
     public static string SkillUrl = "Skill/";
     // 倒计时路径
     public static string CountdownUrl = "Countdown/";
+    // CD路径
+    public static string CDUrl = "CD/";
     // 血条预制体前缀
     public static string hpPre = "Hp";
     public static string getPrefabUrl(string url)
@@ -64,5 +66,9 @@ public class ResourcesTools
     public static Sprite getCountdown(int id)
     {
         return Resources.Load<Sprite>(UI + FightUrl + CountdownUrl + id.ToString());
+    }
+    public static Sprite getHalo(int id)
+    {
+        return Resources.Load<Sprite>(UI + FightUrl + SkillUrl + CDUrl + id.ToString());
     }
 }
