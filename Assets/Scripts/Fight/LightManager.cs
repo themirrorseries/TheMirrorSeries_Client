@@ -27,15 +27,11 @@ public class LightManager : MonoBehaviour
     private GameObject player;
     private bool isPlayerCreate = false;
     [SerializeField]
-    // 材质
-    public Material material;
-    [SerializeField]
     // 拖尾材质
     public Material trailMaterial;
     [SerializeField]
     public ParticleSystem particle;
     public string tintColor = "_TintColor";
-    private string Emission = "_EMISSION";
     // 颜色变化表
     public Color[] colors;
     // 透明颜色表
@@ -55,10 +51,6 @@ public class LightManager : MonoBehaviour
             new Color(202f/255f, 37/255f, 185/255f, 0),
             new Color(255f / 255f, 0/255f, 0f / 255f,0)
         };
-        Material new_material = new Material(material);
-        material = new_material;
-        gameObject.GetComponent<MeshRenderer>().material = material;
-        material.DisableKeyword(Emission);
         trailMaterial.SetColor(tintColor, colors[colorIndex]);
         Material new_trailMaterial = new Material(trailMaterial);
         trailMaterial = new_trailMaterial;
@@ -144,9 +136,8 @@ public class LightManager : MonoBehaviour
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position + direction * deltaTime * curSpeed, FightScene.instance.nightScope, LayerMask.GetMask(LayerEunm.PLAYER));
                 if (hitColliders.Length == 0)
                 {
-                    if (material.IsKeywordEnabled(Emission))
+                    if (particle.gameObject.activeInHierarchy)
                     {
-                        material.DisableKeyword(Emission);
                         trailMaterial.SetColor(tintColor, transparent[colorIndex]);
                         particle.gameObject.SetActive(false);
                     }
@@ -159,9 +150,8 @@ public class LightManager : MonoBehaviour
                         PlayerAttribute attr = hitColliders[i].gameObject.GetComponent<PlayerAttribute>();
                         if (RoomData.isMainRole(attr.seat))
                         {
-                            if (!material.IsKeywordEnabled(Emission))
+                            if (!particle.gameObject.activeInHierarchy)
                             {
-                                material.EnableKeyword(Emission);
                                 trailMaterial.SetColor(tintColor, colors[colorIndex]);
                                 particle.gameObject.SetActive(true);
                             }
@@ -171,9 +161,8 @@ public class LightManager : MonoBehaviour
                     }
                     if (!isIn)
                     {
-                        if (material.IsKeywordEnabled(Emission))
+                        if (particle.gameObject.activeInHierarchy)
                         {
-                            material.DisableKeyword(Emission);
                             trailMaterial.SetColor(tintColor, transparent[colorIndex]);
                             particle.gameObject.SetActive(false);
                         }

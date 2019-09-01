@@ -216,7 +216,6 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < lights.Count; ++i)
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
-                lightManager.material.DisableKeyword(Emission);
                 lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent[lightManager.colorIndex]);
                 lightManager.particle.gameObject.SetActive(false);
             }
@@ -254,9 +253,8 @@ public class PlayerAction : MonoBehaviour
                 else if (hitColliders[i].gameObject.layer == LayerMask.NameToLayer(LayerEunm.LIGHT))
                 {
                     LightManager lightManager = hitColliders[i].gameObject.GetComponent<LightManager>();
-                    if (!lightManager.material.IsKeywordEnabled(Emission))
+                    if (!lightManager.particle.gameObject.activeInHierarchy)
                     {
-                        lightManager.material.EnableKeyword(Emission);
                         lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.colors[lightManager.colorIndex]);
                         lightManager.particle.gameObject.SetActive(true);
                     }
@@ -298,9 +296,8 @@ public class PlayerAction : MonoBehaviour
                 if (!isIn)
                 {
                     LightManager lightManager = FightScene.instance.Lights[i].GetComponent<LightManager>();
-                    if (lightManager.material.IsKeywordEnabled(Emission))
+                    if (lightManager.particle.gameObject.activeInHierarchy)
                     {
-                        lightManager.material.DisableKeyword(Emission);
                         lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.transparent[lightManager.colorIndex]);
                         lightManager.particle.gameObject.SetActive(false);
                     }
@@ -334,7 +331,6 @@ public class PlayerAction : MonoBehaviour
             for (int i = 0; i < lights.Count; ++i)
             {
                 LightManager lightManager = lights[i].GetComponent<LightManager>();
-                lightManager.material.DisableKeyword(Emission);
                 lightManager.trailMaterial.SetColor(lightManager.tintColor, lightManager.colors[lightManager.colorIndex]);
                 lightManager.particle.gameObject.SetActive(true);
             }
