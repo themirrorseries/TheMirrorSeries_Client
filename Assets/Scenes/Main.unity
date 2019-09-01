@@ -751,6 +751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameInput: {fileID: 310892824}
+  renameBtn: {fileID: 237790555}
   matchBtn: {fileID: 1948441751}
   introduction: {fileID: 716471388}
   RoleName: {fileID: 1074996790}

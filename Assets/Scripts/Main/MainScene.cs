@@ -10,6 +10,8 @@ public class MainScene : MonoBehaviour
     [SerializeField]
     private InputField nameInput;
     [SerializeField]
+    private Button renameBtn;
+    [SerializeField]
     private Button matchBtn;
     [SerializeField]
     // 角色描述
@@ -227,7 +229,7 @@ public class MainScene : MonoBehaviour
             {
                 roleBtns[i].enabled = true;
             }
-            nameInput.enabled = true;
+            renameBtn.enabled = true;
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = matchSprite;
             MatchRtnDTO matchRtn = new MatchRtnDTO();
@@ -241,7 +243,7 @@ public class MainScene : MonoBehaviour
             {
                 roleBtns[i].enabled = false;
             }
-            nameInput.enabled = false;
+            renameBtn.enabled = false;
             isMatch = !isMatch;
             matchBtn.GetComponent<Image>().sprite = cancelMatchSprite;
             MatchDTO match = new MatchDTO();

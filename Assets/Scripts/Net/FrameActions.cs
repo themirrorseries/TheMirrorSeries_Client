@@ -18,7 +18,6 @@ public class FrameActions : MonoBehaviour
     void Awake()
     {
         instance = this;
-
         clientMove = new ClientMoveDTO();
         clientMove.Roomid = RoomData.room.Roomid;
         clientMove.Seat = RoomData.seat;
@@ -38,29 +37,22 @@ public class FrameActions : MonoBehaviour
             Add(emptyFrame);
         }
     }
-
     public void Init()
     {
         isLock = true;
         clientMove.Msg.Clear();
         isLock = false;
     }
-    public void SendCache()
-    {
-        isLock = false;
-        if (IsFull())
-        {
-            Send();
-        }
-    }
-    public void CacheNext()
+    public void Clear()
     {
         clientMove.Msg.Clear();
         ++bagid;
+        isLock = false;
     }
     public void Add(FrameInfo frame)
     {
         if (!isStart) return;
+        if (RoomData.isDeath) return;
         if (clientMove.Msg.Count < frameCount)
         {
             frame.Frame = clientMove.Msg.Count;
@@ -84,7 +76,6 @@ public class FrameActions : MonoBehaviour
     {
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
-        CacheNext();
     }
 
     public int FrameCount

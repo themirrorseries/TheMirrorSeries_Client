@@ -33,7 +33,7 @@ public class NetIO
     private NetIO()
     {
         // ip = SendRequest(domain, Encoding.UTF8);
-        ip = "192.168.243.185";
+        ip = "192.168.124.206";
         try
         {
             //创建客户端连接

@@ -28,7 +28,7 @@ public class FightHandler : MonoBehaviour, IHandler
     {
         ServerMoveDTO serverMove = ServerMoveDTO.Parser.ParseFrom(message);
         FightScene.instance.Refresh(serverMove);
-        FrameActions.instance.SendCache();
+        FrameActions.instance.Clear();
     }
     private void StartHandler(byte[] message)
     {

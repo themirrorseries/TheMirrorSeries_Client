@@ -28,7 +28,7 @@ public class SkillBase : MonoBehaviour
     public int needUpdate = (int)SkillEunm.SkillState.Init;
     public virtual void Start()
     {
-        lastSkillTime = FightScene.instance.gameTime - cd;
+        lastSkillTime = FightScene.instance.gameTime;
         playerAttribute = GetComponent<PlayerAttribute>();
     }
     public virtual void Release()
