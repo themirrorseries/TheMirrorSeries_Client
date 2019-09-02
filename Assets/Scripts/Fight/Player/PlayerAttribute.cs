@@ -6,9 +6,9 @@ public class PlayerAttribute : MonoBehaviour
 {
     public int seat;
     public int bounces = 0;
-    public float hp = 10;
+    public float hp = 5;
     // 血量上限
-    public float hpMax = 10;
+    public float hpMax = 5;
     public float mp = 100;
     // 蓝量上限
     public float mpMax = 100;
@@ -19,9 +19,9 @@ public class PlayerAttribute : MonoBehaviour
     // 光线正面减少技能cd时间
     public float damage_cd = -5f;
     // 光线背面击中伤害
-    public float damage_hit = -3;
+    public float damage_hit = -1;
     // 击退撞墙伤害
-    public float damage_repel = -3;
+    public float damage_repel = -1;
     // 击退状态
     public bool isRepulse = false;
     // 保护罩状态
@@ -34,7 +34,7 @@ public class PlayerAttribute : MonoBehaviour
     // 自动回血计时
     private float autoAddHpTime;
     // 自动回血间隔
-    public float autoAddHpSpace = 1f;
+    public float autoAddHpSpace = 2f;
     // 自动回血数值
     public float autoAddHpNum = 1f;
     // 主动释放黑夜降临

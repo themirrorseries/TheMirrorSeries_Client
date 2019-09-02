@@ -41,6 +41,17 @@ public class LightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitColor();
+        trailMaterial.SetColor(tintColor, colors[colorIndex]);
+        Material new_trailMaterial = new Material(trailMaterial);
+        trailMaterial = new_trailMaterial;
+        gameObject.GetComponent<TrailRenderer>().material = trailMaterial;
+        particle.gameObject.SetActive(true);
+    }
+
+    // 防止报空
+    private void InitColor()
+    {
         colors = new Color[] {
             new Color(255f/255f, 201f / 255f, 26f / 255f, 1f),
             new Color(202f/255f, 37/255f, 185/255f, 1f),
@@ -51,17 +62,14 @@ public class LightManager : MonoBehaviour
             new Color(202f/255f, 37/255f, 185/255f, 0),
             new Color(255f / 255f, 0/255f, 0f / 255f,0)
         };
-        trailMaterial.SetColor(tintColor, colors[colorIndex]);
-        Material new_trailMaterial = new Material(trailMaterial);
-        trailMaterial = new_trailMaterial;
-        gameObject.GetComponent<TrailRenderer>().material = trailMaterial;
-        particle.gameObject.SetActive(true);
     }
 
     public void Init(float _speed, int _count, GameObject _player)
     {
+        InitColor();
         speed = _speed;
         curSpeed = speed;
+        Debug.Log(colors.Length);
         if (curSpeed >= speedRange[0])
         {
             colorIndex++;
@@ -81,6 +89,7 @@ public class LightManager : MonoBehaviour
     }
     public void Init(float _speed, int _count, float _x, float _z)
     {
+        InitColor();
         speed = _speed;
         curSpeed = speed;
         count = _count;
