@@ -69,7 +69,6 @@ public class LightManager : MonoBehaviour
         InitColor();
         speed = _speed;
         curSpeed = speed;
-        Debug.Log(colors.Length);
         if (curSpeed >= speedRange[0])
         {
             colorIndex++;

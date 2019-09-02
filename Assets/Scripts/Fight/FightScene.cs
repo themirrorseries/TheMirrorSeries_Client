@@ -61,7 +61,7 @@ public class FightScene : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         countdownImg.gameObject.SetActive(false);
-        guildImg.gameObject.SetActive(false);
+        guildImg.gameObject.GetComponent<Guild>().StartGuild();
         FightLoadDTO fight = new FightLoadDTO();
         fight.Roomid = RoomData.room.Roomid;
         fight.Seat = RoomData.seat;
@@ -171,6 +171,10 @@ public class FightScene : MonoBehaviour
     }
     public void NormalAck()
     {
+        if (guildImg.gameObject.activeInHierarchy)
+        {
+            guildImg.gameObject.GetComponent<Guild>().StopGuild();
+        }
         if (myselfControl)
         {
             myselfControl.Ack();

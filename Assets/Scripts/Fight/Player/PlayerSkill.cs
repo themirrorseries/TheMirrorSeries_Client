@@ -65,7 +65,10 @@ public class PlayerSkill : MonoBehaviour
                 if (cdMasks[i].gameObject.activeInHierarchy)
                 {
                     cdMasks[i].gameObject.SetActive(false);
-                    cdTexts[i].gameObject.SetActive(false);
+                    if (skills[i].skillId != (int)SkillEunm.SkillID.normalAck)
+                    {
+                        cdTexts[i].gameObject.SetActive(false);
+                    }
                 }
                 if (skills[i].skillId != (int)SkillEunm.SkillID.normalAck)
                 {
@@ -84,7 +87,10 @@ public class PlayerSkill : MonoBehaviour
                 if (!cdMasks[i].gameObject.activeInHierarchy)
                 {
                     cdMasks[i].gameObject.SetActive(true);
-                    cdTexts[i].gameObject.SetActive(true);
+                    if (skills[i].skillId != (int)SkillEunm.SkillID.normalAck)
+                    {
+                        cdTexts[i].gameObject.SetActive(true);
+                    }
                 }
                 if (skills[i].skillId != (int)SkillEunm.SkillID.normalAck)
                 {
@@ -99,7 +105,10 @@ public class PlayerSkill : MonoBehaviour
                     haloCoroutines[i - 1] = null;
                 }
                 cdMasks[i].fillAmount = skills[i].cdPercentage();
-                cdTexts[i].text = skills[i].remainCd().ToString();
+                if (skills[i].skillId != (int)SkillEunm.SkillID.normalAck)
+                {
+                    cdTexts[i].text = skills[i].remainCd().ToString();
+                }
             }
         }
     }
