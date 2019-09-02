@@ -116,11 +116,12 @@ public class FightScene : MonoBehaviour
     }
     public void InitLight()
     {
-        for (int i = 0; i < RoomData.room.Lights.Count; ++i)
+        // 暂时取第一束
+        for (int i = 0; i < 1; ++i)
         {
             GameObject light = Instantiate(ResourcesTools.getLight(1));
             LightManager lightMgr = light.GetComponent<LightManager>();
-            lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, RoomData.room.Lights[0].X, RoomData.room.Lights[0].Z);
+            lightMgr.Init(RoomData.room.Speed, RoomData.room.Count, RoomData.room.Lights[i].X, RoomData.room.Lights[i].Z);
             lights.Add(light);
         }
     }
@@ -180,7 +181,7 @@ public class FightScene : MonoBehaviour
         if (isShowGuide)
         {
             isShowGuide = false;
-            guideImg.gameObject.GetComponent<Guide>().StopGuide();
+            StopGuide();
         }
         if (myselfControl)
         {
