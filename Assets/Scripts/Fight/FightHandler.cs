@@ -31,7 +31,7 @@ public class FightHandler : MonoBehaviour, IHandler
             ServerMoveDTO serverMove = ServerMoveDTO.Parser.ParseFrom(message);
             FightScene.instance.Refresh(serverMove);
         }
-        catch (System.Exception)
+        catch (InvalidProtocolBufferException)
         {
 
             throw;

@@ -33,6 +33,7 @@ public class FiveThunder : SkillBase
             {
                 AnimationControl anim = players[i].GetComponent<AnimationControl>();
                 anim.Death();
+                attr.isEnd = true;
                 if (RoomData.isMainRole(attr.seat))
                 {
                     FightScene.instance.audioController.SoundPlay(AudioEunm.death);
