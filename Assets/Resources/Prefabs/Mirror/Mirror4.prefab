@@ -1371,7 +1371,7 @@ MonoBehaviour:
   isRepulse: 0
   hasProtection: 0
   isChaos: 0
-  autoAddHpSpace: 5
+  autoAddHpSpace: 3
   autoAddHpNum: 1
   inSelfNight: 0
   inNight: 0

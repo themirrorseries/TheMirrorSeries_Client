@@ -9,7 +9,7 @@ public class PlayerAction : MonoBehaviour
     // 默认击退距离
     private float defaultRepulseDistance = 8f;
     // 击退过程移动速度
-    private float repulseSpeed = 10f;
+    private float repulseSpeed = 15f;
     // 击退方向
     private Vector3 repulseDirection;
     // 击退距离
