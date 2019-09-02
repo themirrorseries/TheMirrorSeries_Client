@@ -124,19 +124,30 @@ public class LightManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, distance, LayerMask.GetMask(LayerEunm.WALL) | LayerMask.GetMask(LayerEunm.PLAYER)))
             {
+                bool isDeath = false;
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer(LayerEunm.PLAYER))
                 {
                     PlayerAttribute playerAttribute = hit.collider.gameObject.GetComponent<PlayerAttribute>();
-                    // 反弹次数暂定每次直接++, 1:每次 2:正面 3:反面 4:保护罩期间怎么计算
-                    playerAttribute.bounces++;
-                    // 保护罩期间直接反弹
-                    if (!playerAttribute.hasProtection)
+                    if (playerAttribute.isDied)
                     {
-                        PlayerControl playerControl = hit.collider.gameObject.GetComponent<PlayerControl>();
-                        playerControl.LightCollision(gameObject, direction.normalized);
+                        isDeath = true;
+                    }
+                    else
+                    {
+                        // 反弹次数暂定每次直接++, 1:每次 2:正面 3:反面 4:保护罩期间怎么计算
+                        playerAttribute.bounces++;
+                        // 保护罩期间直接反弹
+                        if (!playerAttribute.hasProtection)
+                        {
+                            PlayerControl playerControl = hit.collider.gameObject.GetComponent<PlayerControl>();
+                            playerControl.LightCollision(gameObject, direction.normalized);
+                        }
                     }
                 }
-                Reflect(hit.collider.gameObject.transform.forward.normalized);
+                if (!isDeath)
+                {
+                    Reflect(hit.collider.gameObject.transform.forward.normalized);
+                }
             }
             if (FightScene.instance.nightScope != -1)
             {

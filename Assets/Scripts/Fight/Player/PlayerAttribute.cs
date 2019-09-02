@@ -34,7 +34,7 @@ public class PlayerAttribute : MonoBehaviour
     // 自动回血计时
     private float autoAddHpTime;
     // 自动回血间隔
-    public float autoAddHpSpace = 2f;
+    public float autoAddHpSpace = 5f;
     // 自动回血数值
     public float autoAddHpNum = 1f;
     // 主动释放黑夜降临
@@ -71,6 +71,10 @@ public class PlayerAttribute : MonoBehaviour
         else if (hp + value < 0)
         {
             hp = 0;
+            BoxCollider boxCollider = GetComponent<BoxCollider>();
+            boxCollider.enabled = false;
+            CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+            capsuleCollider.enabled = false;
         }
         else
         {

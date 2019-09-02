@@ -79,7 +79,7 @@ public class FightScene : MonoBehaviour
             ranklist[i].SetActive(false);
         }
         ranklist[0].SetActive(true);
-        ranklist[0].GetComponent<Rank>().View(false, false, deaths[deaths.Count - 1]);
+        ranklist[0].GetComponent<Rank>().View(false, false, false, deaths[deaths.Count - 1]);
     }
     public void ShowFirstList()
     {
@@ -88,7 +88,7 @@ public class FightScene : MonoBehaviour
         for (; index < deaths.Count; ++index)
         {
             ranklist[index].SetActive(true);
-            ranklist[index].GetComponent<Rank>().View(true, index == 0, deaths[index]);
+            ranklist[index].GetComponent<Rank>().View(true, index < 3, index == 0, deaths[index]);
         }
         for (; index < ranklist.Length; ++index)
         {
@@ -166,7 +166,7 @@ public class FightScene : MonoBehaviour
                         break;
                     }
                 }
-                if (index != -1 && !playerControl.attr.isEnd)
+                if (index != -1 && !playerControl.attr.isDied)
                 {
                     playerControl.onMsgHandler(move.ClientInfo[index].Msg[i], deltaTime);
                 }
@@ -260,16 +260,7 @@ public class FightScene : MonoBehaviour
     {
         for (int i = 0; i < RoomData.room.Players.Count; ++i)
         {
-            bool isDeath = false;
-            for (int j = 0; j < deaths.Count; ++j)
-            {
-                if (RoomData.room.Players[i].Seat == deaths[j].seat)
-                {
-                    isDeath = true;
-                    break;
-                }
-            }
-            if (!isDeath)
+            if (!isInDeath(RoomData.room.Players[i].Seat))
             {
                 Death death;
                 death.seat = RoomData.room.Players[i].Seat;

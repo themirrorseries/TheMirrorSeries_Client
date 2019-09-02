@@ -1785,8 +1785,13 @@ PrefabInstance:
     - target: {fileID: 7880068742014947104, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: rankImg
+      value: 
+      objectReference: {fileID: 813732429}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4baa13fe6018a42900d8e21c73e8be, type: 3}
 --- !u!224 &852290376 stripped
@@ -2169,7 +2174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1050316711
 RectTransform:
   m_ObjectHideFlags: 0

@@ -27,8 +27,11 @@ public class AnimationControl : MonoBehaviour
 
     public void IdleAfterRun()
     {
-        state = AnimaState.IDLE;
-        animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+        if (state != AnimaState.DEATH)
+        {
+            state = AnimaState.IDLE;
+            animator.SetInteger(AnimaState.state, AnimaState.IDLE);
+        }
     }
 
     public void Idle()
@@ -51,10 +54,7 @@ public class AnimationControl : MonoBehaviour
 
     public void Death()
     {
-        if (state != AnimaState.DEATH)
-        {
-            state = AnimaState.DEATH;
-            animator.SetInteger(AnimaState.state, AnimaState.DEATH);
-        }
+        state = AnimaState.DEATH;
+        animator.SetInteger(AnimaState.state, AnimaState.DEATH);
     }
 }

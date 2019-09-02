@@ -106,12 +106,10 @@ public class PlayerAction : MonoBehaviour
 
     public void CheckDeath(float wallDistance, Vector3 direction)
     {
-        // 进入这个函数后,角色死亡
-        // 先关闭碰撞盒,防止重复计算
-        BoxCollider boxCollider = GetComponent<BoxCollider>();
-        boxCollider.enabled = false;
-        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
-        capsuleCollider.enabled = false;
+        if (attr.isRepulse)
+        {
+            attr.isRepulse = false;
+        }
         // 射线相交计算
         RaycastHit hit;
         float moveDistance = defaultDeathDistance;
@@ -126,7 +124,7 @@ public class PlayerAction : MonoBehaviour
     }
     public void Repulse(float deltaTime)
     {
-        if (!attr.isRepulse)
+        if (!attr.isRepulse || attr.isDied)
         {
             return;
         }
@@ -139,14 +137,18 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
-                if (RoomData.isMainRole(attr.seat) && isRepulseWall)
+                if (isRepulseWall)
                 {
-                    FightScene.instance.audioController.SoundPlay(AudioEunm.repulse);
+                    if (RoomData.isMainRole(attr.seat))
+                    {
+                        FightScene.instance.audioController.SoundPlay(AudioEunm.repulse);
+                    }
                     attr.ChangeHp(attr.damage_repel);
                     if (attr.isDied)
                     {
                         AnimationControl anim = GetComponent<AnimationControl>();
                         anim.Death();
+                        attr.isEnd = true;
                         if (RoomData.isMainRole(attr.seat))
                         {
                             FightScene.instance.audioController.SoundPlay(AudioEunm.death);
