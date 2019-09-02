@@ -148,7 +148,7 @@ public class PlayerAction : MonoBehaviour
                     {
                         AnimationControl anim = GetComponent<AnimationControl>();
                         anim.Death();
-                        attr.isEnd = true;
+                        AfterDeath();
                         if (RoomData.isMainRole(attr.seat))
                         {
                             FightScene.instance.audioController.SoundPlay(AudioEunm.death);
@@ -175,12 +175,16 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
-                PlayerChildren children = GetComponent<PlayerChildren>();
-                children.title.gameObject.SetActive(false);
                 isDeathMove = false;
-                attr.isEnd = true;
+                AfterDeath();
             }
         }
+    }
+    public void AfterDeath()
+    {
+        PlayerChildren children = GetComponent<PlayerChildren>();
+        children.title.gameObject.SetActive(false);
+        attr.isEnd = true;
     }
     public void BeforeNight(float skillScope)
     {
