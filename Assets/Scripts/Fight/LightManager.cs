@@ -220,11 +220,11 @@ public class LightManager : MonoBehaviour
     {
         if (curSpeed < speedRange[0])
         {
-            curSpeed += 2;
+            curSpeed += 1;
         }
         else if (curSpeed < speedRange[1])
         {
-            curSpeed += 1;
+            curSpeed += 0.5f;
         }
         else if (curSpeed < speedRange[2])
         {

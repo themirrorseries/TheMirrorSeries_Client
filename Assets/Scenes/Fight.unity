@@ -482,7 +482,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 122878927}
   - component: {fileID: 122878929}
   - component: {fileID: 122878928}
+  - component: {fileID: 122878930}
   m_Layer: 5
   m_Name: TimeOut
   m_TagString: Untagged
@@ -537,8 +538,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 270}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 250}
+  m_SizeDelta: {x: 155, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &122878928
 MonoBehaviour:
@@ -561,8 +562,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 27
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
+    m_FontSize: 31
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -582,6 +583,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122878926}
   m_CullTransparentMesh: 0
+--- !u!114 &122878930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122878926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &154073025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,6 +1054,44 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: rankImg
+      value: 
+      objectReference: {fileID: 813732429}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
     - target: {fileID: 7880068742014947105, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1060,11 +1113,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 5abeaecfc9fa718488cbb9e19bc1bf42,
         type: 3}
-    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
-        type: 3}
-      propertyPath: rankImg
-      value: 
-      objectReference: {fileID: 813732429}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4baa13fe6018a42900d8e21c73e8be, type: 3}
 --- !u!224 &355284272 stripped
@@ -1175,6 +1223,7 @@ GameObject:
   - component: {fileID: 370261941}
   - component: {fileID: 370261943}
   - component: {fileID: 370261942}
+  - component: {fileID: 370261944}
   m_Layer: 5
   m_Name: Bounces
   m_TagString: Untagged
@@ -1198,8 +1247,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 200}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 250, y: 185}
+  m_SizeDelta: {x: 120, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &370261942
 MonoBehaviour:
@@ -1222,8 +1271,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -1243,6 +1292,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370261940}
   m_CullTransparentMesh: 0
+--- !u!114 &370261944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370261940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &407984650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,7 +1443,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -1782,22 +1845,55 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7880068742014947106, guid: cd4baa13fe6018a42900d8e21c73e8be,
+    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: rankImg
       value: 
-      objectReference: {fileID: 21300000, guid: 938de161bb5adff4faa06a157ad923af,
+      objectReference: {fileID: 813732429}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
         type: 3}
     - target: {fileID: 7880068742014947104, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
+    - target: {fileID: 7880068742014947106, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
-      propertyPath: rankImg
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 813732429}
+      objectReference: {fileID: 21300000, guid: 938de161bb5adff4faa06a157ad923af,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4baa13fe6018a42900d8e21c73e8be, type: 3}
 --- !u!224 &852290376 stripped
@@ -2647,6 +2743,49 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: rankImg
+      value: 
+      objectReference: {fileID: 1045703694}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u73A9\u5BB6"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
     - target: {fileID: 7880068742014947105, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2668,16 +2807,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: aece60bdb01047b488ba1ed5b043c521,
         type: 3}
-    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u73A9\u5BB6"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
-        type: 3}
-      propertyPath: rankImg
-      value: 
-      objectReference: {fileID: 1045703694}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4baa13fe6018a42900d8e21c73e8be, type: 3}
 --- !u!224 &1308283117 stripped
@@ -3128,7 +3257,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
@@ -3552,6 +3681,7 @@ GameObject:
   - component: {fileID: 1896255440}
   - component: {fileID: 1896255442}
   - component: {fileID: 1896255441}
+  - component: {fileID: 1896255443}
   m_Layer: 5
   m_Name: Nickname
   m_TagString: Untagged
@@ -3575,8 +3705,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -218, y: 200}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -270, y: 185}
+  m_SizeDelta: {x: 60, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896255441
 MonoBehaviour:
@@ -3599,12 +3729,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 262
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3620,6 +3750,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896255439}
   m_CullTransparentMesh: 0
+--- !u!114 &1896255443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896255439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &1979429928
 GameObject:
   m_ObjectHideFlags: 0
@@ -3728,7 +3872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.90589887, b: 0.6084906, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3860,7 +4004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9098039, b: 0.6117647, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3929,6 +4073,7 @@ GameObject:
   - component: {fileID: 2115760882}
   - component: {fileID: 2115760884}
   - component: {fileID: 2115760883}
+  - component: {fileID: 2115760885}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -3952,8 +4097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -17, y: 185}
+  m_SizeDelta: {x: 120, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115760883
 MonoBehaviour:
@@ -3976,8 +4121,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_Font: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3997,6 +4142,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115760881}
   m_CullTransparentMesh: 0
+--- !u!114 &2115760885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115760881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &2146980211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,6 +4339,49 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: rankImg
+      value: 
+      objectReference: {fileID: 972668035}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u73A9\u5BB6\u7684\u540D\u5B571111"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068741423741057, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880068742657774017, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 62230e2cf07493247abcdccb70ce7fa7,
+        type: 3}
     - target: {fileID: 7880068742014947105, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4201,15 +4403,5 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 938de161bb5adff4faa06a157ad923af,
         type: 3}
-    - target: {fileID: 7880068741976549441, guid: cd4baa13fe6018a42900d8e21c73e8be,
-        type: 3}
-      propertyPath: m_Text
-      value: "\u73A9\u5BB6\u7684\u540D\u5B571111"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7880068742470754536, guid: cd4baa13fe6018a42900d8e21c73e8be,
-        type: 3}
-      propertyPath: rankImg
-      value: 
-      objectReference: {fileID: 972668035}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4baa13fe6018a42900d8e21c73e8be, type: 3}
