@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Guild : MonoBehaviour
+public class Guide : MonoBehaviour
 {
-    private Coroutine guildCoroutine;
+    private Coroutine guideCoroutine;
     private float startPosY = 330f;
     private float endPosY = 280f;
     private float curPosY = 0;
@@ -16,16 +16,16 @@ public class Guild : MonoBehaviour
         positionVec3 = gameObject.GetComponent<RectTransform>().localPosition;
 
     }
-    public void StartGuild()
+    public void StartGuide()
     {
-        guildCoroutine = StartCoroutine(GuildMove());
+        guideCoroutine = StartCoroutine(GuideMove());
     }
-    public void StopGuild()
+    public void StopGuide()
     {
-        StopCoroutine(guildCoroutine);
+        StopCoroutine(guideCoroutine);
         gameObject.SetActive(false);
     }
-    private IEnumerator GuildMove()
+    private IEnumerator GuideMove()
     {
         while (true)
         {

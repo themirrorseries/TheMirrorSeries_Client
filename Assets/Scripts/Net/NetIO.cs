@@ -32,7 +32,8 @@ public class NetIO
     }
     private NetIO()
     {
-        ip = SendRequest(domain, Encoding.UTF8);
+        // ip = SendRequest(domain, Encoding.UTF8);
+        ip = "127.0.0.1";
         try
         {
             //创建客户端连接

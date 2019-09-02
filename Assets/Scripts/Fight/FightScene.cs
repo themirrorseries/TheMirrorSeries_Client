@@ -28,7 +28,7 @@ public class FightScene : MonoBehaviour
     public Image bleedingImg;
     [SerializeField]
     // 引导箭头
-    private Image guildImg;
+    private Image guideImg;
     [SerializeField]
     // 倒计时
     private Image countdownImg;
@@ -40,6 +40,7 @@ public class FightScene : MonoBehaviour
     public float nightScope = -1;
     // 是否显示过结算面板
     private bool isShowRank = false;
+    private bool isShowGuide = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +65,8 @@ public class FightScene : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         countdownImg.gameObject.SetActive(false);
-        guildImg.gameObject.GetComponent<Guild>().StartGuild();
+        isShowGuide = true;
+        guideImg.gameObject.GetComponent<Guide>().StartGuide();
         FightLoadDTO fight = new FightLoadDTO();
         fight.Roomid = RoomData.room.Roomid;
         fight.Seat = RoomData.seat;
@@ -175,9 +177,10 @@ public class FightScene : MonoBehaviour
     }
     public void NormalAck()
     {
-        if (guildImg.gameObject.activeInHierarchy)
+        if (isShowGuide)
         {
-            guildImg.gameObject.GetComponent<Guild>().StopGuild();
+            isShowGuide = false;
+            guideImg.gameObject.GetComponent<Guide>().StopGuide();
         }
         if (myselfControl)
         {
@@ -281,8 +284,17 @@ public class FightScene : MonoBehaviour
             return deaths.Count == players.Count - 1;
         }
     }
+    private void StopGuide()
+    {
+        isShowGuide = false;
+        guideImg.gameObject.GetComponent<Guide>().StopGuide();
+    }
     private void LeaveRoom()
     {
+        if (isShowGuide)
+        {
+            StopGuide();
+        }
         FightLeaveDTO leaveDTO = new FightLeaveDTO();
         leaveDTO.Roomid = RoomData.room.Roomid;
         leaveDTO.Seat = RoomData.seat;
@@ -290,6 +302,10 @@ public class FightScene : MonoBehaviour
     }
     public void BackToMainScene()
     {
+        if (isShowGuide)
+        {
+            StopGuide();
+        }
         RoomData.isDeath = false;
         GameData.match = false;
         LeaveRoom();

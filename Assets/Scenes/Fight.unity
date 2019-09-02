@@ -259,7 +259,7 @@ MonoBehaviour:
   - {fileID: 355284273}
   - {fileID: 852290377}
   bleedingImg: {fileID: 1114445319}
-  guildImg: {fileID: 543213023}
+  guideImg: {fileID: 543213023}
   countdownImg: {fileID: 1189527342}
   wallDistance: 2
   audioController: {fileID: 0}
@@ -1505,7 +1505,7 @@ GameObject:
   - component: {fileID: 543213023}
   - component: {fileID: 543213025}
   m_Layer: 5
-  m_Name: Guild
+  m_Name: Guide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1527,7 +1527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 280}
+  m_AnchoredPosition: {x: 0, y: 330}
   m_SizeDelta: {x: 149, y: 311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543213023
@@ -1782,6 +1782,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7880068742014947106, guid: cd4baa13fe6018a42900d8e21c73e8be,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 938de161bb5adff4faa06a157ad923af,
+        type: 3}
     - target: {fileID: 7880068742014947104, guid: cd4baa13fe6018a42900d8e21c73e8be,
         type: 3}
       propertyPath: m_IsActive
@@ -2174,7 +2180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1050316711
 RectTransform:
   m_ObjectHideFlags: 0
