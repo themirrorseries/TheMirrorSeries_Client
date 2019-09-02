@@ -224,8 +224,10 @@ public class FightScene : MonoBehaviour
         death.time = gameTime;
         death.light = lights.Count;
         deaths.Add(death);
+        if (isShowRank) return;
         if (RoomData.isMainRole(seat))
         {
+            isShowRank = true;
             RoomData.isDeath = true;
             FrameActions.instance.needAdd = false;
             FightLeaveDTO leaveDTO = new FightLeaveDTO();
@@ -233,8 +235,6 @@ public class FightScene : MonoBehaviour
             leaveDTO.Seat = RoomData.seat;
             this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.DeathCreq, leaveDTO.ToByteArray());
         }
-        if (isShowRank) return;
-        isShowRank = true;
         if (isEnd)
         {
             if (isInDeath(RoomData.seat))
