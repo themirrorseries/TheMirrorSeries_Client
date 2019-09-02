@@ -38,9 +38,12 @@ public class FightScene : MonoBehaviour
     public float wallDistance = 2f;
     public AudioController audioController;
     public float nightScope = -1;
+    // 是否显示过结算面板
+    private bool isShowRank = false;
     // Start is called before the first frame update
     void Start()
     {
+        bleedingImg.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width - 150, Screen.height);
         countdownCoroutine = StartCoroutine(Countdown());
         audioController = GetComponent<AudioController>();
         audioController.BGMPlay(AudioEunm.fightBGM, 0.8f);
@@ -76,7 +79,7 @@ public class FightScene : MonoBehaviour
             ranklist[i].SetActive(false);
         }
         ranklist[0].SetActive(true);
-        ranklist[0].GetComponent<Rank>().View(false, deaths[deaths.Count - 1]);
+        ranklist[0].GetComponent<Rank>().View(false, false, deaths[deaths.Count - 1]);
     }
     public void ShowFirstList()
     {
@@ -85,7 +88,7 @@ public class FightScene : MonoBehaviour
         for (; index < deaths.Count; ++index)
         {
             ranklist[index].SetActive(true);
-            ranklist[index].GetComponent<Rank>().View(index == 0, deaths[index]);
+            ranklist[index].GetComponent<Rank>().View(true, index == 0, deaths[index]);
         }
         for (; index < ranklist.Length; ++index)
         {
@@ -97,7 +100,8 @@ public class FightScene : MonoBehaviour
         for (int i = 0; i < RoomData.room.Players.Count; ++i)
         {
             GameObject player = Instantiate(ResourcesTools.getMirror(RoomData.room.Players[i].Roleid),
-                        seats[RoomData.room.Players[i].Seat - 1].transform.position, Quaternion.identity);
+                        seats[RoomData.room.Players[i].Seat - 1].transform.position,
+                        seats[RoomData.room.Players[i].Seat - 1].transform.rotation);
             PlayerControl playerControl = player.GetComponent<PlayerControl>();
             playerControl.Init(RoomData.room.Players[i]);
             players.Add(player);
@@ -214,13 +218,12 @@ public class FightScene : MonoBehaviour
     }
     public void AddDeath(int seat, int bounces)
     {
-        if (RoomData.isDeath) return;
-        if (isInDeath(RoomData.seat)) return;
         Death death;
         death.seat = seat;
         death.bounces = bounces;
         death.time = gameTime;
         death.light = lights.Count;
+        deaths.Add(death);
         if (RoomData.isMainRole(seat))
         {
             RoomData.isDeath = true;
@@ -230,7 +233,8 @@ public class FightScene : MonoBehaviour
             leaveDTO.Seat = RoomData.seat;
             this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.DeathCreq, leaveDTO.ToByteArray());
         }
-        deaths.Add(death);
+        if (isShowRank) return;
+        isShowRank = true;
         if (isEnd)
         {
             if (isInDeath(RoomData.seat))

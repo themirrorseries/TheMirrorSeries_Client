@@ -30,7 +30,7 @@ public class NightBringer : SkillBase
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
         FightScene.instance.audioController.SoundPlay(AudioEunm.nightBringer);
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
@@ -42,7 +42,7 @@ public class NightBringer : SkillBase
     {
         FightScene.instance.myselfControl.action.AfterNight();
         playerAttribute.inSelfNight = false;
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
@@ -51,7 +51,7 @@ public class NightBringer : SkillBase
     }
     public void BreakOtherSkill()
     {
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             NightBringer night = players[i].GetComponent<NightBringer>();

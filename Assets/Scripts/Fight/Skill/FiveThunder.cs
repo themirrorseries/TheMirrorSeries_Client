@@ -20,14 +20,14 @@ public class FiveThunder : SkillBase
     }
     public override void onSkill()
     {
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
-            PlayerChildren children = players[i].GetComponent<PlayerChildren>();
-            children.thunder.SetActive(true);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             // 减少当前生命值的50%(向上取整)
             attr.ChangeHp(-Mathf.Floor(attr.hp / 2));
+            PlayerChildren children = players[i].GetComponent<PlayerChildren>();
+            children.thunder.SetActive(true);
             FightScene.instance.audioController.SoundPlay(AudioEunm.fiveThunder);
             if (attr.isDied)
             {
@@ -38,7 +38,6 @@ public class FiveThunder : SkillBase
                     FightScene.instance.audioController.SoundPlay(AudioEunm.death);
                 }
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
-                return;
             }
         }
     }

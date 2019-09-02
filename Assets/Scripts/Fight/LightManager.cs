@@ -69,7 +69,7 @@ public class LightManager : MonoBehaviour
         InitColor();
         speed = _speed;
         curSpeed = speed;
-        if (curSpeed >= speedRange[0])
+        if (curSpeed >= speedRange[0] && curSpeed < speedRange[1])
         {
             colorIndex++;
             trailMaterial.SetColor(tintColor, colors[colorIndex]);

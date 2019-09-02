@@ -26,7 +26,7 @@ public class GroupChaos : SkillBase
         FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDelay);
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Release;
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
@@ -35,7 +35,7 @@ public class GroupChaos : SkillBase
     }
     public override void onDelay(float deltaTime)
     {
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
@@ -45,7 +45,7 @@ public class GroupChaos : SkillBase
     public override void afterDelay()
     {
         FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDuration);
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
@@ -61,7 +61,7 @@ public class GroupChaos : SkillBase
     }
     public void BreakOtherSkill()
     {
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             GroupChaos chaos = players[i].GetComponent<GroupChaos>();
@@ -81,7 +81,7 @@ public class GroupChaos : SkillBase
     }
     public override void afterDuration()
     {
-        List<GameObject> players = findEnemys();
+        List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
@@ -103,7 +103,7 @@ public class GroupChaos : SkillBase
         else
         {
             FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDelay);
-            List<GameObject> players = findEnemys();
+            List<GameObject> players = findRemainEnemys();
             for (int i = 0; i < players.Count; ++i)
             {
                 PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();

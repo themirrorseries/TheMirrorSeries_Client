@@ -156,6 +156,22 @@ public class SkillBase : MonoBehaviour
     {
         return FightScene.instance.Players;
     }
+    // 寻找剩余敌人
+    public List<GameObject> findRemainEnemys()
+    {
+        List<GameObject> players = FightScene.instance.Players;
+        List<GameObject> enemys = new List<GameObject>();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (!attr.isDied && attr.seat != playerAttribute.seat)
+            {
+                enemys.Add(players[i]);
+            }
+        }
+        return enemys;
+    }
+    // 寻找所以敌人(包括已经死亡的)
     public List<GameObject> findEnemys()
     {
         List<GameObject> players = FightScene.instance.Players;

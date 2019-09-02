@@ -150,7 +150,6 @@ public class PlayerControl : MonoBehaviour
     }
     public void LightCollision(GameObject light, Vector3 direction)
     {
-
         if (lastCollideLight == light && FightScene.instance.gameTime - lastCollideTime < spaceTime)
         {
             return;
@@ -169,18 +168,6 @@ public class PlayerControl : MonoBehaviour
             {
                 FightScene.instance.audioController.SoundPlay(AudioEunm.damage_normal);
             }
-            if (attr.isDied)
-            {
-                anim.Death();
-                if (RoomData.isMainRole(attr.seat))
-                {
-                    FightScene.instance.audioController.SoundPlay(AudioEunm.death);
-                }
-                action.CheckDeath(FightScene.instance.wallDistance, direction);
-                FightScene.instance.AddDeath(attr.seat, attr.bounces);
-                return;
-            }
-            attr.ChangeMp(attr.bounceAddMp);
             action.CheckRepulse(FightScene.instance.wallDistance * 1.5f, direction);
         }
         else
@@ -189,7 +176,6 @@ public class PlayerControl : MonoBehaviour
             if (RoomData.isMainRole(attr.seat))
             {
                 FightScene.instance.audioController.SoundPlay(AudioEunm.damage_hit);
-
             }
             if (attr.isDied)
             {

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Rank : MonoBehaviour
 {
     [SerializeField]
-    // 头像
-    private Image head;
+    // 排名图片
+    private Image rankImg;
     [SerializeField]
     // 皇冠
     private Image imperialCrown;
@@ -20,8 +20,9 @@ public class Rank : MonoBehaviour
     [SerializeField]
     // 反弹次数
     private Text bounce;
-    public void View(bool isFirst, Death death)
+    public void View(bool isLast, bool isFirst, Death death)
     {
+        rankImg.gameObject.SetActive(isLast);
         imperialCrown.gameObject.SetActive(isFirst);
         nickname.text = RoomData.seat2PlayerName(death.seat);
         time.text = TimeTools.Num2TimeString(death.time);

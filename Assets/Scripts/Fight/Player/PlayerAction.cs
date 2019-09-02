@@ -95,19 +95,6 @@ public class PlayerAction : MonoBehaviour
         if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultRepulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
             isRepulseWall = true;
-            // 如果击退到墙壁,会二段扣血
-            attr.ChangeHp(attr.damage_repel);
-            if (attr.isDied)
-            {
-                AnimationControl anim = GetComponent<AnimationControl>();
-                anim.Death();
-                if (RoomData.isMainRole(attr.seat))
-                {
-                    FightScene.instance.audioController.SoundPlay(AudioEunm.death);
-                }
-                FightScene.instance.AddDeath(attr.seat, attr.bounces);
-                return;
-            }
             // ps:乘以2,否则会卡在无法移动的区域里面
             moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance * (float)2;
         }
@@ -155,6 +142,17 @@ public class PlayerAction : MonoBehaviour
                 if (RoomData.isMainRole(attr.seat) && isRepulseWall)
                 {
                     FightScene.instance.audioController.SoundPlay(AudioEunm.repulse);
+                    attr.ChangeHp(attr.damage_repel);
+                    if (attr.isDied)
+                    {
+                        AnimationControl anim = GetComponent<AnimationControl>();
+                        anim.Death();
+                        if (RoomData.isMainRole(attr.seat))
+                        {
+                            FightScene.instance.audioController.SoundPlay(AudioEunm.death);
+                        }
+                        FightScene.instance.AddDeath(attr.seat, attr.bounces);
+                    }
                 }
                 attr.isRepulse = false;
             }
