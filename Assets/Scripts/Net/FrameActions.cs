@@ -22,6 +22,7 @@ public class FrameActions : MonoBehaviour
         clientMove.Roomid = RoomData.room.Roomid;
         clientMove.Seat = RoomData.seat;
         clientMove.Bagid = bagid;
+        Init();
     }
     void Start()
     {

@@ -33,8 +33,7 @@ public class FightHandler : MonoBehaviour, IHandler
         }
         catch (InvalidProtocolBufferException)
         {
-
-            throw;
+            Debug.Log("InvalidProtocolBufferException");
         }
         FrameActions.instance.Clear();
     }

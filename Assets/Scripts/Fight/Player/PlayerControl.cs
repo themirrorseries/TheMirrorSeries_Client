@@ -32,7 +32,6 @@ public class PlayerControl : MonoBehaviour
             joystick.onMoveStart.AddListener(onMoveStartHandler);
             joystick.onMove.AddListener(onMoveHandler);
             joystick.onMoveEnd.AddListener(onMoveEndHandler);
-            FrameActions.instance.Init();
         }
         attr.Init();
         skill.Init();
