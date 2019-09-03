@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Guide : MonoBehaviour
 {
-    private Coroutine guideCoroutine;
     private float startPosY = 330f;
     private float endPosY = 280f;
     private float curPosY = 0;
@@ -14,15 +13,14 @@ public class Guide : MonoBehaviour
     {
         curPosY = startPosY;
         positionVec3 = gameObject.GetComponent<RectTransform>().localPosition;
-
     }
     public void StartGuide()
     {
-        guideCoroutine = StartCoroutine(GuideMove());
+        StartCoroutine(GuideMove());
     }
     public void StopGuide()
     {
-        StopCoroutine(guideCoroutine);
+        StopCoroutine(GuideMove());
         gameObject.SetActive(false);
     }
     private IEnumerator GuideMove()

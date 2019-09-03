@@ -5,6 +5,7 @@ using Google.Protobuf;
 
 public class PlayerControl : MonoBehaviour
 {
+    ETCJoystick joystick;
     public float speed = 10f;
     private PlayerAttribute playerAttribute;
     private AnimationControl animationControl;
@@ -17,7 +18,6 @@ public class PlayerControl : MonoBehaviour
     private float lastCollideTime;
     // 间隔时间
     private float spaceTime = 0.2f;
-    private string moveJoyStick = "MoveJoyStick";
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +28,10 @@ public class PlayerControl : MonoBehaviour
         attr.seat = player.Seat;
         if (RoomData.isMainRole(player.Seat))
         {
-            EasyJoystick.On_JoystickMove += onMoveHandler;
-            EasyJoystick.On_JoystickMoveStart += onMoveStartHandler;
-            EasyJoystick.On_JoystickMoveEnd += onMoveEndHandler;
+            joystick = GameObject.Find("Joystick").GetComponent<ETCJoystick>();
+            joystick.onMoveStart.AddListener(onMoveStartHandler);
+            joystick.onMove.AddListener(onMoveHandler);
+            joystick.onMoveEnd.AddListener(onMoveEndHandler);
             FrameActions.instance.Init();
         }
         attr.Init();
@@ -60,16 +61,15 @@ public class PlayerControl : MonoBehaviour
             FrameActions.instance.Add(skillInfo);
         }
     }
-    void onMoveStartHandler(MovingJoystick move)
+    void onMoveStartHandler()
     {
         FrameActions.instance.needAdd = false;
     }
-    void onMoveHandler(MovingJoystick move)
+    void onMoveHandler(Vector2 position)
     {
-        if (move.joystickName != moveJoyStick) return;
-        SendMoveMsg(move.joystickAxis.x, move.joystickAxis.y, Time.deltaTime);
+        SendMoveMsg(position.x, position.y, Time.deltaTime);
     }
-    void onMoveEndHandler(MovingJoystick move)
+    void onMoveEndHandler()
     {
         SendMoveMsg(0, 0, 0);
         FrameActions.instance.needAdd = true;

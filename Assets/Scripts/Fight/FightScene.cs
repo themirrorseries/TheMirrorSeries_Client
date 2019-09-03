@@ -40,7 +40,7 @@ public class FightScene : MonoBehaviour
     public float nightScope = -1;
     // 是否显示过结算面板
     private bool isShowRank = false;
-    private bool isShowGuide = true;
+    private bool isShowGuide = false;
     // Start is called before the first frame update
     void Start()
     {
