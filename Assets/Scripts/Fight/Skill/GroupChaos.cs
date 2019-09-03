@@ -12,14 +12,6 @@ public class GroupChaos : SkillBase
         durationTime = 5;
         delayTime = 3;
     }
-    public override void Release()
-    {
-        if (isEndCd())
-        {
-            beforeSkill();
-            onSkill();
-        }
-    }
     public override void onSkill()
     {
         BreakOtherSkill();
@@ -44,13 +36,16 @@ public class GroupChaos : SkillBase
     }
     public override void afterDelay()
     {
-        FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDuration);
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerChildren playerChildren = players[i].GetComponent<PlayerChildren>();
             playerChildren.title.progressActive(false);
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (RoomData.isMainRole(attr.seat))
+            {
+                FightScene.instance.audioController.SoundPlay(AudioEunm.groupChaosDuration);
+            }
             attr.isChaos = true;
             PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
             if (!effect.isPlay(EffectEunm.CHAOS))

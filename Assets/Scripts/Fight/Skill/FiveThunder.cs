@@ -10,17 +10,10 @@ public class FiveThunder : SkillBase
         skillName = "五雷轰顶";
         cd = 45;
     }
-    public override void Release()
-    {
-        if (isEndCd())
-        {
-            beforeSkill();
-            onSkill();
-        }
-    }
     public override void onSkill()
     {
         List<GameObject> players = findRemainEnemys();
+        FightScene.instance.audioController.SoundPlay(AudioEunm.fiveThunder);
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
@@ -28,7 +21,6 @@ public class FiveThunder : SkillBase
             attr.ChangeHp(-Mathf.Floor(attr.hp / 2));
             PlayerChildren children = players[i].GetComponent<PlayerChildren>();
             children.thunder.SetActive(true);
-            FightScene.instance.audioController.SoundPlay(AudioEunm.fiveThunder);
             if (attr.isDied)
             {
                 AnimationControl anim = players[i].GetComponent<AnimationControl>();

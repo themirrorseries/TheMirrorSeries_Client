@@ -85,6 +85,7 @@ public class PlayerAction : MonoBehaviour
         yield return new WaitForSeconds(bleedingTime);
         FightScene.instance.bleedingImg.gameObject.SetActive(false);
         isInBleeding = false;
+        StopCoroutine(bleedingCoroutine);
     }
     public void CheckRepulse(float wallDistance, Vector3 direction)
     {
@@ -104,7 +105,7 @@ public class PlayerAction : MonoBehaviour
         attr.isRepulse = true;
     }
 
-    public void CheckDeath(float wallDistance, Vector3 direction)
+    public void CheckDeath(Vector3 direction)
     {
         if (attr.isRepulse)
         {
@@ -113,9 +114,9 @@ public class PlayerAction : MonoBehaviour
         // 射线相交计算
         RaycastHit hit;
         float moveDistance = defaultDeathDistance;
-        if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultDeathDistance, LayerMask.GetMask(LayerEunm.WALL)))
+        if (Physics.Raycast(transform.position, direction, out hit, defaultDeathDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
-            moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance;
+            moveDistance = Vector3.Distance(transform.position, hit.point);
         }
         curDeathDistance = 0;
         deathDirection = direction.normalized;

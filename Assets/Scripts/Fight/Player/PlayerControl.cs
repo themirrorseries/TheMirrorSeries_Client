@@ -162,6 +162,7 @@ public class PlayerControl : MonoBehaviour
         // 点积结果为负=>正面
         if (val < 0)
         {
+            attr.bounces++;
             skill.ChangeCd((int)SkillEunm.SkillBtn.skill, attr.damage_cd);
             if (RoomData.isMainRole(attr.seat))
             {
@@ -178,12 +179,13 @@ public class PlayerControl : MonoBehaviour
             }
             if (attr.isDied)
             {
+                action.AfterDeath();
                 anim.Death();
                 if (RoomData.isMainRole(attr.seat))
                 {
                     FightScene.instance.audioController.SoundPlay(AudioEunm.death);
                 }
-                action.CheckDeath(FightScene.instance.wallDistance, direction);
+                action.CheckDeath(direction);
                 FightScene.instance.AddDeath(attr.seat, attr.bounces);
             }
         }

@@ -12,14 +12,6 @@ public class NightBringer : SkillBase
         durationTime = 5;
         skillScope = 8;
     }
-    public override void Release()
-    {
-        if (isEndCd())
-        {
-            beforeSkill();
-            onSkill();
-        }
-    }
     public override void onSkill()
     {
         if (needUpdate != (int)SkillEunm.SkillState.Init)

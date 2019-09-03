@@ -20,14 +20,6 @@ public class ProtectiveCover : SkillBase
         boxCollider = GetComponent<BoxCollider>();
         capsuleCollider = GetComponent<CapsuleCollider>();
     }
-    public override void Release()
-    {
-        if (isEndCd())
-        {
-            beforeSkill();
-            onSkill();
-        }
-    }
     public override void onSkill()
     {
         boxCollider.enabled = false;

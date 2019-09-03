@@ -15,14 +15,6 @@ public class NormalAttack : SkillBase
         base.Start();
         diffCd(-cd);
     }
-    public override void Release()
-    {
-        if (isEndCd())
-        {
-            beforeSkill();
-            onSkill();
-        }
-    }
     public override void onSkill()
     {
         AnimationControl anim = GetComponent<AnimationControl>();

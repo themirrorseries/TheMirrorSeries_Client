@@ -54,7 +54,10 @@ public class AnimationControl : MonoBehaviour
 
     public void Death()
     {
-        state = AnimaState.DEATH;
-        animator.SetInteger(AnimaState.state, AnimaState.DEATH);
+        if (state != AnimaState.DEATH)
+        {
+            state = AnimaState.DEATH;
+            animator.SetInteger(AnimaState.state, AnimaState.DEATH);
+        }
     }
 }

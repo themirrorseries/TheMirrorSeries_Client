@@ -10,8 +10,6 @@ public class SkillBase : MonoBehaviour
     public int skillId;
     // CD(单位为秒)
     public int cd;
-    // 释放方式
-    public int releaseType;
     // 延迟时间
     public int delayTime;
     // 持续时间
@@ -33,7 +31,11 @@ public class SkillBase : MonoBehaviour
     }
     public virtual void Release()
     {
-
+        if (isEndCd())
+        {
+            beforeSkill();
+            onSkill();
+        }
     }
     // 更新buff流逝时间
     public virtual void UpdateState(float deltaTime)

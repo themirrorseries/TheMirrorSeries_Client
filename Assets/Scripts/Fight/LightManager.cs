@@ -12,6 +12,14 @@ public class LightManager : MonoBehaviour
         50f,
         55f
     };
+    public float[] timeHpRange ={
+        30f,
+        60f,
+    };
+    public int[] addHpRange ={
+        10,
+        30
+    };
     // 碰撞次数
     private int count;
     private int index = 0;
@@ -69,22 +77,13 @@ public class LightManager : MonoBehaviour
         InitColor();
         speed = _speed;
         curSpeed = speed;
-        if (curSpeed >= speedRange[0] && curSpeed < speedRange[1])
-        {
-            colorIndex++;
-            trailMaterial.SetColor(tintColor, colors[colorIndex]);
-        }
-        else if (curSpeed >= speedRange[1])
-        {
-            colorIndex += 2;
-            trailMaterial.SetColor(tintColor, colors[colorIndex]);
-        }
-        count = _count;
+        count = _count + InitHpAdd();
         player = _player;
         delayTime = 0;
         isInit = false;
         gameObject.SetActive(false);
         isPlayerCreate = true;
+        Debug.Log("curHP" + count);
     }
     public void Init(float _speed, int _count, float _x, float _z)
     {
@@ -134,8 +133,6 @@ public class LightManager : MonoBehaviour
                     }
                     else
                     {
-                        // 反弹次数暂定每次直接++, 1:每次 2:正面 3:反面 4:保护罩期间怎么计算
-                        playerAttribute.bounces++;
                         // 保护罩期间直接反弹
                         if (!playerAttribute.hasProtection)
                         {
@@ -214,6 +211,20 @@ public class LightManager : MonoBehaviour
             FightScene.instance.RomoveLight(gameObject);
             Destroy(gameObject);
         }
+    }
+
+    private int InitHpAdd()
+    {
+        if (FightScene.instance.gameTime >= timeHpRange[0]
+            && FightScene.instance.gameTime < timeHpRange[1])
+        {
+            return addHpRange[0];
+        }
+        else if (FightScene.instance.gameTime >= timeHpRange[1])
+        {
+            return addHpRange[1];
+        }
+        return 0;
     }
 
     private float SpeedFormula(float curSpeed)
