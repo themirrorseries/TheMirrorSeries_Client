@@ -228,6 +228,10 @@ public class MainScene : MonoBehaviour
             for (int i = 0; i < roleBtns.Length; ++i)
             {
                 roleBtns[i].enabled = true;
+                if (i != 1)
+                {
+                    roleBtns[i].GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+                }
             }
             nameInput.enabled = true;
             renameBtn.enabled = true;
@@ -243,6 +247,10 @@ public class MainScene : MonoBehaviour
             for (int i = 0; i < roleBtns.Length; ++i)
             {
                 roleBtns[i].enabled = false;
+                if (i != 1)
+                {
+                    roleBtns[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+                }
             }
             renameBtn.enabled = false;
             nameInput.enabled = false;

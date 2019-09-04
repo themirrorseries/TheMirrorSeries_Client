@@ -55,7 +55,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: ebbe3f18644fb144cb4cd1b28e7ce63a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ TextMesh:
   m_FontSize: 44
   m_FontStyle: 0
   m_RichText: 0
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: ebbe3f18644fb144cb4cd1b28e7ce63a, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4278848012
@@ -139,8 +139,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8723701686182447229}
-  - {fileID: 7974033491525293265}
+  - {fileID: 7298748256817994044}
+  - {fileID: 2469016492885823809}
   - {fileID: 3954784265675990589}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5ebff1a11e4c54fac654a1d8171a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: {fileID: 8723701686182447171}
-  progress: {fileID: 3438080276768934658}
+  hp: {fileID: 7298748256817994036}
+  progress: {fileID: 2469016492885823810}
   nameText: {fileID: 673553715}
 --- !u!1001 &2469016492885823813
 PrefabInstance:
@@ -234,13 +234,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d162bc5b9a64c846951eb94c34bb2c2, type: 3}
---- !u!4 &7974033491525293265 stripped
+--- !u!4 &2469016492885823809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5542453798748063124, guid: 4d162bc5b9a64c846951eb94c34bb2c2,
     type: 3}
   m_PrefabInstance: {fileID: 2469016492885823813}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3438080276768934658 stripped
+--- !u!114 &2469016492885823810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1005770156856351303, guid: 4d162bc5b9a64c846951eb94c34bb2c2,
     type: 3}
@@ -331,13 +331,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a031879dfb895041af11baf20bc83fd, type: 3}
---- !u!4 &8723701686182447229 stripped
+--- !u!4 &7298748256817994044 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2043100034748305733, guid: 7a031879dfb895041af11baf20bc83fd,
     type: 3}
   m_PrefabInstance: {fileID: 7298748256817994040}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8723701686182447171 stripped
+--- !u!114 &7298748256817994036 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2043100034748305787, guid: 7a031879dfb895041af11baf20bc83fd,
     type: 3}

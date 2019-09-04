@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: ebbe3f18644fb144cb4cd1b28e7ce63a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FZJinCaiTiS
+  fontNames:
+  - FZJinCaiTiS
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 489855f97e5b2f04787fe91c410b107b, type: 3}
+  - {fileID: 12800000, guid: 43bcaceeba3573149b1fb99cd0ad734f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
