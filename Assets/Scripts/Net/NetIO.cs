@@ -120,7 +120,7 @@ public class NetIO
         cache.Clear();
 
         // 将读取后剩余的数据写入缓存
-        cache.AddRange(br.ReadBytes((int)(ms.Length - ms.Position)));
+        // cache.AddRange(br.ReadBytes((int)(ms.Length - ms.Position)));
         br.Close();
         ms.Close();
         return result;

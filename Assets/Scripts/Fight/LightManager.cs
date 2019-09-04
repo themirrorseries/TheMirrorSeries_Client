@@ -15,16 +15,22 @@ public class LightManager : MonoBehaviour
     public float[] timeHpRange ={
         30f,
         60f,
+        90f,
+        120f,
+        150f
     };
     public int[] addHpRange ={
         10,
-        30
+        20,
+        30,
+        40,
+        50
     };
     // 碰撞次数
     private int count;
     private int index = 0;
     private Vector3 direction;
-    private float distance = 1.5f;
+    private float distance = 1f;
     // 延迟时间
     private float delay = 0.33f;
     // 延迟计时
@@ -74,10 +80,11 @@ public class LightManager : MonoBehaviour
 
     public void Init(float _speed, int _count, GameObject _player)
     {
-        InitColor();
         speed = _speed;
         curSpeed = speed;
         count = _count + InitHpAdd();
+        InitColor();
+        ChangeInitColor();
         player = _player;
         delayTime = 0;
         isInit = false;
@@ -86,10 +93,10 @@ public class LightManager : MonoBehaviour
     }
     public void Init(float _speed, int _count, float _x, float _z)
     {
-        InitColor();
         speed = _speed;
         curSpeed = speed;
         count = _count;
+        InitColor();
         direction = new Vector3(_x, 0, _z);
         isPlayerCreate = false;
     }
@@ -214,16 +221,28 @@ public class LightManager : MonoBehaviour
 
     private int InitHpAdd()
     {
-        if (FightScene.instance.gameTime >= timeHpRange[0]
-            && FightScene.instance.gameTime < timeHpRange[1])
+        for (int i = timeHpRange.Length - 1; i >= 0; --i)
         {
-            return addHpRange[0];
-        }
-        else if (FightScene.instance.gameTime >= timeHpRange[1])
-        {
-            return addHpRange[1];
+            if (FightScene.instance.gameTime >= timeHpRange[i])
+            {
+                return addHpRange[i];
+            }
         }
         return 0;
+    }
+
+    private void ChangeInitColor()
+    {
+        // last为maxSpeed
+        for (int i = speedRange.Length - 2; i >= 0; --i)
+        {
+            if (curSpeed >= speedRange[i])
+            {
+                colorIndex = i + 1;
+                trailMaterial.SetColor(tintColor, colors[colorIndex]);
+                return;
+            }
+        }
     }
 
     private float SpeedFormula(float curSpeed)

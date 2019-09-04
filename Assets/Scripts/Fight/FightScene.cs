@@ -22,6 +22,8 @@ public class FightScene : MonoBehaviour
     [SerializeField]
     private Image settlementPlane;
     [SerializeField]
+    private Text rankTitle;
+    [SerializeField]
     private GameObject[] ranklist;
     // 掉血UI
     [SerializeField]
@@ -76,6 +78,7 @@ public class FightScene : MonoBehaviour
     public void ShowOtherList()
     {
         settlementPlane.gameObject.SetActive(true);
+        rankTitle.text = "失败！";
         for (int i = 1; i < ranklist.Length; ++i)
         {
             ranklist[i].SetActive(false);
@@ -86,6 +89,7 @@ public class FightScene : MonoBehaviour
     public void ShowFirstList()
     {
         settlementPlane.gameObject.SetActive(true);
+        rankTitle.text = "胜利！";
         int index = 0;
         for (; index < deaths.Count; ++index)
         {
