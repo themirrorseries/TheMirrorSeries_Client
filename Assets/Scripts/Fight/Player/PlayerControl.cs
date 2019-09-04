@@ -121,9 +121,8 @@ public class PlayerControl : MonoBehaviour
             }
             transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             if (!attr.canMove) return;
-            // 球形射线检测
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * deltaTime * speed, FightScene.instance.wallDistance, LayerMask.GetMask(LayerEunm.WALL));
-            if (hitColliders.Length == 0)
+            RaycastHit hit;
+            if (!Physics.Raycast(transform.position + transform.forward * deltaTime * speed, transform.forward, out hit, FightScene.instance.wallDistance, LayerMask.GetMask(LayerEunm.WALL)))
             {
                 transform.Translate(Vector3.forward * deltaTime * speed, Space.Self);
                 if (RoomData.isMainRole(attr.seat))

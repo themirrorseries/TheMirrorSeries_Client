@@ -93,11 +93,11 @@ public class PlayerAction : MonoBehaviour
         RaycastHit hit;
         float moveDistance = defaultRepulseDistance;
         isRepulseWall = false;
-        if (Physics.Raycast(transform.position, direction, out hit, wallDistance + defaultRepulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
+        if (Physics.Raycast(transform.position, direction, out hit, defaultRepulseDistance, LayerMask.GetMask(LayerEunm.WALL)))
         {
             isRepulseWall = true;
             // ps:乘以2,否则会卡在无法移动的区域里面
-            moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance * (float)2;
+            moveDistance = Vector3.Distance(transform.position, hit.point) - wallDistance;
         }
         curRepulseDistance = 0;
         repulseDirection = direction.normalized;

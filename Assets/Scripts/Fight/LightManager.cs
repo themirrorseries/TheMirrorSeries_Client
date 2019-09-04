@@ -83,7 +83,6 @@ public class LightManager : MonoBehaviour
         isInit = false;
         gameObject.SetActive(false);
         isPlayerCreate = true;
-        Debug.Log("curHP" + count);
     }
     public void Init(float _speed, int _count, float _x, float _z)
     {
