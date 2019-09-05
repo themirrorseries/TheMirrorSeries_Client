@@ -14,11 +14,16 @@ public class NightBringer : SkillBase
     }
     public override void onSkill()
     {
-        if (needUpdate != (int)SkillEunm.SkillState.Init)
+        if (!BreakOtherSkill())
         {
-            afterDuration();
+            playerAttribute.inSelfNight = true;
+            playerAttribute.inNight = false;
         }
-        playerAttribute.inSelfNight = true;
+        else
+        {
+            playerAttribute.inSelfNight = false;
+            playerAttribute.inNight = true;
+        }
         passTime = 0;
         needUpdate = (int)SkillEunm.SkillState.Duration;
         FightScene.instance.audioController.SoundPlay(AudioEunm.nightBringer);
@@ -34,29 +39,43 @@ public class NightBringer : SkillBase
     {
         FightScene.instance.myselfControl.action.AfterNight();
         playerAttribute.inSelfNight = false;
+        playerAttribute.inNight = false;
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.inNight = false;
+            attr.inSelfNight = false;
         }
     }
-    public void BreakOtherSkill()
+    public bool BreakOtherSkill()
     {
+        bool isBreak = false;
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             NightBringer night = players[i].GetComponent<NightBringer>();
-            if (night.needUpdate == (int)SkillEunm.SkillState.Duration)
+            if (night != null)
             {
-                night.needUpdate = (int)SkillEunm.SkillState.BreakDuration;
+                if (night.needUpdate == (int)SkillEunm.SkillState.Duration)
+                {
+                    isBreak = true;
+                    PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+                    attr.inSelfNight = false;
+                    attr.inNight = true;
+                    if (RoomData.isMainRole(attr.seat))
+                    {
+                        FightScene.instance.myselfControl.action.AfterNight();
+                        FightScene.instance.myselfControl.action.BeforeNight(skillScope);
+                    }
+                    night.needUpdate = (int)SkillEunm.SkillState.BreakDuration;
+                }
             }
         }
+        return isBreak;
     }
     public override void onBreakDuration(float deltaTime)
     {
-        FightScene.instance.myselfControl.action.AfterNight();
-        playerAttribute.inSelfNight = false;
         needUpdate = (int)SkillEunm.SkillState.Init;
     }
 }

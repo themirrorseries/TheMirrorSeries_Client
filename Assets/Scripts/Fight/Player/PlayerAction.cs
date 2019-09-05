@@ -312,11 +312,8 @@ public class PlayerAction : MonoBehaviour
     }
     public void AfterNight()
     {
-        if (attr.inSelfNight)
-        {
-            directionalLight.GetComponent<Light>().color = Color.white;
-        }
-        else if (attr.inNight)
+        directionalLight.GetComponent<Light>().color = Color.white;
+        if (attr.inNight)
         {
             if (!RoomData.isMainRole(attr.seat)) return;
             FightScene.instance.nightScope = -1;

@@ -54,8 +54,9 @@ public class GroupChaos : SkillBase
             }
         }
     }
-    public void BreakOtherSkill()
+    public bool BreakOtherSkill()
     {
+        bool isBreak = false;
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
@@ -64,15 +65,17 @@ public class GroupChaos : SkillBase
             {
                 if (chaos.needUpdate == (int)SkillEunm.SkillState.Release)
                 {
+                    isBreak = true;
                     chaos.needUpdate = (int)SkillEunm.SkillState.BreakRelease;
                 }
                 else if (chaos.needUpdate == (int)SkillEunm.SkillState.Duration)
                 {
+                    isBreak = true;
                     chaos.needUpdate = (int)SkillEunm.SkillState.BreakDuration;
                 }
             }
-
         }
+        return isBreak;
     }
     public override void afterDuration()
     {
