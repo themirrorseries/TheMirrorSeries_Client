@@ -158,6 +158,21 @@ public class SkillBase : MonoBehaviour
     {
         return FightScene.instance.Players;
     }
+    // 寻找剩余玩家
+    public List<GameObject> findRemainPlayers()
+    {
+        List<GameObject> players = FightScene.instance.Players;
+        List<GameObject> remainPlayers = new List<GameObject>();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
+            if (!attr.isDied)
+            {
+                remainPlayers.Add(players[i]);
+            }
+        }
+        return remainPlayers;
+    }
     // 寻找剩余敌人
     public List<GameObject> findRemainEnemys()
     {

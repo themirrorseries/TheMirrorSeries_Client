@@ -14,7 +14,7 @@ public class NightBringer : SkillBase
     }
     public override void onSkill()
     {
-        if (!BreakOtherSkill())
+        if (!BreakOtherSkillDuration())
         {
             playerAttribute.inSelfNight = true;
             playerAttribute.inNight = false;
@@ -48,9 +48,8 @@ public class NightBringer : SkillBase
             attr.inSelfNight = false;
         }
     }
-    public bool BreakOtherSkill()
+    public bool BreakOtherSkillDuration()
     {
-        bool isBreak = false;
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
@@ -59,7 +58,6 @@ public class NightBringer : SkillBase
             {
                 if (night.needUpdate == (int)SkillEunm.SkillState.Duration)
                 {
-                    isBreak = true;
                     PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
                     attr.inSelfNight = false;
                     attr.inNight = true;
@@ -69,10 +67,11 @@ public class NightBringer : SkillBase
                         FightScene.instance.myselfControl.action.BeforeNight(skillScope);
                     }
                     night.needUpdate = (int)SkillEunm.SkillState.BreakDuration;
+                    return true;
                 }
             }
         }
-        return isBreak;
+        return false;
     }
     public override void onBreakDuration(float deltaTime)
     {
