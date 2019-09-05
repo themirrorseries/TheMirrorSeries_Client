@@ -9,10 +9,12 @@ public class FrameActions : MonoBehaviour
     // 是否开始,加载场景完成后,发送一个请求,收到回复后才开始
     public bool isStart = false;
     private ClientMoveDTO clientMove;
-    private int bagid = 1;
+    public int bagid = 1;
+    public int serverBagId = 0;
     private int frameCount = 3;
     public bool isLock = false;
     public bool needAdd = false;
+    public List<ServerMoveDTO> caches = new List<ServerMoveDTO>();
     // 空帧
     private FrameInfo emptyFrame;
     void Awake()
@@ -36,6 +38,31 @@ public class FrameActions : MonoBehaviour
         {
             emptyFrame.DeltaTime = Time.deltaTime;
             Add(emptyFrame);
+        }
+    }
+    public void AddCache(ServerMoveDTO moveDTO)
+    {
+        caches.Add(moveDTO);
+        caches.Sort((a, b) => a.Bagid.CompareTo(b.Bagid));
+        PlayCache();
+    }
+    public void PlayCache()
+    {
+        if (caches.Count == 0) return;
+        if (serverBagId > caches[0].Bagid)
+        {
+            return;
+        }
+        FightScene.instance.Refresh(caches[0]);
+        ++serverBagId;
+        caches.RemoveAt(0);
+        if (serverBagId == bagid)
+        {
+            FrameActions.instance.Clear();
+        }
+        else
+        {
+            PlayCache();
         }
     }
     public void Init()
@@ -75,6 +102,7 @@ public class FrameActions : MonoBehaviour
 
     private void Send()
     {
+        clientMove.Bagid = bagid;
         isLock = true;
         this.WriteMessage((int)MsgTypes.TypeFight, (int)FightTypes.MoveCreq, clientMove.ToByteArray());
     }

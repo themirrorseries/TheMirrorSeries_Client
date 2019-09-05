@@ -76,12 +76,18 @@ public class GroupChaos : SkillBase
     }
     public override void afterDuration()
     {
+        playerAttribute.isChaos = false;
+        PlayerEffect effect = GetComponent<PlayerEffect>();
+        if (effect.isPlay(EffectEunm.CHAOS))
+        {
+            effect.Stop(EffectEunm.CHAOS);
+        }
         List<GameObject> players = findRemainEnemys();
         for (int i = 0; i < players.Count; ++i)
         {
             PlayerAttribute attr = players[i].GetComponent<PlayerAttribute>();
             attr.isChaos = false;
-            PlayerEffect effect = players[i].GetComponent<PlayerEffect>();
+            effect = players[i].GetComponent<PlayerEffect>();
             if (effect.isPlay(EffectEunm.CHAOS))
             {
                 effect.Stop(EffectEunm.CHAOS);

@@ -7,6 +7,7 @@ using System.IO;
 using Google.Protobuf;
 using System.Net;
 using System.Text;
+using System.Threading;
 public class NetIO
 {
 
@@ -39,12 +40,30 @@ public class NetIO
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //连接服务器
             socket.Connect(ip, port);
+            Thread thread = new Thread(ReceiveMsg);
+            thread.IsBackground = true;
+            thread.Start();
             //开启异步消息接受，消息到达后会直接写入缓存区
-            socket.BeginReceive(readBuff, 0, 1024, SocketFlags.None, ReceiveCallBack, readBuff);
+            // socket.BeginReceive(readBuff, 0, 1024, SocketFlags.None, ReceiveCallBack, readBuff);
         }
         catch (Exception e)
         {
             Debug.Log(e.Message);
+        }
+    }
+    private void ReceiveMsg()
+    {
+        while (true)
+        {
+            int length = socket.Receive(readBuff);
+            byte[] message = new byte[length];
+            Buffer.BlockCopy(readBuff, 0, message, 0, length);
+            cache.AddRange(message);
+            if (!isReading)
+            {
+                isReading = true;
+                OnDate();
+            }
         }
     }
     //收到消息回调函数
@@ -57,7 +76,6 @@ public class NetIO
             byte[] message = new byte[length];
             Buffer.BlockCopy(readBuff, 0, message, 0, length);
             cache.AddRange(message);
-
             if (!isReading)
             {
                 isReading = true;
@@ -112,6 +130,7 @@ public class NetIO
         // 如果消息体长度大于缓存中数据长度，说明消息没有读取完成 ，等待下次消息到达后再次处理。
         if (length > ms.Length - ms.Position)
         {
+            Debug.Log("length > ms.Length - ms.Position");
             return null;
         }
         // 取正确长度的数据
@@ -120,7 +139,7 @@ public class NetIO
         cache.Clear();
 
         // 将读取后剩余的数据写入缓存
-        // cache.AddRange(br.ReadBytes((int)(ms.Length - ms.Position)));
+        cache.AddRange(br.ReadBytes((int)(ms.Length - ms.Position)));
         br.Close();
         ms.Close();
         return result;

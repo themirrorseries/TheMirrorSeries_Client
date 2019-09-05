@@ -13,18 +13,26 @@ public class LightManager : MonoBehaviour
         55f
     };
     public float[] timeHpRange ={
-        30f,
+        20f,
+        40f,
         60f,
-        90f,
+        80f,
+        100f,
         120f,
-        150f
+        140f,
+        160f,
+        180f
     };
     public int[] addHpRange ={
         10,
         20,
         30,
         40,
-        50
+        50,
+        60,
+        70,
+        80,
+        90,
     };
     // 碰撞次数
     private int count;
