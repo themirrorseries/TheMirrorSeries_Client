@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NormalAttack : SkillBase
 {
+    private float speedCoeff = 1f;
     public NormalAttack()
     {
         skillId = (int)SkillEunm.SkillID.normalAck;
@@ -26,8 +27,8 @@ public class NormalAttack : SkillBase
         GameObject light = Instantiate(ResourcesTools.getLight(1));
         LightManager lightMgr = light.GetComponent<LightManager>();
 
-        float speed = ((RoomData.room.Speed + playerAttribute.bounces * 1f) > lightMgr.speedRange[lightMgr.speedRange.Length - 1]) ?
-                        lightMgr.speedRange[lightMgr.speedRange.Length - 1] : (RoomData.room.Speed + playerAttribute.bounces * 1f);
+        float speed = ((RoomData.room.Speed + playerAttribute.bounces * speedCoeff) > lightMgr.speedRange[lightMgr.speedRange.Length - 1]) ?
+                        lightMgr.speedRange[lightMgr.speedRange.Length - 1] : (RoomData.room.Speed + playerAttribute.bounces * speedCoeff);
         lightMgr.Init(speed, RoomData.room.Count, gameObject);
         FightScene.instance.Lights.Add(light);
     }

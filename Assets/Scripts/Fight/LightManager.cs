@@ -13,15 +13,15 @@ public class LightManager : MonoBehaviour
         55f
     };
     public float[] timeHpRange ={
-        20f,
-        40f,
+        30f,
         60f,
         80f,
         100f,
         120f,
         140f,
         160f,
-        180f
+        180f,
+        200f
     };
     public int[] addHpRange ={
         10,

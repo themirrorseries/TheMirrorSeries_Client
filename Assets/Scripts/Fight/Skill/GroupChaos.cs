@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GroupChaos : SkillBase
 {
-    private bool isBroken = false;
     public int brokenSeat = -1;
     public GroupChaos()
     {
